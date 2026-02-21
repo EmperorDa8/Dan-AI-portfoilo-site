@@ -6,7 +6,7 @@
 
 ## 🌐 Live Portfolio
 
-**[View Portfolio Site →](https://vermillion-travesseiro-d1b2de.netlify.app/)**
+**[View Portfolio Site →](https://dan-ai-site.vercel.app/)**
 
 ---
 
