@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dan Usman — AI Prompt Engineer & Visual Artist</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #080808;
+    --off-white: #f0ece3;
+    --gold: #c9a84c;
+    --gold-dim: #7a5e1e;
+    --red: #d63a2f;
+    --grey: #2a2a2a;
+    --mid: #5a5a5a;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--off-white);
+    font-family: 'Space Mono', monospace;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
+
+  /* NOISE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.35;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: 40px 60px;
+    position: relative;
+    border-bottom: 1px solid var(--grey);
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: 'AI';
+    position: absolute;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 280px;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(201,168,76,0.07);
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: fadeDown 0.8s ease forwards;
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 4px;
+    color: var(--gold);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--mid);
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  .hero-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 0;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 5px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .hero-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(72px, 12vw, 180px);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    animation: fadeUp 0.9s 0.3s ease both;
+  }
+
+  .hero-name span {
+    color: transparent;
+    -webkit-text-stroke: 1px var(--off-white);
+  }
+
+  .hero-tagline {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: clamp(18px, 2.5vw, 28px);
+    color: var(--mid);
+    margin-top: 28px;
+    max-width: 560px;
+    line-height: 1.5;
+    animation: fadeUp 0.9s 0.45s ease both;
+  }
+
+  .hero-tagline em {
+    color: var(--gold);
+    font-style: normal;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 20px;
+    margin-top: 48px;
+    animation: fadeUp 0.9s 0.6s ease both;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 14px 32px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--black);
+  }
+
+  .btn-primary:hover {
+    background: var(--off-white);
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0 var(--gold);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--off-white);
+    border: 1px solid var(--grey);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .hero-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    animation: fadeUp 0.9s 0.7s ease both;
+  }
+
+  .status-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--mid);
+    text-transform: uppercase;
+  }
+
+  .status-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #4caf50;
+    animation: pulse 2s infinite;
+  }
+
+  .scroll-hint {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--mid);
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+  }
+
+  /* SKILLS TICKER */
+  .ticker {
+    background: var(--gold);
+    padding: 14px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .ticker-inner {
+    display: inline-flex;
+    animation: ticker 25s linear infinite;
+  }
+
+  .ticker-item {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 4px;
+    color: var(--black);
+    padding: 0 40px;
+  }
+
+  .ticker-sep {
+    color: rgba(0,0,0,0.3);
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 100px 60px;
+    border-bottom: 1px solid var(--grey);
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 5px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 60px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--grey);
+    max-width: 120px;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .about-headline {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    line-height: 1.2;
+  }
+
+  .about-headline em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .about-body {
+    font-size: 13px;
+    line-height: 2;
+    color: var(--mid);
+  }
+
+  .about-body p { margin-bottom: 20px; }
+
+  .about-body strong { color: var(--off-white); font-weight: 700; }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 40px;
+  }
+
+  .stat-box {
+    background: var(--grey);
+    padding: 28px 24px;
+    transition: background 0.3s;
+  }
+
+  .stat-box:hover { background: #333; }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--mid);
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+
+  /* EXPERTISE */
+  .expertise-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .expertise-card {
+    background: var(--grey);
+    padding: 40px 32px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+
+  .expertise-card:hover { background: #222; }
+
+  .expertise-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 0;
+    background: var(--gold);
+    transition: height 0.4s ease;
+  }
+
+  .expertise-card:hover::before { height: 100%; }
+
+  .expertise-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 64px;
+    color: rgba(201,168,76,0.12);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .expertise-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+
+  .expertise-desc {
+    font-size: 11px;
+    line-height: 1.9;
+    color: var(--mid);
+  }
+
+  .expertise-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  .tool-tag {
+    font-size: 9px;
+    letter-spacing: 2px;
+    padding: 5px 10px;
+    border: 1px solid var(--gold-dim);
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  /* EXPERIENCE */
+  .exp-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 60px;
+    padding: 50px 0;
+    border-bottom: 1px solid var(--grey);
+  }
+
+  .exp-item:last-child { border-bottom: none; }
+
+  .exp-meta { }
+
+  .exp-company {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 2px;
+    color: var(--gold);
+  }
+
+  .exp-period {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--mid);
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+
+  .exp-role {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(24px, 3vw, 36px);
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+
+  .exp-points {
+    list-style: none;
+  }
+
+  .exp-points li {
+    font-size: 12px;
+    line-height: 1.9;
+    color: var(--mid);
+    padding-left: 20px;
+    position: relative;
+    margin-bottom: 10px;
+  }
+
+  .exp-points li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+  }
+
+  /* PORTFOLIO CTA */
+  .portfolio-section {
+    text-align: center;
+    padding: 120px 60px;
+    background: var(--grey);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .portfolio-section::before {
+    content: 'PORTFOLIO';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 200px;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(201,168,76,0.06);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  .portfolio-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 8vw, 100px);
+    line-height: 0.95;
+    letter-spacing: 2px;
+    position: relative;
+  }
+
+  .portfolio-headline span { color: var(--gold); }
+
+  .portfolio-sub {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 20px;
+    color: var(--mid);
+    margin: 24px 0 48px;
+    position: relative;
+  }
+
+  .portfolio-links {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  /* CONTACT */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .contact-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 6vw, 80px);
+    line-height: 0.95;
+    letter-spacing: 2px;
+  }
+
+  .contact-headline span { color: var(--gold); }
+
+  .contact-sub {
+    font-size: 13px;
+    line-height: 2;
+    color: var(--mid);
+    margin-top: 24px;
+  }
+
+  .contact-items {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .contact-item {
+    background: var(--grey);
+    padding: 24px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    transition: background 0.3s, padding-left 0.3s;
+    color: var(--off-white);
+  }
+
+  .contact-item:hover {
+    background: #222;
+    padding-left: 36px;
+  }
+
+  .contact-item-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--mid);
+    text-transform: uppercase;
+  }
+
+  .contact-item-value {
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+
+  .contact-arrow {
+    color: var(--gold);
+    font-size: 18px;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 40px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 4px;
+    color: var(--gold);
+  }
+
+  .footer-copy {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--mid);
+    text-transform: uppercase;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(76,175,80,0.4); }
+    50% { opacity: 0.8; box-shadow: 0 0 0 6px rgba(76,175,80,0); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .hero, section { padding: 40px 28px; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .expertise-grid { grid-template-columns: 1fr; }
+    .exp-item { grid-template-columns: 1fr; gap: 16px; }
+    .nav-links { display: none; }
+    footer { flex-direction: column; gap: 12px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <nav class="nav">
+    <div class="nav-logo">DU // Portfolio</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#expertise">Skills</a></li>
+      <li><a href="#experience">Work</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="hero-center">
+    <p class="hero-eyebrow">AI Prompt Engineer · Visual Artist · Vibe Coder</p>
+    <h1 class="hero-name">DAN<br><span>USMAN</span></h1>
+    <p class="hero-tagline">
+      I engineer <em>cinematic AI worlds</em> — from game assets and NPC voices to viral video content and generative brand media.
+    </p>
+    <div class="hero-cta">
+      <a href="#portfolio" class="btn btn-primary">View My Work</a>
+      <a href="#contact" class="btn btn-outline">Hire Me</a>
+    </div>
+  </div>
+
+  <div class="hero-bottom">
+    <div class="status-badge">
+      <div class="status-dot"></div>
+      Available for Remote Work & Contracts
+    </div>
+    <div class="scroll-hint">Scroll Down</div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">MIDJOURNEY <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">SORA 2 <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">VEO 3 <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">RUNWAY <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">KLING 2.6 <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">STABLE DIFFUSION <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">ELEVENLABS <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">N8N AUTOMATION <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">CURSOR <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">GOOGLE ANTIGRAVITY <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">PYTHON <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">GPT-4o <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">CLAUDE <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">GEMINI <span class="ticker-sep">✦</span></span>
+    <!-- repeat for seamless loop -->
+    <span class="ticker-item">MIDJOURNEY <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">SORA 2 <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">VEO 3 <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">RUNWAY <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">KLING 2.6 <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">STABLE DIFFUSION <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">ELEVENLABS <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">N8N AUTOMATION <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">CURSOR <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">GOOGLE ANTIGRAVITY <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">PYTHON <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">GPT-4o <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">CLAUDE <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">GEMINI <span class="ticker-sep">✦</span></span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <p class="section-label">01 — About</p>
+  <div class="about-grid">
+    <div class="about-headline">
+      Where <em>artificial intelligence</em> meets visual artistry.
+    </div>
+    <div>
+      <div class="about-body">
+        <p>I'm Dan Usman, an <strong>AI Prompt Engineer and Generative Media Specialist</strong> based remotely and open to opportunities worldwide. I sit at the intersection of creative direction, technical prompting, and production workflow — building things that look extraordinary and perform at scale.</p>
+        <p>Previously engineered production-quality game assets at <strong>AZer-t</strong>, a French video game studio — characters, environments, weapons, audio, and interactive NPC voice agents. Before that, freelance AI solutions for marketing, social media, and brand content across global clients.</p>
+        <p>I don't just generate images. I build <strong>prompt systems, A/B test quality, automate workflows</strong>, and set editorial bars that hold up under production pressure.</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-box">
+          <div class="stat-num">6+</div>
+          <div class="stat-label">AI Platforms Mastered</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Major Gen AI Modalities</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">2+</div>
+          <div class="stat-label">Years Production AI Work</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">∞</div>
+          <div class="stat-label">Prompts Engineered</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERTISE -->
+<section id="expertise">
+  <p class="section-label">02 — Expertise</p>
+  <div class="expertise-grid">
+
+    <div class="expertise-card">
+      <div class="expertise-num">01</div>
+      <div class="expertise-title">Visual Prompt Engineering</div>
+      <div class="expertise-desc">Advanced multi-modal prompting for image generation at production quality. Character consistency, brand adherence, editorial-grade output — with A/B testing methodology to continuously raise the bar.</div>
+      <div class="expertise-tools">
+        <span class="tool-tag">Midjourney</span>
+        <span class="tool-tag">Kling 2.6</span>
+        <span class="tool-tag">Stable Diffusion</span>
+        <span class="tool-tag">Adobe Firefly</span>
+      </div>
+    </div>
+
+    <div class="expertise-card">
+      <div class="expertise-num">02</div>
+      <div class="expertise-title">Cinematic AI Video</div>
+      <div class="expertise-desc">Text-to-video production with cinematic quality — controlled lighting, subject coherence, intentional camera movement. From short-form social content to studio-grade sequences.</div>
+      <div class="expertise-tools">
+        <span class="tool-tag">Sora 2</span>
+        <span class="tool-tag">VEO 3</span>
+        <span class="tool-tag">Runway</span>
+        <span class="tool-tag">Leonardo AI</span>
+      </div>
+    </div>
+
+    <div class="expertise-card">
+      <div class="expertise-num">03</div>
+      <div class="expertise-title">Voice AI & NPC Systems</div>
+      <div class="expertise-desc">Interactive voice agents for in-game NPCs and enterprise customer care. Conversational AI integrated into real gameplay mechanics and business workflows.</div>
+      <div class="expertise-tools">
+        <span class="tool-tag">ElevenLabs</span>
+        <span class="tool-tag">n8n</span>
+        <span class="tool-tag">GPT-4o</span>
+        <span class="tool-tag">Claude</span>
+      </div>
+    </div>
+
+    <div class="expertise-card">
+      <div class="expertise-num">04</div>
+      <div class="expertise-title">AI Audio & Sound Design</div>
+      <div class="expertise-desc">Immersive weapon sounds, environmental audio, and atmospheric design using AI generation. Enhancing player and audience experience through precision audio prompting.</div>
+      <div class="expertise-tools">
+        <span class="tool-tag">ElevenLabs</span>
+        <span class="tool-tag">AI Sound Gen</span>
+        <span class="tool-tag">Prompt Audio</span>
+      </div>
+    </div>
+
+    <div class="expertise-card">
+      <div class="expertise-num">05</div>
+      <div class="expertise-title">Vibe Coding & Automation</div>
+      <div class="expertise-desc">Building AI-integrated web applications and automated content pipelines using modern vibe-coding tools. Full workflow automation from idea to deployed product.</div>
+      <div class="expertise-tools">
+        <span class="tool-tag">Cursor</span>
+        <span class="tool-tag">Google Antigravity</span>
+        <span class="tool-tag">Python</span>
+        <span class="tool-tag">Node.js</span>
+      </div>
+    </div>
+
+    <div class="expertise-card">
+      <div class="expertise-num">06</div>
+      <div class="expertise-title">UGC & Viral Content</div>
+      <div class="expertise-desc">AI-generated short-form video, avatar creation, and social media content with data-driven viral strategies. From concept to scroll-stopping output at speed.</div>
+      <div class="expertise-tools">
+        <span class="tool-tag">UGC Avatars</span>
+        <span class="tool-tag">AI Video</span>
+        <span class="tool-tag">Social AI</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <p class="section-label">03 — Experience</p>
+
+  <div class="exp-item">
+    <div class="exp-meta">
+      <div class="exp-company">AZer-t</div>
+      <div class="exp-period">Sep 2025 — Feb 2026</div>
+    </div>
+    <div>
+      <div class="exp-role">AI Prompt Engineer — French Video Game Studio</div>
+      <ul class="exp-points">
+        <li>Engineered production-quality game assets (characters, environments, weapons, audio, UI) using advanced multi-modal prompts across Midjourney, Stable Diffusion, and proprietary AI tools</li>
+        <li>Designed visual prompts for immersive weapon sounds and environmental audio, enhancing player experience through precision AI audio generation</li>
+        <li>Developed automated 3D modeling workflows using prompt-driven AI, streamlining asset creation from brief to deliverable</li>
+        <li>Built interactive voice AI agents for in-game NPCs, integrating conversational AI into live gameplay mechanics</li>
+        <li>Refined prompting strategies through A/B testing to improve asset quality, consistency, and production efficiency at scale</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="exp-item">
+    <div class="exp-meta">
+      <div class="exp-company">Freelance</div>
+      <div class="exp-period">2024 — 2025</div>
+    </div>
+    <div>
+      <div class="exp-role">AI Solutions Developer — Contract & Freelance</div>
+      <ul class="exp-points">
+        <li>Developed optimized prompts for marketing copy, blog content, and multi-language translation using GPT-4, Claude, and Gemini</li>
+        <li>Created AI-generated short-form videos and UGC content for social media platforms with measurable viral engagement outcomes</li>
+        <li>Built automated marketing copy generation pipeline using Python and Google Cloud AI for scalable content production</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO CTA -->
+<div class="portfolio-section" id="portfolio">
+  <h2 class="portfolio-headline">SEE THE<br><span>WORK.</span></h2>
+  <p class="portfolio-sub">Generative video, character renders, UGC, audio design & more</p>
+  <div class="portfolio-links">
+    <a href="https://drive.google.com/drive/folders/1O8acef1kl6LuIFuo7I3l3vauvuBl_4Fu" target="_blank" class="btn btn-primary">Generative Media Portfolio →</a>
+    <a href="https://github.com/EmperorDa8/generativeAI" target="_blank" class="btn btn-outline">GitHub Repository →</a>
+    <a href="https://vermillion-travesseiro-d1b2de.netlify.app/" target="_blank" class="btn btn-outline">Live Web App →</a>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label">05 — Contact</p>
+  <div class="contact-grid">
+    <div>
+      <h2 class="contact-headline">LET'S<br>BUILD<br><span>TOGETHER.</span></h2>
+      <p class="contact-sub">Available for remote contracts, full-time roles, and freelance engagements worldwide. Open to relocation for the right opportunity.</p>
+    </div>
+    <div class="contact-items">
+      <a href="/cdn-cgi/l/email-protection#e8bd898a8c9d84d0d0a88f85898184c68b8785" class="contact-item">
+        <div>
+          <div class="contact-item-label">Email</div>
+          <div class="contact-item-value"><span class="__cf_email__" data-cfemail="5a0f3b383e2f3662621a3d373b333674393537">[email&#160;protected]</span></div>
+        </div>
+        <span class="contact-arrow">→</span>
+      </a>
+      <a href="https://github.com/EmperorDa8/generativeAI" target="_blank" class="contact-item">
+        <div>
+          <div class="contact-item-label">GitHub</div>
+          <div class="contact-item-value">EmperorDa8/generativeAI</div>
+        </div>
+        <span class="contact-arrow">→</span>
+      </a>
+      <a href="https://vermillion-travesseiro-d1b2de.netlify.app/" target="_blank" class="contact-item">
+        <div>
+          <div class="contact-item-label">Live Project</div>
+          <div class="contact-item-value">AI Voice Web App</div>
+        </div>
+        <span class="contact-arrow">→</span>
+      </a>
+      <a href="https://drive.google.com/drive/folders/1O8acef1kl6LuIFuo7I3l3vauvuBl_4Fu" target="_blank" class="contact-item">
+        <div>
+          <div class="contact-item-label">Portfolio</div>
+          <div class="contact-item-value">Generative Media Drive</div>
+        </div>
+        <span class="contact-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">D
