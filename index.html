@@ -1,887 +1,1099 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dan Usman — AI Prompt Engineer & Visual Artist</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --black: #080808;
-    --off-white: #f0ece3;
-    --gold: #c9a84c;
-    --gold-dim: #7a5e1e;
-    --red: #d63a2f;
-    --grey: #2a2a2a;
-    --mid: #5a5a5a;
-  }
-
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--black);
-    color: var(--off-white);
-    font-family: 'Space Mono', monospace;
-    overflow-x: hidden;
-    cursor: crosshair;
-  }
-
-  /* NOISE OVERLAY */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 9999;
-    opacity: 0.35;
-  }
-
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    padding: 40px 60px;
-    position: relative;
-    border-bottom: 1px solid var(--grey);
-    overflow: hidden;
-  }
-
-  .hero::after {
-    content: 'AI';
-    position: absolute;
-    right: -40px;
-    top: 50%;
-    transform: translateY(-50%) rotate(90deg);
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 280px;
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(201,168,76,0.07);
-    pointer-events: none;
-    white-space: nowrap;
-  }
-
-  .nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    animation: fadeDown 0.8s ease forwards;
-  }
-
-  .nav-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 22px;
-    letter-spacing: 4px;
-    color: var(--gold);
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 40px;
-    list-style: none;
-  }
-
-  .nav-links a {
-    color: var(--mid);
-    text-decoration: none;
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    transition: color 0.3s;
-  }
-
-  .nav-links a:hover { color: var(--gold); }
-
-  .hero-center {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 60px 0;
-  }
-
-  .hero-eyebrow {
-    font-size: 11px;
-    letter-spacing: 5px;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 24px;
-    animation: fadeUp 0.8s 0.2s ease both;
-  }
-
-  .hero-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(72px, 12vw, 180px);
-    line-height: 0.9;
-    letter-spacing: 2px;
-    animation: fadeUp 0.9s 0.3s ease both;
-  }
-
-  .hero-name span {
-    color: transparent;
-    -webkit-text-stroke: 1px var(--off-white);
-  }
-
-  .hero-tagline {
-    font-family: 'DM Serif Display', serif;
-    font-style: italic;
-    font-size: clamp(18px, 2.5vw, 28px);
-    color: var(--mid);
-    margin-top: 28px;
-    max-width: 560px;
-    line-height: 1.5;
-    animation: fadeUp 0.9s 0.45s ease both;
-  }
-
-  .hero-tagline em {
-    color: var(--gold);
-    font-style: normal;
-  }
-
-  .hero-cta {
-    display: flex;
-    gap: 20px;
-    margin-top: 48px;
-    animation: fadeUp 0.9s 0.6s ease both;
-  }
-
-  .btn {
-    display: inline-block;
-    padding: 14px 32px;
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: all 0.3s;
-    cursor: pointer;
-    border: none;
-  }
-
-  .btn-primary {
-    background: var(--gold);
-    color: var(--black);
-  }
-
-  .btn-primary:hover {
-    background: var(--off-white);
-    transform: translate(-2px, -2px);
-    box-shadow: 4px 4px 0 var(--gold);
-  }
-
-  .btn-outline {
-    background: transparent;
-    color: var(--off-white);
-    border: 1px solid var(--grey);
-  }
-
-  .btn-outline:hover {
-    border-color: var(--gold);
-    color: var(--gold);
-  }
-
-  .hero-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    animation: fadeUp 0.9s 0.7s ease both;
-  }
-
-  .status-badge {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: var(--mid);
-    text-transform: uppercase;
-  }
-
-  .status-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: #4caf50;
-    animation: pulse 2s infinite;
-  }
-
-  .scroll-hint {
-    font-size: 10px;
-    letter-spacing: 3px;
-    color: var(--mid);
-    text-transform: uppercase;
-    writing-mode: vertical-rl;
-  }
-
-  /* SKILLS TICKER */
-  .ticker {
-    background: var(--gold);
-    padding: 14px 0;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-
-  .ticker-inner {
-    display: inline-flex;
-    animation: ticker 25s linear infinite;
-  }
-
-  .ticker-item {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 18px;
-    letter-spacing: 4px;
-    color: var(--black);
-    padding: 0 40px;
-  }
-
-  .ticker-sep {
-    color: rgba(0,0,0,0.3);
-  }
-
-  /* SECTIONS */
-  section {
-    padding: 100px 60px;
-    border-bottom: 1px solid var(--grey);
-  }
-
-  .section-label {
-    font-size: 10px;
-    letter-spacing: 5px;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 60px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-
-  .section-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--grey);
-    max-width: 120px;
-  }
-
-  /* ABOUT */
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: start;
-  }
-
-  .about-headline {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(32px, 4vw, 52px);
-    line-height: 1.2;
-  }
-
-  .about-headline em {
-    font-style: italic;
-    color: var(--gold);
-  }
-
-  .about-body {
-    font-size: 13px;
-    line-height: 2;
-    color: var(--mid);
-  }
-
-  .about-body p { margin-bottom: 20px; }
-
-  .about-body strong { color: var(--off-white); font-weight: 700; }
-
-  .about-stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2px;
-    margin-top: 40px;
-  }
-
-  .stat-box {
-    background: var(--grey);
-    padding: 28px 24px;
-    transition: background 0.3s;
-  }
-
-  .stat-box:hover { background: #333; }
-
-  .stat-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 48px;
-    color: var(--gold);
-    line-height: 1;
-  }
-
-  .stat-label {
-    font-size: 10px;
-    letter-spacing: 3px;
-    color: var(--mid);
-    text-transform: uppercase;
-    margin-top: 8px;
-  }
-
-  /* EXPERTISE */
-  .expertise-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
-  }
-
-  .expertise-card {
-    background: var(--grey);
-    padding: 40px 32px;
-    position: relative;
-    overflow: hidden;
-    transition: background 0.3s;
-  }
-
-  .expertise-card:hover { background: #222; }
-
-  .expertise-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 3px; height: 0;
-    background: var(--gold);
-    transition: height 0.4s ease;
-  }
-
-  .expertise-card:hover::before { height: 100%; }
-
-  .expertise-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 64px;
-    color: rgba(201,168,76,0.12);
-    line-height: 1;
-    margin-bottom: 16px;
-  }
-
-  .expertise-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 22px;
-    margin-bottom: 16px;
-  }
-
-  .expertise-desc {
-    font-size: 11px;
-    line-height: 1.9;
-    color: var(--mid);
-  }
-
-  .expertise-tools {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 24px;
-  }
-
-  .tool-tag {
-    font-size: 9px;
-    letter-spacing: 2px;
-    padding: 5px 10px;
-    border: 1px solid var(--gold-dim);
-    color: var(--gold);
-    text-transform: uppercase;
-  }
-
-  /* EXPERIENCE */
-  .exp-item {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 60px;
-    padding: 50px 0;
-    border-bottom: 1px solid var(--grey);
-  }
-
-  .exp-item:last-child { border-bottom: none; }
-
-  .exp-meta { }
-
-  .exp-company {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 20px;
-    letter-spacing: 2px;
-    color: var(--gold);
-  }
-
-  .exp-period {
-    font-size: 10px;
-    letter-spacing: 2px;
-    color: var(--mid);
-    text-transform: uppercase;
-    margin-top: 8px;
-  }
-
-  .exp-role {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(24px, 3vw, 36px);
-    margin-bottom: 20px;
-    line-height: 1.2;
-  }
-
-  .exp-points {
-    list-style: none;
-  }
-
-  .exp-points li {
-    font-size: 12px;
-    line-height: 1.9;
-    color: var(--mid);
-    padding-left: 20px;
-    position: relative;
-    margin-bottom: 10px;
-  }
-
-  .exp-points li::before {
-    content: '—';
-    position: absolute;
-    left: 0;
-    color: var(--gold);
-  }
-
-  /* PORTFOLIO CTA */
-  .portfolio-section {
-    text-align: center;
-    padding: 120px 60px;
-    background: var(--grey);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .portfolio-section::before {
-    content: 'PORTFOLIO';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 200px;
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(201,168,76,0.06);
-    white-space: nowrap;
-    pointer-events: none;
-  }
-
-  .portfolio-headline {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(48px, 8vw, 100px);
-    line-height: 0.95;
-    letter-spacing: 2px;
-    position: relative;
-  }
-
-  .portfolio-headline span { color: var(--gold); }
-
-  .portfolio-sub {
-    font-family: 'DM Serif Display', serif;
-    font-style: italic;
-    font-size: 20px;
-    color: var(--mid);
-    margin: 24px 0 48px;
-    position: relative;
-  }
-
-  .portfolio-links {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    flex-wrap: wrap;
-    position: relative;
-  }
-
-  /* CONTACT */
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-  }
-
-  .contact-headline {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(48px, 6vw, 80px);
-    line-height: 0.95;
-    letter-spacing: 2px;
-  }
-
-  .contact-headline span { color: var(--gold); }
-
-  .contact-sub {
-    font-size: 13px;
-    line-height: 2;
-    color: var(--mid);
-    margin-top: 24px;
-  }
-
-  .contact-items {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .contact-item {
-    background: var(--grey);
-    padding: 24px 28px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-decoration: none;
-    transition: background 0.3s, padding-left 0.3s;
-    color: var(--off-white);
-  }
-
-  .contact-item:hover {
-    background: #222;
-    padding-left: 36px;
-  }
-
-  .contact-item-label {
-    font-size: 10px;
-    letter-spacing: 3px;
-    color: var(--mid);
-    text-transform: uppercase;
-  }
-
-  .contact-item-value {
-    font-size: 12px;
-    letter-spacing: 1px;
-  }
-
-  .contact-arrow {
-    color: var(--gold);
-    font-size: 18px;
-  }
-
-  /* FOOTER */
-  footer {
-    padding: 40px 60px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .footer-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 18px;
-    letter-spacing: 4px;
-    color: var(--gold);
-  }
-
-  .footer-copy {
-    font-size: 10px;
-    letter-spacing: 2px;
-    color: var(--mid);
-    text-transform: uppercase;
-  }
-
-  /* ANIMATIONS */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes fadeDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes ticker {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(76,175,80,0.4); }
-    50% { opacity: 0.8; box-shadow: 0 0 0 6px rgba(76,175,80,0); }
-  }
-
-  /* RESPONSIVE */
-  @media (max-width: 768px) {
-    .hero, section { padding: 40px 28px; }
-    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
-    .expertise-grid { grid-template-columns: 1fr; }
-    .exp-item { grid-template-columns: 1fr; gap: 16px; }
-    .nav-links { display: none; }
-    footer { flex-direction: column; gap: 12px; text-align: center; }
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAN USMAN | AI Prompt Engineer & Vibe Coder</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;500;600;700&family=Share+Tech+Mono&display=swap"
+    rel="stylesheet">
+  <style>
+    /* 
+     * WORLD CLASS AI GAME DEV AESTHETIC 
+     * HUD / Sci-Fi Engine Interface Design
+     */
+    :root {
+      --bg-deep: #03050a;
+      --bg-panel: rgba(10, 15, 25, 0.7);
+      --primary: #00f0ff;
+      --secondary: #ff0055;
+      --accent: #fcee0a;
+      --text-main: #e0e5ff;
+      --text-dim: #7a8aa3;
+      --font-hud: 'Rajdhani', sans-serif;
+      --font-mono: 'Share Tech Mono', monospace;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-deep);
+      color: var(--text-main);
+      font-family: var(--font-hud);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* IMMERSIVE SCI-FI BACKGROUND */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 80% -10%, rgba(0, 240, 255, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 10% 80%, rgba(255, 0, 85, 0.08) 0%, transparent 40%);
+      z-index: -2;
+    }
+
+    /* CRT SCANLINES */
+    .scanlines {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.1));
+      background-size: 100% 4px;
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.3;
+    }
+
+    /* DYNAMIC HUD LAYOUT */
+    .viewport {
+      position: relative;
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: grid;
+      grid-template-columns: 80px 1fr 300px;
+      min-height: 100vh;
+      gap: 40px;
+    }
+
+    /* LEFT HUD DATA BAR */
+    .hud-sidebar {
+      position: fixed;
+      left: 40px;
+      top: 0;
+      height: 100vh;
+      width: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+      border-right: 1px solid rgba(0, 240, 255, 0.2);
+    }
+
+    .hud-marker {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--primary);
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      opacity: 0.7;
+      letter-spacing: 2px;
+    }
+
+    .hud-line {
+      flex-grow: 1;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--primary), transparent);
+      opacity: 0.5;
+      margin: 0 auto;
+    }
+
+    /* MAIN CONTENT */
+    .main-content {
+      grid-column: 2 / 3;
+      padding: 80px 0;
+      position: relative;
+    }
+
+    /* HEADER / NAV */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 60px;
+      border-bottom: 1px solid rgba(122, 138, 163, 0.2);
+      padding-bottom: 20px;
+    }
+
+    .logo {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text-main);
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo::before {
+      content: '';
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      background: var(--primary);
+      box-shadow: 0 0 10px var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      font-family: var(--font-mono);
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transition: color 0.3s;
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--primary);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      position: relative;
+      margin-bottom: 100px;
+      z-index: 2;
+    }
+
+    .sys-status {
+      font-family: var(--font-mono);
+      color: var(--secondary);
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sys-status::before {
+      content: '[ REC ]';
+      animation: blink 1.5s infinite;
+    }
+
+    .glitch-wrapper {
+      position: relative;
+    }
+
+    .hero-title {
+      font-size: clamp(60px, 9vw, 120px);
+      font-weight: 700;
+      line-height: 0.85;
+      text-transform: uppercase;
+      letter-spacing: -2px;
+      margin-bottom: 20px;
+      position: relative;
+      color: #fff;
+      text-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+    }
+
+    .hero-title span {
+      display: block;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--text-main);
+      position: relative;
+    }
+
+    .hero-title span::after {
+      content: 'AI WORLDS.';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--primary);
+      -webkit-text-stroke: 0;
+      clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+      animation: glitch-anim 4s infinite alternate-reverse;
+      opacity: 0.8;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 16px;
+      color: var(--accent);
+      letter-spacing: 3px;
+      margin-bottom: 20px;
+      display: block;
+      text-transform: uppercase;
+    }
+
+    .hero-desc {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text-dim);
+      max-width: 650px;
+      margin-bottom: 40px;
+      border-left: 2px solid var(--secondary);
+      padding-left: 20px;
+      background: linear-gradient(90deg, rgba(255, 0, 85, 0.05), transparent);
+    }
+
+    .btn-cyber {
+      display: inline-flex;
+      align-items: center;
+      gap: 15px;
+      padding: 16px 36px;
+      background: transparent;
+      color: var(--primary);
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-decoration: none;
+      border: 1px solid var(--primary);
+      clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+      margin-right: 15px;
+      cursor: pointer;
+    }
+
+    .btn-cyber.alt {
+      color: var(--text-main);
+      border-color: var(--text-dim);
+    }
+
+    .btn-cyber::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 240, 255, 0.2);
+      transform: skewX(-45deg);
+      transition: left 0.4s;
+    }
+
+    .btn-cyber:hover {
+      background: rgba(0, 240, 255, 0.1);
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+      text-shadow: 0 0 5px var(--primary);
+    }
+
+    .btn-cyber.alt:hover {
+      border-color: var(--text-main);
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: none;
+      text-shadow: none;
+    }
+
+    .btn-cyber:hover::before {
+      left: 100%;
+    }
+
+    /* RIGHT SIDE 3D HUD COMPONENT */
+    .right-hud {
+      grid-column: 3 / 4;
+      padding: 80px 0;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .tesseract-container {
+      width: 250px;
+      height: 250px;
+      position: relative;
+      perspective: 1000px;
+      margin-bottom: 60px;
+      margin-top: 50px;
+    }
+
+    .tesseract {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      transform-style: preserve-3d;
+      animation: spinTesseract 24s infinite linear;
+    }
+
+    .cube-outer,
+    .cube-inner {
+      position: absolute;
+      inset: 0;
+      transform-style: preserve-3d;
+    }
+
+    .cube-inner {
+      inset: 25%;
+      animation: spinInner 12s infinite linear reverse;
+    }
+
+    .side {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 1px solid rgba(0, 240, 255, 0.4);
+      background: rgba(0, 240, 255, 0.02);
+      box-shadow: inset 0 0 20px rgba(0, 240, 255, 0.1);
+    }
+
+    .cube-inner .side {
+      border: 2px solid var(--secondary);
+      background: rgba(255, 0, 85, 0.05);
+      box-shadow: inset 0 0 30px rgba(255, 0, 85, 0.3);
+    }
+
+    .cube-outer .front {
+      transform: translateZ(125px);
+    }
+
+    .cube-outer .back {
+      transform: rotateY(180deg) translateZ(125px);
+    }
+
+    .cube-outer .right {
+      transform: rotateY(90deg) translateZ(125px);
+    }
+
+    .cube-outer .left {
+      transform: rotateY(-90deg) translateZ(125px);
+    }
+
+    .cube-outer .top {
+      transform: rotateX(90deg) translateZ(125px);
+    }
+
+    .cube-outer .bottom {
+      transform: rotateX(-90deg) translateZ(125px);
+    }
+
+    .cube-inner .front {
+      transform: translateZ(62px);
+    }
+
+    .cube-inner .back {
+      transform: rotateY(180deg) translateZ(62px);
+    }
+
+    .cube-inner .right {
+      transform: rotateY(90deg) translateZ(62px);
+    }
+
+    .cube-inner .left {
+      transform: rotateY(-90deg) translateZ(62px);
+    }
+
+    .cube-inner .top {
+      transform: rotateX(90deg) translateZ(62px);
+    }
+
+    .cube-inner .bottom {
+      transform: rotateX(-90deg) translateZ(62px);
+    }
+
+    .hud-data-box {
+      width: 100%;
+      padding: 20px;
+      border: 1px solid rgba(122, 138, 163, 0.3);
+      background: var(--bg-panel);
+      backdrop-filter: blur(10px);
+      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
+      margin-bottom: 20px;
+    }
+
+    .data-row {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      margin-bottom: 12px;
+      color: var(--text-dim);
+    }
+
+    .data-row span:last-child {
+      color: var(--text-main);
+      font-weight: bold;
+      text-align: right;
+    }
+
+    .data-row .highlight {
+      color: var(--accent);
+    }
+
+    /* SECTIONS */
+    .section-title {
+      font-size: 36px;
+      color: var(--text-main);
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      margin-bottom: 50px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::before {
+      content: attr(data-index);
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--secondary);
+      position: absolute;
+      top: -15px;
+      left: 0;
+    }
+
+    /* LOADOUT / TECH COMPENTENCIES */
+    .loadout-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-bottom: 80px;
+    }
+
+    .loadout-card {
+      background: var(--bg-panel);
+      border: 1px solid rgba(0, 240, 255, 0.1);
+      padding: 30px;
+      position: relative;
+      transition: all 0.3s;
+    }
+
+    .loadout-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 20px;
+      height: 20px;
+      border-top: 2px solid var(--primary);
+      border-right: 2px solid var(--primary);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .loadout-card:hover {
+      background: rgba(0, 240, 255, 0.05);
+      border-color: rgba(0, 240, 255, 0.5);
+      transform: translateX(5px);
+    }
+
+    .loadout-card:hover::after {
+      opacity: 1;
+    }
+
+    .card-title {
+      font-family: var(--font-hud);
+      font-size: 22px;
+      color: var(--text-main);
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .card-title::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 2px;
+      background: var(--primary);
+    }
+
+    .chip-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .chip {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 6px 12px;
+      text-transform: uppercase;
+    }
+
+    .chip.hl-primary {
+      border-color: rgba(0, 240, 255, 0.4);
+      color: var(--primary);
+    }
+
+    .chip.hl-secondary {
+      border-color: rgba(255, 0, 85, 0.4);
+      color: var(--secondary);
+    }
+
+    .chip.hl-accent {
+      border-color: rgba(252, 238, 10, 0.4);
+      color: var(--accent);
+    }
+
+    /* MISSION LOGS (EXPERIENCE) */
+    .mission-logs {
+      position: relative;
+      padding-left: 30px;
+      border-left: 1px solid rgba(255, 0, 85, 0.3);
+      margin-bottom: 80px;
+    }
+
+    .log-entry {
+      margin-bottom: 50px;
+      position: relative;
+    }
+
+    .log-node {
+      position: absolute;
+      left: -36px;
+      top: 0;
+      width: 11px;
+      height: 11px;
+      background: var(--bg-deep);
+      border: 2px solid var(--secondary);
+      transform: rotate(45deg);
+      box-shadow: 0 0 10px var(--secondary);
+    }
+
+    .log-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 10px;
+    }
+
+    .log-role {
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .log-company {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .log-date {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-bottom: 15px;
+    }
+
+    .log-desc {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--text-dim);
+      line-height: 1.6;
+      background: rgba(255, 255, 255, 0.02);
+      padding: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-left: 2px solid var(--text-dim);
+    }
+
+    .log-entry:hover .log-desc {
+      border-left-color: var(--secondary);
+      background: rgba(255, 0, 85, 0.05);
+    }
+
+    .bullet-list {
+      margin-top: 15px;
+      list-style: none;
+    }
+
+    .bullet-list li {
+      margin-bottom: 8px;
+      padding-left: 15px;
+      position: relative;
+    }
+
+    .bullet-list li::before {
+      content: '>';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    /* PROJECTS & PORTFOLIO */
+    .project-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-bottom: 80px;
+    }
+
+    .project-card {
+      background: var(--bg-panel);
+      border: 1px solid rgba(0, 240, 255, 0.1);
+      padding: 30px;
+      position: relative;
+      transition: all 0.3s;
+      border-left: 3px solid var(--primary);
+    }
+
+    .project-card:hover {
+      background: rgba(0, 240, 255, 0.05);
+    }
+
+    .project-title {
+      font-size: 22px;
+      color: var(--text-main);
+      margin-bottom: 15px;
+    }
+
+    .project-link {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--primary);
+      text-decoration: none;
+      margin-bottom: 15px;
+      word-break: break-all;
+    }
+
+    .project-link:hover {
+      text-decoration: underline;
+    }
+
+    .project-desc {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    /* FOOTER TERMINAL */
+    footer {
+      grid-column: 2 / 4;
+      border-top: 1px solid rgba(0, 240, 255, 0.2);
+      padding: 30px 0;
+      margin-top: 50px;
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+    }
+
+    /* KEYFRAMES */
+    @keyframes blink {
+
+      0%,
+      49% {
+        opacity: 1;
+      }
+
+      50%,
+      100% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes spinTesseract {
+      0% {
+        transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+      }
+
+      100% {
+        transform: rotateX(360deg) rotateY(720deg) rotateZ(360deg);
+      }
+    }
+
+    @keyframes spinInner {
+      0% {
+        transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+      }
+
+      100% {
+        transform: rotateX(-360deg) rotateY(-360deg) rotateZ(-720deg);
+      }
+    }
+
+    @keyframes glitch-anim {
+      0% {
+        clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+        transform: translate(0);
+      }
+
+      20% {
+        clip-path: polygon(0 15%, 100% 15%, 100% 30%, 0 30%);
+        transform: translate(-2px, 2px);
+      }
+
+      40% {
+        clip-path: polygon(0 50%, 100% 50%, 100% 65%, 0 65%);
+        transform: translate(2px, -2px);
+      }
+
+      60% {
+        clip-path: polygon(0 70%, 100% 70%, 100% 85%, 0 85%);
+        transform: translate(-2px, 2px);
+      }
+
+      80% {
+        clip-path: polygon(0 80%, 100% 80%, 100% 100%, 0 100%);
+        transform: translate(2px, -2px);
+      }
+
+      100% {
+        clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+        transform: translate(0);
+      }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1200px) {
+      .viewport {
+        grid-template-columns: 1fr;
+        padding: 0 30px;
+      }
+
+      .hud-sidebar,
+      .right-hud {
+        display: none;
+      }
+
+      .main-content {
+        grid-column: 1 / -1;
+      }
+
+      footer {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 768px) {
+
+      .loadout-grid,
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-title {
+        font-size: 50px;
+      }
+
+      .log-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+      }
+
+      header {
+        flex-direction: column;
+        gap: 20px;
+        align-items: flex-start;
+      }
+    }
+  </style>
 </head>
+
 <body>
+  <div class="scanlines"></div>
 
-<!-- HERO -->
-<section class="hero">
-  <nav class="nav">
-    <div class="nav-logo">DU // Portfolio</div>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#expertise">Skills</a></li>
-      <li><a href="#experience">Work</a></li>
-      <li><a href="#portfolio">Portfolio</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
+  <div class="viewport">
 
-  <div class="hero-center">
-    <p class="hero-eyebrow">AI Prompt Engineer · Visual Artist · Vibe Coder</p>
-    <h1 class="hero-name">DAN<br><span>USMAN</span></h1>
-    <p class="hero-tagline">
-      I engineer <em>cinematic AI worlds</em> — from game assets and NPC voices to viral video content and generative brand media.
-    </p>
-    <div class="hero-cta">
-      <a href="#portfolio" class="btn btn-primary">View My Work</a>
-      <a href="#contact" class="btn btn-outline">Hire Me</a>
+    <!-- LEFT SIDEBAR HUD -->
+    <div class="hud-sidebar">
+      <div class="hud-marker">SYS.ONLINE</div>
+      <div class="hud-line"></div>
+      <div class="hud-marker">PORT.772A</div>
+      <div class="hud-line"></div>
+      <div class="hud-marker">ENG.ACTV</div>
     </div>
-  </div>
 
-  <div class="hero-bottom">
-    <div class="status-badge">
-      <div class="status-dot"></div>
-      Available for Remote Work & Contracts
-    </div>
-    <div class="scroll-hint">Scroll Down</div>
-  </div>
-</section>
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
 
-<!-- TICKER -->
-<div class="ticker">
-  <div class="ticker-inner">
-    <span class="ticker-item">MIDJOURNEY <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">SORA 2 <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">VEO 3 <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">RUNWAY <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">KLING 2.6 <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">STABLE DIFFUSION <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">ELEVENLABS <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">N8N AUTOMATION <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">CURSOR <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">GOOGLE ANTIGRAVITY <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">PYTHON <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">GPT-4o <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">CLAUDE <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">GEMINI <span class="ticker-sep">✦</span></span>
-    <!-- repeat for seamless loop -->
-    <span class="ticker-item">MIDJOURNEY <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">SORA 2 <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">VEO 3 <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">RUNWAY <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">KLING 2.6 <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">STABLE DIFFUSION <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">ELEVENLABS <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">N8N AUTOMATION <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">CURSOR <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">GOOGLE ANTIGRAVITY <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">PYTHON <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">GPT-4o <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">CLAUDE <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">GEMINI <span class="ticker-sep">✦</span></span>
-  </div>
-</div>
+      <header>
+        <div class="logo">DAN USMAN</div>
+        <nav class="nav-links">
+          <a href="#competencies">Competencies</a>
+          <a href="#experience">Experience</a>
+          <a href="#portfolio">Portfolio</a>
+        </nav>
+      </header>
 
-<!-- ABOUT -->
-<section id="about">
-  <p class="section-label">01 — About</p>
-  <div class="about-grid">
-    <div class="about-headline">
-      Where <em>artificial intelligence</em> meets visual artistry.
-    </div>
-    <div>
-      <div class="about-body">
-        <p>I'm Dan Usman, an <strong>AI Prompt Engineer and Generative Media Specialist</strong> based remotely and open to opportunities worldwide. I sit at the intersection of creative direction, technical prompting, and production workflow — building things that look extraordinary and perform at scale.</p>
-        <p>Previously engineered production-quality game assets at <strong>AZer-t</strong>, a French video game studio — characters, environments, weapons, audio, and interactive NPC voice agents. Before that, freelance AI solutions for marketing, social media, and brand content across global clients.</p>
-        <p>I don't just generate images. I build <strong>prompt systems, A/B test quality, automate workflows</strong>, and set editorial bars that hold up under production pressure.</p>
-      </div>
-      <div class="about-stats">
-        <div class="stat-box">
-          <div class="stat-num">6+</div>
-          <div class="stat-label">AI Platforms Mastered</div>
+      <section class="hero">
+        <div class="sys-status">Neural Link Established</div>
+        <div class="glitch-wrapper">
+          <span class="hero-eyebrow">AI Prompt Engineer | Vibe Coder | Visual Prompt Engineer</span>
+          <h1 class="hero-title">ENGINEERING<br><span>AI WORLDS.</span></h1>
         </div>
-        <div class="stat-box">
-          <div class="stat-num">3</div>
-          <div class="stat-label">Major Gen AI Modalities</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-num">2+</div>
-          <div class="stat-label">Years Production AI Work</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-num">∞</div>
-          <div class="stat-label">Prompts Engineered</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- EXPERTISE -->
-<section id="expertise">
-  <p class="section-label">02 — Expertise</p>
-  <div class="expertise-grid">
-
-    <div class="expertise-card">
-      <div class="expertise-num">01</div>
-      <div class="expertise-title">Visual Prompt Engineering</div>
-      <div class="expertise-desc">Advanced multi-modal prompting for image generation at production quality. Character consistency, brand adherence, editorial-grade output — with A/B testing methodology to continuously raise the bar.</div>
-      <div class="expertise-tools">
-        <span class="tool-tag">Midjourney</span>
-        <span class="tool-tag">Kling 2.6</span>
-        <span class="tool-tag">Stable Diffusion</span>
-        <span class="tool-tag">Adobe Firefly</span>
-      </div>
-    </div>
-
-    <div class="expertise-card">
-      <div class="expertise-num">02</div>
-      <div class="expertise-title">Cinematic AI Video</div>
-      <div class="expertise-desc">Text-to-video production with cinematic quality — controlled lighting, subject coherence, intentional camera movement. From short-form social content to studio-grade sequences.</div>
-      <div class="expertise-tools">
-        <span class="tool-tag">Sora 2</span>
-        <span class="tool-tag">VEO 3</span>
-        <span class="tool-tag">Runway</span>
-        <span class="tool-tag">Leonardo AI</span>
-      </div>
-    </div>
-
-    <div class="expertise-card">
-      <div class="expertise-num">03</div>
-      <div class="expertise-title">Voice AI & NPC Systems</div>
-      <div class="expertise-desc">Interactive voice agents for in-game NPCs and enterprise customer care. Conversational AI integrated into real gameplay mechanics and business workflows.</div>
-      <div class="expertise-tools">
-        <span class="tool-tag">ElevenLabs</span>
-        <span class="tool-tag">n8n</span>
-        <span class="tool-tag">GPT-4o</span>
-        <span class="tool-tag">Claude</span>
-      </div>
-    </div>
-
-    <div class="expertise-card">
-      <div class="expertise-num">04</div>
-      <div class="expertise-title">AI Audio & Sound Design</div>
-      <div class="expertise-desc">Immersive weapon sounds, environmental audio, and atmospheric design using AI generation. Enhancing player and audience experience through precision audio prompting.</div>
-      <div class="expertise-tools">
-        <span class="tool-tag">ElevenLabs</span>
-        <span class="tool-tag">AI Sound Gen</span>
-        <span class="tool-tag">Prompt Audio</span>
-      </div>
-    </div>
-
-    <div class="expertise-card">
-      <div class="expertise-num">05</div>
-      <div class="expertise-title">Vibe Coding & Automation</div>
-      <div class="expertise-desc">Building AI-integrated web applications and automated content pipelines using modern vibe-coding tools. Full workflow automation from idea to deployed product.</div>
-      <div class="expertise-tools">
-        <span class="tool-tag">Cursor</span>
-        <span class="tool-tag">Google Antigravity</span>
-        <span class="tool-tag">Python</span>
-        <span class="tool-tag">Node.js</span>
-      </div>
-    </div>
-
-    <div class="expertise-card">
-      <div class="expertise-num">06</div>
-      <div class="expertise-title">UGC & Viral Content</div>
-      <div class="expertise-desc">AI-generated short-form video, avatar creation, and social media content with data-driven viral strategies. From concept to scroll-stopping output at speed.</div>
-      <div class="expertise-tools">
-        <span class="tool-tag">UGC Avatars</span>
-        <span class="tool-tag">AI Video</span>
-        <span class="tool-tag">Social AI</span>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- EXPERIENCE -->
-<section id="experience">
-  <p class="section-label">03 — Experience</p>
-
-  <div class="exp-item">
-    <div class="exp-meta">
-      <div class="exp-company">AZer-t</div>
-      <div class="exp-period">Sep 2025 — Feb 2026</div>
-    </div>
-    <div>
-      <div class="exp-role">AI Prompt Engineer — French Video Game Studio</div>
-      <ul class="exp-points">
-        <li>Engineered production-quality game assets (characters, environments, weapons, audio, UI) using advanced multi-modal prompts across Midjourney, Stable Diffusion, and proprietary AI tools</li>
-        <li>Designed visual prompts for immersive weapon sounds and environmental audio, enhancing player experience through precision AI audio generation</li>
-        <li>Developed automated 3D modeling workflows using prompt-driven AI, streamlining asset creation from brief to deliverable</li>
-        <li>Built interactive voice AI agents for in-game NPCs, integrating conversational AI into live gameplay mechanics</li>
-        <li>Refined prompting strategies through A/B testing to improve asset quality, consistency, and production efficiency at scale</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="exp-item">
-    <div class="exp-meta">
-      <div class="exp-company">Freelance</div>
-      <div class="exp-period">2024 — 2025</div>
-    </div>
-    <div>
-      <div class="exp-role">AI Solutions Developer — Contract & Freelance</div>
-      <ul class="exp-points">
-        <li>Developed optimized prompts for marketing copy, blog content, and multi-language translation using GPT-4, Claude, and Gemini</li>
-        <li>Created AI-generated short-form videos and UGC content for social media platforms with measurable viral engagement outcomes</li>
-        <li>Built automated marketing copy generation pipeline using Python and Google Cloud AI for scalable content production</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- PORTFOLIO CTA -->
-<div class="portfolio-section" id="portfolio">
-  <h2 class="portfolio-headline">SEE THE<br><span>WORK.</span></h2>
-  <p class="portfolio-sub">Generative video, character renders, UGC, audio design & more</p>
-  <div class="portfolio-links">
-    <a href="https://drive.google.com/drive/folders/1O8acef1kl6LuIFuo7I3l3vauvuBl_4Fu" target="_blank" class="btn btn-primary">Generative Media Portfolio →</a>
-    <a href="https://github.com/EmperorDa8/generativeAI" target="_blank" class="btn btn-outline">GitHub Repository →</a>
-    <a href="https://vermillion-travesseiro-d1b2de.netlify.app/" target="_blank" class="btn btn-outline">Live Web App →</a>
-  </div>
-</div>
-
-<!-- CONTACT -->
-<section id="contact">
-  <p class="section-label">05 — Contact</p>
-  <div class="contact-grid">
-    <div>
-      <h2 class="contact-headline">LET'S<br>BUILD<br><span>TOGETHER.</span></h2>
-      <p class="contact-sub">Available for remote contracts, full-time roles, and freelance engagements worldwide. Open to relocation for the right opportunity.</p>
-    </div>
-    <div class="contact-items">
-      <a href="/cdn-cgi/l/email-protection#e8bd898a8c9d84d0d0a88f85898184c68b8785" class="contact-item">
+        <p class="hero-desc">
+          Specializing in multi-modal generative AI, vibe coding, and visual prompt engineering. Expert in developing
+          production-ready prompts for text-to-video (Sora, VEO 3), text-to-image (Midjourney, DALL-E, Stable
+          Diffusion), 3D assets, and voice AI systems.
+        </p>
         <div>
-          <div class="contact-item-label">Email</div>
-          <div class="contact-item-value"><span class="__cf_email__" data-cfemail="5a0f3b383e2f3662621a3d373b333674393537">[email&#160;protected]</span></div>
+          <a href="mailto:Uabdul88@gmail.com" class="btn-cyber">INITIATE_CONTACT</a>
+          <a href="https://github.com/DanAI" class="btn-cyber alt">GITHUB_LINK</a>
         </div>
-        <span class="contact-arrow">→</span>
-      </a>
-      <a href="https://github.com/EmperorDa8/generativeAI" target="_blank" class="contact-item">
-        <div>
-          <div class="contact-item-label">GitHub</div>
-          <div class="contact-item-value">EmperorDa8/generativeAI</div>
-        </div>
-        <span class="contact-arrow">→</span>
-      </a>
-      <a href="https://vermillion-travesseiro-d1b2de.netlify.app/" target="_blank" class="contact-item">
-        <div>
-          <div class="contact-item-label">Live Project</div>
-          <div class="contact-item-value">AI Voice Web App</div>
-        </div>
-        <span class="contact-arrow">→</span>
-      </a>
-      <a href="https://drive.google.com/drive/folders/1O8acef1kl6LuIFuo7I3l3vauvuBl_4Fu" target="_blank" class="contact-item">
-        <div>
-          <div class="contact-item-label">Portfolio</div>
-          <div class="contact-item-value">Generative Media Drive</div>
-        </div>
-        <span class="contact-arrow">→</span>
-      </a>
-    </div>
-  </div>
-</section>
+      </section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-name">D
+      <!-- CORE COMPETENCIES -->
+      <section id="competencies">
+        <h2 class="section-title" data-index="[ MOD_01 ]">Core Competencies</h2>
+
+        <div class="loadout-grid">
+
+          <div class="loadout-card">
+            <h3 class="card-title">Prompt Engineering & Platforms</h3>
+            <p class="card-desc">Advanced multi-modal prompting, constraint optimization, and zero/few-shot learning
+              methodologies.</p>
+            <div class="chip-list">
+              <span class="chip hl-primary">Advanced Prompting</span>
+              <span class="chip">A/B Testing</span>
+              <span class="chip hl-primary">ChatGPT (GPT-4o)</span>
+              <span class="chip">Claude Sonnet</span>
+              <span class="chip">Gemini</span>
+              <span class="chip hl-primary">GCP Gen AI Studio</span>
+            </div>
+          </div>
+
+          <div class="loadout-card">
+            <h3 class="card-title">Generative AI Media</h3>
+            <p class="card-desc">Production of cinematic text-to-video, 3D asset generation, and highly-detailed
+              text-to-image models.</p>
+            <div class="chip-list">
+              <span class="chip hl-secondary">Sora / Sora 2</span>
+              <span class="chip hl-secondary">VEO 3</span>
+              <span class="chip">Runway</span>
+              <span class="chip hl-secondary">Midjourney</span>
+              <span class="chip">Stable Diffusion</span>
+              <span class="chip">DALL-E 3</span>
+              <span class="chip hl-secondary">Audio & Sound AI</span>
+            </div>
+          </div>
+
+          <div class="loadout-card" style="grid-column: 1 / -1;">
+            <h3 class="card-title">Development & Integration</h3>
+            <p class="card-desc">Vibe coding full-stack applications and creating autonomous workflows using modern
+              IDEs, automation protocols, and voice APIs.</p>
+            <div class="chip-list" style="justify-content: flex-start;">
+              <span class="chip hl-accent">Cursor IDE</span>
+              <span class="chip hl-accent">Google Antigravity</span>
+              <span class="chip hl-accent">Voice AI Agents</span>
+              <span class="chip">Python</span>
+              <span class="chip">Node.js</span>
+              <span class="chip hl-accent">ElevenLabs</span>
+              <span class="chip">n8n Workflow</span>
+              <span class="chip hl-accent">Machine Learning</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- PROFESSIONAL EXPERIENCE -->
+      <section id="experience">
+        <h2 class="section-title" data-index="[ MOD_02 ]">Professional Experience</h2>
+
+        <div class="mission-logs">
+
+          <div class="log-entry">
+            <div class="log-node"></div>
+            <div class="log-header">
+              <div class="log-role">AI Prompt Engineer</div>
+              <div class="log-company">AZer-t (French Video Game Studio)</div>
+            </div>
+            <div class="log-date">SEP 2025 - PRESENT // REMOTE</div>
+            <div class="log-desc">
+              <ul class="bullet-list">
+                <li>Engineer production-quality game assets (characters, environments, weapons, audio, UI) using
+                  advanced multi-modal prompts for Midjourney, Stable Diffusion, and proprietary AI tools.</li>
+                <li>Design visual prompts for immersive weapon sounds and environmental audio, enhancing player
+                  experience through precise AI audio generation.</li>
+                <li>Develop automated 3D modeling workflows using prompt-driven AI, streamlining asset creation
+                  processes.</li>
+                <li>Build interactive voice AI agents for in-game NPCs, integrating conversational AI into gameplay
+                  mechanics.</li>
+                <li>Refine prompting strategies through A/B testing to improve asset quality, consistency, and
+                  production efficiency.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="log-entry">
+            <div class="log-node"></div>
+            <div class="log-header">
+              <div class="log-role">AI Solutions Developer</div>
+              <div class="log-company">Freelance / Contract</div>
+            </div>
+            <div class="log-date">2024 - 2025 // REMOTE</div>
+            <div class="log-desc">
+              <ul class="bullet-list">
+                <li>Developed optimized prompts for marketing copy, blog content, and multi-language translation using
+                  GPT-4, Claude, and Gemini.</li>
+                <li>Created AI-generated short-form videos and UGC content for social media platforms with viral
+                  engagement strategies.</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- PROJECTS & PORTFOLIO -->
+      <section id="portfolio">
+        <h2 class="section-title" data-index="[ MOD_03 ]">Projects & Portfolio</h2>
+
+        <div class="project-grid">
+
+          <!-- ITEM -->
+          <div class="project-card">
+            <h3 class="project-title">AI-Integrated Web App</h3>
+            <a href="https://vermillion-travesseiro-d1b2de.netlify.app/" class="project-link"
+              target="_blank">vermillion-travesseiro-d1b2de.netlify.app/</a>
+            <div class="project-desc">
+              Vibe-coded website with integrated ElevenLabs AI agent for natural voice interactions.
+            </div>
+          </div>
+
+          <!-- ITEM -->
+          <div class="project-card">
+            <h3 class="project-title">Generative Media Portfolio</h3>
+            <a href="https://drive.google.com/drive/folders/1O8acef1kl6LuIFuo7I3l3vauvuBl_4Fu" class="project-link"
+              target="_blank">View Google Drive Asset Folder</a>
+            <div class="project-desc">
+              <ul class="bullet-list" style="margin-top:0;">
+                <li>Text-to-video content across Sora, VEO 3, and Runway</li>
+                <li>IP-compliant character visualizations</li>
+                <li>AI-generated sound effects and environmental audio</li>
+                <li>Professional avatar generation and UGC</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- ITEM -->
+          <div class="project-card">
+            <h3 class="project-title">Enterprise Banking Agent</h3>
+            <div class="project-link" style="color:var(--text-dim); text-decoration:none;">STATUS: IN DEVELOPMENT</div>
+            <div class="project-desc">
+              Voice-enabled customer care architecture built with ElevenLabs Voice APIs and n8n backend automation
+              logic.
+            </div>
+          </div>
+
+          <!-- ITEM -->
+          <div class="project-card">
+            <h3 class="project-title">MCP Mobile Application</h3>
+            <div class="project-link" style="color:var(--text-dim); text-decoration:none;">STATUS: IN DEVELOPMENT</div>
+            <div class="project-desc">
+              Developed using the Antigravity Framework, featuring deeply integrated AI capabilities and custom MCP
+              server architecture.
+            </div>
+          </div>
+
+        </div>
+
+        <h3 class="card-title" style="font-size: 20px;">Additional Technical Implementations</h3>
+        <div class="log-desc" style="margin-top: 20px;">
+          <ul class="bullet-list">
+            <li><strong>Automated Marketing Copy Gen:</strong> Python script with Google Cloud AI for scalable content
+              creation.</li>
+            <li><strong>Customer Churn Prediction:</strong> ML model for retention strategies using Google Cloud.</li>
+            <li><strong>Prompt Engineering Repository:</strong> <a href="https://github.com/EmperorDa8/generativeAI"
+                style="color:var(--primary);">github.com/EmperorDa8/generativeAI</a> (Experiments across text, image,
+              video, and audio generation).</li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- RIGHT SIDEBAR 3D HUD -->
+    <aside class="right-hud">
+
+      <div class="hud-data-box" style="margin-bottom: 20px;">
+        <div class="data-row"><span>SYS.CORE</span> <span class="highlight">ONLINE</span></div>
+        <div class="data-row"><span>GEN.CAPACITY</span> <span>99.8%</span></div>
+        <div class="data-row"><span>PROMPT.THROUGHPUT</span> <span>MAX</span></div>
+        <div class="data-row"><span>DEGREE</span> <span style="color:var(--primary)">COMP. SCI '24</span></div>
+      </div>
+
+      <!-- 3D CSS TESSERACT (SCI-FI CORE) -->
+      <div class="tesseract-container">
+        <div class="tesseract">
+          <!-- Outer Cube -->
+          <div class="cube-outer">
+            <div class="side front"></div>
+            <div class="side back"></div>
+            <div class="side right"></div>
+            <div class="side left"></div>
+            <div class="side top"></div>
+            <div class="side bottom"></div>
+          </div>
+          <!-- Inner Cube Physics Core -->
+          <div class="cube-inner">
+            <div class="side front"></div>
+            <div class="side back"></div>
+            <div class="side right"></div>
+            <div class="side left"></div>
+            <div class="side top"></div>
+            <div class="side bottom"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hud-data-box">
+        <div class="data-row" style="color: var(--secondary)">USER_ID: DAN_USMAN</div>
+        <div class="data-row">CLASS: AI ENGINEER</div>
+        <div class="data-row">CERT.1: GOOGLE IT AUTOMATION</div>
+        <div class="data-row">CERT.2: GOOGLE GEN AI STUDIO</div>
+        <div class="data-row"
+          style="margin-top: 15px; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 15px;">
+          STATUS: <span style="color:var(--primary)">AVAILABLE IMMEDIATELY</span>
+        </div>
+        <div class="data-row">LOC: <span style="color:var(--primary)">REMOTE / RELOCATE</span></div>
+      </div>
+
+    </aside>
+
+    <!-- FOOTER -->
+    <footer id="comm">
+      <div>> EMAIL: <a href="mailto:Uabdul88@gmail.com"
+          style="color: var(--primary); text-decoration:none;">Uabdul88@gmail.com</a></div>
+      <div>> GITHUB: <a href="https://github.com/DanAI"
+          style="color: var(--primary); text-decoration:none;">github.com/DanAI</a></div>
+      <div>END_OF_TRANSMISSION // 2026</div>
+    </footer>
+
+  </div>
+</body>
+
+</html>
