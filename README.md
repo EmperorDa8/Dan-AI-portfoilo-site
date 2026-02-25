@@ -6,7 +6,7 @@
 
 ## 🌐 Live Portfolio
 
-**[View Portfolio Site →](https://dan-ai-site.vercel.app/)**
+**[View Portfolio Site →](https://dan-ai-portfoilo-site.vercel.app/)**
 
 ---
 
