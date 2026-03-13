@@ -1,106 +1,73 @@
-# Dan Usman — AI Prompt Engineer & Visual Artist
+# React + TypeScript + Vite
 
-> Cinematic AI worlds. Production-grade generative media. From game assets to viral content.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
----
+Currently, two official plugins are available:
 
-## 🌐 Live Portfolio
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-**[View Portfolio Site →](https://dan-ai-portfoilo-site.vercel.app/)**
+## React Compiler
 
----
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## 👤 About
+## Expanding the ESLint configuration
 
-I'm Dan Usman — an AI Prompt Engineer and Generative Media Specialist at the intersection of creative direction, technical prompting, and production workflow.
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-I build things that look extraordinary and perform at scale — from cinematic AI video and game asset pipelines to voice AI agents and viral UGC content.
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
-- 📍 Remote — Open to Relocation
-- 📧 [Uabdul88@gmail.com](mailto:Uabdul88@gmail.com)
-- 💼 Available for contracts, freelance & full-time roles
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
 
----
-
-## 🛠 Tech Stack & Tools
-
-| Category | Tools |
-|---|---|
-| **Image Generation** | Midjourney, Stable Diffusion, Kling 2.6, Adobe Firefly |
-| **Video Generation** | Sora 2, VEO 3, Runway, Leonardo AI |
-| **Voice & Audio AI** | ElevenLabs, AI Sound Design |
-| **LLM Platforms** | GPT-4o, Claude, Gemini |
-| **Vibe Coding** | Cursor, Google Antigravity |
-| **Automation** | n8n, Python, Node.js |
-| **Cloud & ML** | Google Cloud, Generative AI Studio |
-
----
-
-## 💼 Experience
-
-### AI Prompt Engineer — AZer-t *(French Video Game Studio)*
-`Sep 2025 — Feb 2026 · Contract`
-
-- Engineered production-quality game assets (characters, environments, weapons, audio, UI) using advanced multi-modal prompts across Midjourney, Stable Diffusion, and proprietary AI tools
-- Designed visual prompts for immersive weapon sounds and environmental audio
-- Developed automated 3D modeling workflows using prompt-driven AI
-- Built interactive voice AI agents for in-game NPCs using ElevenLabs
-- Refined prompting strategies through A/B testing to improve asset quality and consistency at scale
-
-### AI Solutions Developer — Freelance
-`2024 — 2025 · Remote`
-
-- Developed optimized prompts for marketing copy, blog content, and multi-language translation using GPT-4, Claude, and Gemini
-- Created AI-generated short-form videos and UGC content for social media with viral engagement strategies
-- Built automated marketing copy generation pipeline using Python and Google Cloud AI
-
----
-
-## 🎨 Portfolio
-
-| Type | Link |
-|---|---|
-| 🎬 Generative Media (Video, Image, Audio, Avatars) | [Google Drive →](https://drive.google.com/drive/folders/1O8acef1kl6LuIFuo7I3l3vauvuBl_4Fu) |
-| 🤖 Prompt Engineering Experiments | [This Repo →](https://github.com/EmperorDa8/generativeAI) |
-| 🌐 Live AI Voice Web App | [Netlify →](https://vermillion-travesseiro-d1b2de.netlify.app/) |
-
----
-
-## 🚀 Projects
-
-### ✅ Live
-- **AI-Integrated Web App** — Vibe-coded with Google Antigravity, integrated ElevenLabs voice agent for natural AI interactions
-
-### 🔧 In Development
-- **Enterprise Banking AI Agent** — Voice-enabled customer care with ElevenLabs + n8n automation
-- **Mobile Application** — Built on Google Antigravity Framework with integrated AI capabilities and MCP server
-
----
-
-## 🎓 Education & Certifications
-
-- **BSc Computer Science** — National Open University of Nigeria, 2024
-- **Google IT Automation with Python** — Google Certification
-- **Getting Started with Generative AI Studio** — Google Certification
-
----
-
-## 📁 Repo Structure
-
-```
-/
-├── index.html          # Portfolio website (single file, drag & drop to Netlify)
-└── README.md           # This file
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
 
----
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-## 🚀 Deploy in 60 Seconds
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-1. Go to **[netlify.com/drop](https://app.netlify.com/drop)**
-2. Drag the `index.html` file into the browser
-3. Share your live URL
-
----
-
-*Open to remote work worldwide · Available immediately*
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```

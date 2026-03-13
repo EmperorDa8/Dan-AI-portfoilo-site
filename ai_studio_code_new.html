@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dan Usman | AI Prompt Engineer & Vibe-Coder</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+        :root {
+            --bg-color: #fcfaf6;
+            --text-color: #111111;
+            --primary-accent: #6b4cff; /* Vibe-coder tech purple */
+            --secondary-accent: #ff4c8b; 
+            --text-muted: #8a8a8a;
+            --border-color: rgba(0, 0, 0, 0.1);
+            
+            /* Typography */
+            --font-display: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-display);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            line-height: 1;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2.5rem 4vw;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            position: sticky;
+            top: 0;
+            background: rgba(252, 250, 246, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 100;
+        }
+
+        .nav-left {
+            display: flex;
+            gap: 3rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            position: relative;
+            padding-bottom: 4px;
+            transition: color 0.3s ease;
+        }
+        
+        nav a:hover {
+            color: var(--primary-accent);
+        }
+
+        nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1.5px;
+            background-color: var(--text-color);
+        }
+
+        /* --- Hero Section --- */
+        .hero-section {
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 0 4vw 3vw 4vw;
+            position: relative;
+        }
+
+        .hero-text-wrap {
+            position: relative;
+            padding-top: 10vh;
+            z-index: 10;
+        }
+
+        .hero-title {
+            font-size: 15vw;
+            font-weight: 700;
+            letter-spacing: -0.06em;
+            margin: 0;
+            line-height: 0.8;
+            color: var(--text-color);
+        }
+
+        .hero-joy {
+            display: block;
+            text-align: right;
+            font-style: italic;
+            font-weight: 700;
+            font-size: 16vw;
+            letter-spacing: -0.06em;
+            padding-right: 4vw;
+            margin-top: -1vw;
+            background: linear-gradient(90deg, #111 0%, var(--primary-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* AI Sparkle SVG replacing the peace sign */
+        .ai-sparkle {
+            position: absolute;
+            right: 18vw;
+            top: 8vh;
+            width: 20vw;
+            pointer-events: none;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .hero-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            font-family: var(--font-body);
+            margin-top: 10vh;
+        }
+
+        .hero-year {
+            font-size: 8vw;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            font-family: var(--font-display);
+        }
+
+        .hero-avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 24px;
+            object-fit: cover;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .hero-avatar:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 30px 60px rgba(107, 76, 255, 0.2);
+        }
+
+        .hero-since {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* --- Work List --- */
+        .work-section {
+            padding: 8vw 4vw;
+            background: #fff;
+        }
+
+        .work-title {
+            font-size: 8vw;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            margin-bottom: 2rem;
+        }
+
+        .work-row {
+            display: flex;
+            align-items: center;
+            padding: 3.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .work-row:not(.active) { color: var(--text-muted); }
+        .work-row:not(.active):hover { color: #111; padding-left: 20px; }
+        .work-row.active { color: var(--text-color); }
+
+        .w-col-name { width: 40%; font-size: 2.8rem; font-weight: 600; letter-spacing: -0.03em; }
+        .w-col-tags { width: 45%; font-family: var(--font-body); font-size: 0.95rem; line-height: 1.4; }
+        .w-col-type { width: 15%; text-align: right; font-family: var(--font-body); font-size: 0.9rem; font-weight: 500; }
+
+        .work-row:not(.active) .w-col-tags, 
+        .work-row:not(.active) .w-col-type {
+            color: var(--text-muted);
+            transition: color 0.3s;
+        }
+        
+        .work-row:hover .w-col-tags, 
+        .work-row:hover .w-col-type {
+            color: var(--text-color);
+        }
+
+        .preview-flyout {
+            position: absolute;
+            right: 25%;
+            width: 380px;
+            aspect-ratio: 4/3;
+            border-radius: 16px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+            pointer-events: none;
+            opacity: 0;
+            object-fit: cover;
+            transform: translateY(20px) scale(0.95);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 10;
+        }
+
+        .work-row.active .preview-flyout,
+        .work-row:hover .preview-flyout {
+            opacity: 1;
+            transform: translateY(0) scale(1) rotate(2deg);
+        }
+
+        /* --- Case Study Feature --- */
+        .case-study {
+            padding: 4vw;
+        }
+
+        .case-showcase {
+            background: linear-gradient(135deg, #111 0%, #1a1a24 100%);
+            border-radius: 32px;
+            padding: 6vw;
+            display: flex;
+            justify-content: center;
+            gap: 2.5vw;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .case-showcase::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(107, 76, 255, 0.1) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        /* CSS Rendered Mobile Screens to mimic image */
+        .mock-phone {
+            width: 280px;
+            height: 600px;
+            border-radius: 44px;
+            background: #fff;
+            border: 10px solid #000;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: inset 0 0 0 2px #333, 0 30px 60px rgba(0,0,0,0.4);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .mock-phone:hover {
+            transform: translateY(-10px);
+        }
+
+        /* Center Phone: AI Stylist App Screen */
+        .mock-phone.center {
+            background: #0f0f11;
+            color: white;
+            padding: 40px 24px;
+            font-family: var(--font-body);
+            transform: scale(1.08);
+            z-index: 2;
+        }
+        .mock-phone.center:hover { transform: scale(1.08) translateY(-10px); }
+
+        .mock-phone.left, .mock-phone.right { opacity: 0.5; filter: blur(2px); transform: scale(0.95); }
+        .mock-phone.left { background: linear-gradient(180deg, var(--primary-accent), #2b1d66); }
+        .mock-phone.right { background: url('https://images.unsplash.com/photo-1558769132-cb1fac08404a?q=80&w=600') center/cover; }
+
+        .case-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 3rem;
+            padding: 0 1vw;
+        }
+
+        .case-desc {
+            max-width: 420px;
+            font-family: var(--font-body);
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #444;
+            font-weight: 400;
+        }
+
+        .case-thumbs {
+            display: flex;
+            gap: 1.2rem;
+        }
+
+        .thumb {
+            width: 110px;
+            height: 110px;
+            background: #111;
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+        .thumb:hover { transform: scale(1.05); cursor: pointer; }
+        .thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: opacity 0.3s; }
+        .thumb:hover img { opacity: 1; }
+
+        .case-bottom-title {
+            font-size: 5vw;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            padding: 0 1vw;
+        }
+
+        /* --- Featured Projects --- */
+        .featured-section {
+            padding: 10vw 4vw;
+            background-color: #fff;
+        }
+
+        .feat-title {
+            font-size: 9.5vw;
+            font-weight: 700;
+            letter-spacing: -0.05em;
+            line-height: 0.9;
+            margin-bottom: 6vw;
+        }
+
+        .feat-title em {
+            font-style: italic;
+            padding-left: 1.5em;
+            color: var(--primary-accent);
+        }
+
+        .feat-reg {
+            font-size: 2.5vw;
+            color: var(--text-color);
+            vertical-align: super;
+            font-weight: 500;
+            margin-left: 0.5vw;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3vw;
+        }
+
+        .proj-card {
+            display: flex;
+            flex-direction: column;
+            group: hover;
+        }
+
+        .proj-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .proj-name {
+            font-size: 2.8rem;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            margin-bottom: 0.8rem;
+            transition: color 0.3s;
+        }
+        
+        .proj-card:hover .proj-name { color: var(--primary-accent); }
+
+        .proj-desc {
+            font-family: var(--font-body);
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        .proj-img-box {
+            background: #121212;
+            border-radius: 24px;
+            aspect-ratio: 16/11;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transform: translateZ(0); /* Force GPU */
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .proj-card:hover .proj-img-box {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.15);
+        }
+
+        .proj-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+        
+        .proj-card:hover .proj-img-box img {
+            transform: scale(1.05);
+        }
+
+        /* --- Hey! BIO SECTION --- */
+        .hey-section {
+            padding: 10vw 4vw;
+        }
+
+        .hey-header {
+            display: flex;
+            align-items: center;
+            gap: 2vw;
+            margin-bottom: -3vw;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hey-title {
+            font-size: 14vw;
+            font-style: italic;
+            font-weight: 700;
+            letter-spacing: -0.05em;
+        }
+
+        /* Vibe Coder abstract icon */
+        .vibe-svg {
+            width: 12vw;
+            margin-top: 2vw;
+            animation: spin 20s linear infinite;
+        }
+        
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .hey-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr 1fr;
+            gap: 5vw;
+        }
+
+        .hey-col-1 {
+            display: flex;
+            align-items: flex-end;
+            padding-bottom: 2rem;
+            font-family: var(--font-body);
+            font-size: 1.5rem;
+            line-height: 1.3;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+        }
+        .hey-col-1 strong { font-weight: 600; }
+        .hey-col-1 em { font-weight: 600; font-style: italic; color: var(--primary-accent); }
+
+        .hey-col-2 {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            aspect-ratio: 4/5;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        }
+
+        .hey-col-2 img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: contrast(1.1) saturate(1.1);
+        }
+
+        .overlay-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 45%;
+            pointer-events: none;
+            drop-shadow: 0px 10px 20px rgba(0,0,0,0.3);
+            opacity: 0.9;
+        }
+
+        .hey-col-3 {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #333;
+        }
+
+        .hey-num { margin-bottom: 2rem; font-weight: 600; color: var(--text-muted); }
+        .hey-col-3 p { margin-bottom: 1.5rem; }
+
+        /* --- Footer CTA --- */
+        .cta-section {
+            background-color: #111;
+            color: #fff;
+            padding: 12vw 4vw;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-title {
+            font-size: 8vw;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: #fff;
+            color: #111;
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 1.2rem 3rem;
+            border-radius: 100px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            z-index: 2;
+            position: relative;
+        }
+        
+        .cta-btn:hover {
+            transform: scale(1.05);
+            background: var(--primary-accent);
+            color: #fff;
+            box-shadow: 0 20px 40px rgba(107, 76, 255, 0.4);
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 900px) {
+            .hero-title, .hero-joy { font-size: 20vw; }
+            .ai-sparkle { width: 30vw; right: 5vw; }
+            .hero-bottom { flex-direction: column; align-items: flex-start; gap: 2rem; margin-top: 5vh; }
+            .hey-grid { grid-template-columns: 1fr; }
+            .hey-col-1 { padding-bottom: 0; font-size: 1.8rem; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .work-row { flex-wrap: wrap; padding: 2.5rem 0; }
+            .w-col-name { width: 100%; margin-bottom: 0.5rem; font-size: 2.2rem; }
+            .w-col-tags { width: 100%; margin-bottom: 0.5rem; }
+            .w-col-type { width: 100%; text-align: left; }
+            .preview-flyout { display: none; }
+            .case-showcase { flex-direction: column; align-items: center; padding: 10vw 5vw; }
+            .case-footer { flex-direction: column; align-items: flex-start; gap: 2rem; }
+            .feat-title em { padding-left: 0; }
+            .mock-phone.left, .mock-phone.right { display: none; }
+            .cta-title { font-size: 12vw; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-left">
+            <a href="#bio">BIO</a>
+            <a href="#work" class="active">WORK</a>
+        </div>
+        <div class="nav-right">
+            <a href="mailto:Uabdul88@gmail.com">CONTACT</a>
+        </div>
+    </nav>
+
+    <!-- 1. HERO SECTION -->
+    <section class="hero-section">
+        <div class="hero-text-wrap">
+            <h1 class="hero-title">Code is</h1>
+            <span class="hero-joy">vibe.</span>
+            
+            <svg class="ai-sparkle" viewBox="0 0 100 100" fill="none" stroke="var(--primary-accent)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M50 0 C50 35 65 50 100 50 C65 50 50 65 50 100 C50 65 35 50 0 50 C35 50 50 35 50 0 Z" fill="none"/>
+            </svg>
+        </div>
+        
+        <div class="hero-bottom">
+            <div class="hero-year">©2026</div>
+            <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&q=80&w=300" alt="Avatar Abstract" class="hero-avatar">
+            <div class="hero-since">/BUILDING SINCE 2024</div>
+        </div>
+    </section>
+
+    <!-- 2. WORK LIST -->
+    <section class="work-section" id="work">
+        <h2 class="work-title">Repositories</h2>
+        <div class="work-list">
+            <a href="https://github.com/EmperorDa8/pdf-platf" target="_blank" class="work-row">
+                <div class="w-col-name">PDF Platform</div>
+                <div class="w-col-tags">Full-Stack AI / Data Extraction / Document Processing</div>
+                <div class="w-col-type">Web App</div>
+                <img src="https://images.unsplash.com/photo-1618042164219-62c820f10723?auto=format&fit=crop&w=800&q=80" alt="Platform" class="preview-flyout">
+            </a>
+            <a href="https://github.com/EmperorDa8/agentic-x-bot" target="_blank" class="work-row active">
+                <div class="w-col-name">Agentic X</div>
+                <div class="w-col-tags">Autonomous Workflow / Complex API / Logic Routing</div>
+                <div class="w-col-type">AI Agent</div>
+                <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=800&q=80" alt="Agentic X Node" class="preview-flyout">
+            </a>
+            <a href="https://github.com/EmperorDa8/chatbot-grok-modern" target="_blank" class="work-row">
+                <div class="w-col-name">Modern Grok</div>
+                <div class="w-col-tags">Conversational AI / Responsive Design / API Integrations</div>
+                <div class="w-col-type">Chatbot</div>
+                <img src="https://images.unsplash.com/photo-1675271591211-126ad94e495d?auto=format&fit=crop&w=800&q=80" alt="Grok UI" class="preview-flyout">
+            </a>
+            <div class="work-row">
+                <div class="w-col-name">Mood Art</div>
+                <div class="w-col-tags">Lyrical Analysis / Global Music / Gen AI Prompting</div>
+                <div class="w-col-type">Platform</div>
+                <img src="https://images.unsplash.com/photo-1549692520-acc6669e2f0c?auto=format&fit=crop&w=800&q=80" alt="Mood Art" class="preview-flyout">
+            </div>
+            <a href="https://vermillion-travesseiro-d1b2de.netlify.app/" target="_blank" class="work-row">
+                <div class="w-col-name">Banking Voice</div>
+                <div class="w-col-tags">ElevenLabs APIs / n8n Automation / Customer Care</div>
+                <div class="w-col-type">Voice Bot</div>
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="Dashboard" class="preview-flyout">
+            </a>
+        </div>
+    </section>
+
+    <!-- 3. CASE STUDY FEATURE -->
+    <section class="case-study">
+        <div class="case-showcase">
+            <div class="mock-phone left"></div>
+            
+            <div class="mock-phone center">
+                <!-- Inner UI Mock for AI Stylist -->
+                <div style="font-size: 0.8rem; margin-bottom: 2rem; color: #888;">← Upload <span style="float:right;">•••</span></div>
+                <h3 style="font-size: 1.8rem; margin-bottom: 0.5rem; letter-spacing: -1px;">Virtual Try-On</h3>
+                <div style="font-size: 0.9rem; color: #6b4cff; margin-bottom: 1.5rem; font-weight: 500;">AI Stylist Analysis</div>
+                
+                <div style="display:flex; gap: 10px; margin-bottom: 2rem;">
+                    <div style="background: white; color: black; padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">Dimensions</div>
+                    <div style="color: #888; padding: 6px 10px; font-size: 0.8rem;">Imagery</div>
+                </div>
+
+                <div style="background: #1c1c24; border-radius: 20px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
+                        <div style="display:flex; gap: 12px; align-items:center;">
+                            <div style="width: 28px; height: 28px; background: linear-gradient(135deg, #6b4cff, #ff4c8b); border-radius: 8px;"></div>
+                            <div style="font-size: 0.75rem; color: #aaa;">Processing Engine<br><span style="color: white; font-size: 0.85rem; font-weight: 500;">GPT-4o Vision</span></div>
+                        </div>
+                        <div style="color: #4ade80; font-size: 0.75rem; font-weight: 600;">● Active</div>
+                    </div>
+                    <div style="font-size: 0.85rem; color: #888; margin-bottom: 5px;">Step 2/3</div>
+                    <div style="font-size: 2.2rem; font-weight: bold; letter-spacing: -1.5px; margin-bottom: 12px; line-height: 1.1;">Multi-Angle<br>Mapping</div>
+                    
+                    <div style="height: 4px; background: #333; border-radius: 2px; overflow: hidden; margin-top: 20px;">
+                        <div style="width: 65%; height: 100%; background: #6b4cff;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mock-phone right"></div>
+        </div>
+
+        <div class="case-footer">
+            <div class="case-desc">
+                Architected complex system prompts for a virtual try-on and AI stylist application, enabling the platform to accurately process user dimensions, multi-angle photos, and clothing imagery.
+            </div>
+            <div class="case-thumbs">
+                <div class="thumb" style="background: white; border: 1px solid #ddd;">
+                    <img src="https://images.unsplash.com/photo-1558769132-cb1fac08404a?w=200&q=80" style="opacity: 0.4;">
+                </div>
+                <div class="thumb">
+                    <img src="https://images.unsplash.com/photo-1532453288672-3a27e9be9efd?w=200&q=80">
+                </div>
+                <div class="thumb">
+                    <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=200&q=80">
+                </div>
+            </div>
+        </div>
+
+        <div class="case-bottom-title">/AI_Stylist<sup style="font-size: 0.4em;">®</sup></div>
+    </section>
+
+    <!-- 4. FEATURED PROJECTS -->
+    <section class="featured-section">
+        <h2 class="feat-title">Featured<br><em>Generations</em><span class="feat-reg">®</span></h2>
+        
+        <div class="projects-grid">
+            <div class="proj-card">
+                <div class="proj-header">
+                    <h3 class="proj-name">/AZer-t Studio</h3>
+                    <p class="proj-desc">Unreal Engine 5 Aesthetics & Interactive Voice NPCs</p>
+                </div>
+                <div class="proj-img-box">
+                    <img src="https://images.unsplash.com/photo-1605806616949-1e87b487cb2a?auto=format&fit=crop&w=1000&q=80" alt="3D Game Character">
+                </div>
+            </div>
+            <div class="proj-card">
+                <div class="proj-header">
+                    <h3 class="proj-name">/AI-Integrated Web</h3>
+                    <p class="proj-desc">Live Vibe-Coded Web Environment with ElevenLabs Voice Agent</p>
+                </div>
+                <div class="proj-img-box" style="background: #e8e8e8;">
+                    <img src="https://images.unsplash.com/photo-1618761714954-0b8cd0026356?auto=format&fit=crop&w=1000&q=80" alt="Web Agent UI" style="box-shadow: 0 30px 60px rgba(0,0,0,0.15); border-radius: 16px; transform: scale(0.85);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. HEY! BIO SECTION -->
+    <section class="hey-section" id="bio">
+        <div class="hey-header">
+            <h2 class="hey-title">Hey!</h2>
+            <svg class="vibe-svg" viewBox="0 0 100 100" fill="none" stroke="var(--primary-accent)" stroke-width="3">
+                <circle cx="50" cy="50" r="40" stroke-dasharray="10 15"/>
+                <circle cx="50" cy="50" r="25" stroke="var(--secondary-accent)"/>
+                <circle cx="50" cy="50" r="5" fill="var(--text-color)"/>
+                <path d="M50 10 L50 25 M50 75 L50 90 M10 50 L25 50 M75 50 L90 50" />
+            </svg>
+        </div>
+        
+        <div class="hey-grid">
+            <div class="hey-col-1">
+                <p>Vibe-coded by <em>Dan Usman</em>, an AI Solutions Architect based remotely, engineering production-ready assets at <strong>©AZer-t.</strong></p>
+            </div>
+            
+            <div class="hey-col-2">
+                <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80" alt="Cyber Vibe Environment">
+                <svg class="overlay-icon" viewBox="0 0 100 100" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M50 10 L90 30 L90 70 L50 90 L10 70 L10 30 Z" />
+                    <line x1="50" y1="50" x2="50" y2="90"/>
+                    <line x1="50" y1="50" x2="10" y2="30"/>
+                    <line x1="50" y1="50" x2="90" y2="30"/>
+                </svg>
+            </div>
+            
+            <div class="hey-col-3">
+                <div class="hey-num">(AI)</div>
+                <p>I am an innovative AI Prompt Engineer specializing in multi-modal generative AI, advanced constraint optimization, and full-stack integrations. I craft production-ready prompts for text-to-video (Sora, VEO 3), text-to-image (Midjourney, DALL-E 3), and voice systems.</p>
+                <p>My work focuses on building autonomous workflows, interactive voice agents, and AI-driven applications using modern IDEs like Cursor. With deep expertise in tools like n8n and ElevenLabs, I continue to push the boundaries of photorealistic UE5-style aesthetics and natural language interactions.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. CALL TO ACTION -->
+    <section class="cta-section">
+        <h2 class="cta-title">Let's build<br>the future.</h2>
+        <a href="mailto:Uabdul88@gmail.com" class="cta-btn">
+            Initiate Protocol
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+        </a>
+    </section>
+
+</body>
+</html>
