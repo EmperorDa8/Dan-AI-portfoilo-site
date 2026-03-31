@@ -10,9 +10,8 @@ export function SelectedWorks() {
 
                 {/* Project 1 */}
                 <a href="https://vermillion-travesseiro-d1b2de.netlify.app/" target="_blank" rel="noopener noreferrer" className="group reveal block">
-                    <div className="w-full aspect-[4/3] rounded-4xl img-placeholder border border-borderDark mb-6 transition-transform duration-500 group-hover:scale-[0.98]">
-                        <span>Project Image 1</span>
-                        {/* <img src="proj1.jpg" className="absolute inset-0 w-full h-full object-cover"> */}
+                    <div className="w-full aspect-[4/3] rounded-4xl overflow-hidden border border-borderDark mb-6 transition-transform duration-500 group-hover:scale-[0.98] relative">
+                        <img src="/ai_web_app_ui.png" alt="AI-Integrated Web App" className="absolute inset-0 w-full h-full object-cover" />
                     </div>
                     <div className="flex justify-between items-start px-2">
                         <div>
@@ -30,8 +29,8 @@ export function SelectedWorks() {
 
                 {/* Project 2 */}
                 <a href="https://drive.google.com/drive/folders/1O8acef1kl6LuIFuo7I3l3vauvuBl_4Fu" target="_blank" rel="noopener noreferrer" className="group reveal block" style={{ transitionDelay: '0.1s' }}>
-                    <div className="w-full aspect-[4/3] rounded-4xl img-placeholder border border-borderDark mb-6 transition-transform duration-500 group-hover:scale-[0.98]">
-                        <span>Project Image 2</span>
+                    <div className="w-full aspect-[4/3] rounded-4xl overflow-hidden border border-borderDark mb-6 transition-transform duration-500 group-hover:scale-[0.98] relative">
+                        <img src="/generative_media_studio.png" alt="Generative Media Engine" className="absolute inset-0 w-full h-full object-cover" />
                     </div>
                     <div className="flex justify-between items-start px-2">
                         <div>

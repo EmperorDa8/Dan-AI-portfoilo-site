@@ -47,10 +47,10 @@ export function Works() {
                     <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="Dashboard" className="preview-flyout" />
                 </a>
 
-                <a href="https://pdf-platf.vercel.app/" target="_blank" className="work-row">
+                <a href="https://github.com/EmperorDa8/pdf-platf" target="_blank" className="work-row">
                     <div className="w-col-name">PDF Gallery</div>
                     <div className="w-col-tags">Vibe-Coding / Next.js / MVP / Netflix-style UI</div>
-                    <div className="w-col-type">Web App</div>
+                    <div className="w-col-type">GitHub</div>
                     <img src="https://images.unsplash.com/photo-1555680202-c86f0e12f086?auto=format&fit=crop&w=800&q=80" alt="PDF Gallery App" className="preview-flyout" />
                 </a>
 
@@ -61,10 +61,18 @@ export function Works() {
                     <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" alt="Cover Gen" className="preview-flyout" />
                 </a>
 
+                <a href="https://github.com/EmperorDa8/agentic-x-bot" target="_blank" className="work-row">
+                    <div className="w-col-name">Agent X-Bot</div>
+                    <div className="w-col-tags">Agentic AI / X (Twitter) Automation / Autonomous Social Agent</div>
+                    <div className="w-col-type">GitHub</div>
+                    <img src="https://images.unsplash.com/photo-1611605698335-8b1569810432?auto=format&fit=crop&w=800&q=80" alt="Agent X-Bot" className="preview-flyout" />
+                </a>
+
                 <div className="work-row">
                     <div className="w-col-name">MCP Analytics App</div>
                     <div className="w-col-tags">Google Antigravity Framework / Edge AI Integration / Model Context Protocol</div>
                     <div className="w-col-type">In Dev</div>
+                    <img src="/mcp_analytics_app.png" alt="MCP Analytics App" className="preview-flyout" />
                 </div>
             </div>
         </section>

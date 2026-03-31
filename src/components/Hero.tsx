@@ -3,9 +3,12 @@ export function Hero() {
         <section className="hero-section">
             <div className="hero-text-wrap">
                 <h1 className="hero-title" style={{ fontFamily: "var(--font-mono)", fontSize: "8vw", letterSpacing: "-0.08em" }}>
-                    <span style={{ color: "var(--primary-accent)" }}>&gt;_</span> AI Prompt
+                    <span style={{ color: "var(--primary-accent)" }}>&gt;_</span> AI Product
                 </h1>
                 <span className="hero-joy" style={{ textAlign: "left", paddingLeft: "12vw", marginTop: "2vw" }}>Engineer.</span>
+                <p style={{ textAlign: "left", paddingLeft: "12vw", marginTop: "1rem", fontFamily: "var(--font-mono)", fontSize: "1.2rem", color: "var(--text-color)", opacity: 0.8 }}>
+                    AI Prompt Engineer / Vibe-Coder
+                </p>
 
                 <svg className="ai-sparkle" viewBox="0 0 100 100" fill="none" stroke="var(--text-color)" strokeWidth="6" strokeLinecap="square" strokeLinejoin="miter">
                     <path d="M50 0 C50 35 65 50 100 50 C65 50 50 65 50 100 C50 65 35 50 0 50 C35 50 50 35 50 0 Z" fill="var(--bg-color)" />

@@ -2,7 +2,9 @@ export function CaseStudy() {
     return (
         <section className="case-study">
             <div className="case-showcase">
-                <div className="mock-phone left"></div>
+                <div className="mock-phone left" style={{ padding: 0 }}>
+                    <img src="/mock_phone_left.png" alt="Cyber Game Asset" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </div>
 
                 <div className="mock-phone center">
                     {/* Inner UI Mock for Voice AI */}
@@ -36,8 +38,9 @@ export function CaseStudy() {
                         <div style={{ height: '4px', background: 'transparent', borderTop: '2px dashed #111', marginTop: '20px' }}></div>
                     </div>
                 </div>
-
-                <div className="mock-phone right"></div>
+                <div className="mock-phone right" style={{ padding: 0 }}>
+                    <img src="/mock_phone_right.png" alt="Voice AI UI" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </div>
             </div>
 
             <div className="case-footer">
