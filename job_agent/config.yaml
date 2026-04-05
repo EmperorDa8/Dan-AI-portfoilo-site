@@ -1,0 +1,70 @@
+# ============================================================
+# AI Job Application Agent — Configuration
+# ============================================================
+
+# --- Target Job Titles to Search ---
+target_roles:
+  - "AI Prompt Engineer"
+  - "Generative AI Specialist"
+  - "AI Content Creator"
+  - "AI Automation Engineer"
+  - "Creative AI Developer"
+  - "Generative Media Specialist"
+  - "Prompt Engineer Intern"
+  - "AI Engineer Intern"
+
+# --- Only apply to these seniority levels ---
+job_levels:
+  - intern
+  - entry level
+  - entry-level
+  - junior
+  - graduate
+
+# --- Location Preferences ---
+locations:
+  - Remote
+  - Europe
+  - United Kingdom
+  - France
+  - Germany
+  - Netherlands
+  - UAE
+  - Saudi Arabia
+  - South Africa
+# Set to true to also include any EMEA location
+open_to_emea: true
+
+# --- Application Filters ---
+min_fit_score: 72    # Min % match to bother applying (0-100)
+max_applications_per_run: 15
+skip_already_applied: true
+
+# --- Safety: set dry_run: true to preview without sending ---
+dry_run: true        # CHANGE TO false WHEN READY TO SEND REAL EMAIL
+
+# --- Platforms to Search ---
+platforms:
+  - linkedin
+  - indeed
+  - glassdoor
+
+# --- LinkedIn Scraping ---
+# After you manually log in to LinkedIn, the agent saves your cookies.
+# Set cookie_file path — agent will use this instead of logging in.
+linkedin_cookie_file: "./linkedin_cookies.json"
+
+# --- Email Settings (for sending applications) ---
+email:
+  smtp_server: smtp.gmail.com
+  smtp_port: 587
+  sender_email: Uabdul88@gmail.com
+  # Set environment variable: GMAIL_APP_PASSWORD
+  # Get it: Google Account → Security → App Passwords
+
+# --- LLM Provider ---
+# Supports: openai | gemini
+# Set env var OPENAI_API_KEY or GOOGLE_API_KEY accordingly
+llm_provider: openai          # or "gemini"
+llm_model: gpt-4o-mini        # Fast + cheap. Use gpt-4o for higher quality.
+# gemini_model: gemini-1.5-flash  # Uncomment if using gemini

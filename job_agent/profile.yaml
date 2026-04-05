@@ -1,0 +1,95 @@
+name: Dan Usman
+title: AI Prompt Engineer & Vibe Coder
+location: Remote (Open to EMEA relocation)
+email: Uabdul88@gmail.com
+portfolio: https://dan-ai-portfoilo-site.vercel.app/
+linkedin: https://www.linkedin.com/in/dan-usman-b87282134/
+github: https://github.com/EmperorDa8
+relocation: true
+relocation_regions:
+  - EMEA  # Europe, Middle East & Africa
+notes: "Open to remote-first roles globally. Willing to relocate to any EMEA country if required."
+
+# === FILL IN OPTIONAL EXTRAS BELOW ===
+education:
+  - degree: "Your Degree (e.g. BSc Computer Science)"
+    school: "Your School"
+    year: "Year"
+
+# === YOUR SKILLS ===
+skills:
+  - Advanced Prompt Engineering (ChatGPT-4o, Claude Sonnet, Gemini 2.0)
+  - Text-to-Video Generation: OpenAI Sora, Google VEO 3, Kling 2.6, Runway Gen-3
+  - Text-to-Image Generation: Midjourney, DALL-E 3, Stable Diffusion
+  - Voice AI Agents: ElevenLabs API (in-game NPCs, enterprise banking chatbots)
+  - Vibe Coding: Cursor IDE, Python, Node.js, Next.js
+  - n8n Workflow Automation & API Routing
+  - 3D Game Asset Production (Unreal Engine 5)
+  - Zero-Shot & Few-Shot Learning techniques
+  - A/B Testing for AI-generated outputs
+  - Interactive 3D Environments (WorldLabs Marble platform)
+  - Model Context Protocol (MCP) / Edge AI Integration
+  - Google Antigravity Framework
+
+# === YOUR WORK EXPERIENCE ===
+experience:
+  - role: AI Prompt Engineer
+    company: AZer-t (French Video Game Studio)
+    period: Sept 2025 - Present
+    type: full-time
+    highlights:
+      - Engineered production-quality game assets (characters, environments, weapons) using advanced multi-modal prompts in Midjourney & Stable Diffusion for Unreal Engine 5
+      - Designed visual prompts for AI-generated immersive weapon/environmental sounds including precise AI audio
+      - Built interactive voice AI agents for in-game NPCs, integrating conversational AI mechanics into core gameplay
+
+  - role: AI Solutions Developer
+    company: Freelance & Contract
+    period: 2024 - 2025
+    type: freelance
+    highlights:
+      - Developed optimized semantic prompts for marketing campaigns, blogs, and translations using GPT-4, Claude, and Gemini
+      - Generated end-to-end short-form UGC videos via AI pipeline optimized for high social media engagement metrics
+
+# === YOUR PROJECTS ===
+projects:
+  - name: AZer-t Studio — Game Asset Production
+    url: https://drive.google.com/drive/folders/1O8acef1kl6LuIFuo7I3l3vauvuBl_4Fu
+    description: Engineered production-quality 3D game characters, environments and weapons for a French Video Game Studio using Midjourney, Sora, Kling 2.6 and UE5.
+    tags: [generative-ai, 3d, game-dev, midjourney, sora, kling, ue5]
+
+  - name: Enterprise Banking Voice Bot
+    url: https://vermillion-travesseiro-d1b2de.netlify.app/
+    description: Full-stack voice-enabled enterprise banking assistant with real-time AI voice interactions, built with ElevenLabs API and n8n background automation workflows.
+    tags: [voice-ai, elevenlabs, n8n, full-stack, automation]
+
+  - name: PDF Gallery App
+    url: https://pdf-platf.vercel.app/
+    description: Netflix-style PDF viewer web app vibe-coded with Next.js — rapid MVP delivery demonstrating full-stack vibe coding ability.
+    tags: [nextjs, vibe-coding, mvp, full-stack]
+
+  - name: Art Cover Generator
+    url: https://github.com/EmperorDa8/art-app-cover-gen
+    description: AI image generation web app for auto-generating art cover designs — early 2026 sandbox project in generative AI.
+    tags: [ai-image, generative-ai, vibe-coding, github]
+
+  - name: Gen-AI Repository
+    url: https://github.com/EmperorDa8/generativeAI
+    description: Comprehensive GitHub repository covering prompt engineering techniques, examples, and pipelines across text, image, and video generative AI models.
+    tags: [prompt-engineering, generative-ai, llm, github]
+
+  - name: Marble WorldLabs Simulations (×7)
+    url: https://marble.worldlabs.ai/world/0007ca41-6e04-47a7-b3cf-f4c2c9f372d5
+    description: 7 interactive generative 3D environments built and published on the WorldLabs Marble platform.
+    other_urls:
+      - https://marble.worldlabs.ai/world/c79cfa02-265e-4aad-8c2e-bfae9fd8a22e
+      - https://marble.worldlabs.ai/world/eaf7a6be-601c-4cf2-9af2-388bfad7271e
+      - https://marble.worldlabs.ai/world/0a6c848f-6a23-4f41-811e-e00c12ab9b97
+      - https://marble.worldlabs.ai/world/00eee396-d19b-4063-afd2-8abe74de30cc
+      - https://marble.worldlabs.ai/world/4846b76b-f426-4380-863d-c8479a8277aa
+      - https://marble.worldlabs.ai/world/11db85f7-ed8f-4a23-81ab-189c3f872a9b
+    tags: [3d, worldlabs, generative-ai, interactive]
+
+  - name: AI Portfolio Site
+    url: https://dan-ai-portfoilo-site.vercel.app/
+    description: Personal portfolio built with React/TypeScript/Vite showcasing generative AI and vibe-coding project portfolio.
+    tags: [react, typescript, vite, portfolio]
