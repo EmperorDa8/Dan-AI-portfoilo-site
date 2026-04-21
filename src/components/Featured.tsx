@@ -46,6 +46,17 @@ export function Featured() {
                         <img src="https://images.unsplash.com/photo-1618761714954-0b8cd0026356?auto=format&fit=crop&w=1000&q=80" alt="Web Agent UI" style={{ border: 'var(--b-border)', transform: 'scale(0.85)' }} />
                     </a>
                 </div>
+                <div className="proj-card">
+                    <div className="proj-header">
+                        <a href="https://drive.google.com/drive/folders/1GbHqFB70Bixpq5on7Efg1PGLLPEA0Af1?usp=sharing" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <h3 className="proj-name">/Ad Scale Gen</h3>
+                        </a>
+                        <p className="proj-desc">AI Ad Image Generation Pipeline</p>
+                    </div>
+                    <a href="https://drive.google.com/drive/folders/1GbHqFB70Bixpq5on7Efg1PGLLPEA0Af1?usp=sharing" target="_blank" rel="noopener noreferrer" className="proj-img-box" style={{ textDecoration: 'none' }}>
+                        <img src="/ad_generator_thumbnail.png" alt="Ad Generator UI" />
+                    </a>
+                </div>
             </div>
         </section>
     );
