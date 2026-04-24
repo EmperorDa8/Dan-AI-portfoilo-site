@@ -3,7 +3,14 @@ export function Works() {
         <section className="work-section" id="work">
             <h2 className="work-title">Repositories &amp; Worlds</h2>
             <div className="work-list">
-                <a href="https://github.com/EmperorDa8/generativeAI" target="_blank" className="work-row active">
+                <a href="https://card-clutter-clear.lovable.app/" target="_blank" className="work-row active">
+                    <div className="w-col-name">Card Clutter Clear</div>
+                    <div className="w-col-tags">Built in &lt; 2 hrs / AI Product Engineer / Live Prototype</div>
+                    <div className="w-col-type">Live App</div>
+                    <img src="https://images.unsplash.com/photo-1555680202-c86f0e12f086?auto=format&fit=crop&w=800&q=80" alt="Card Clutter Clear App" className="preview-flyout" />
+                </a>
+
+                <a href="https://github.com/EmperorDa8/generativeAI" target="_blank" className="work-row">
                     <div className="w-col-name">Gen-AI Repo</div>
                     <div className="w-col-tags">Prompt Engineering / Text, Image &amp; Video Generative Models</div>
                     <div className="w-col-type">GitHub</div>
