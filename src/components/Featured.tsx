@@ -7,12 +7,12 @@ export function Featured() {
                 <div className="proj-card">
                     <div className="proj-header">
                         <a href="https://card-clutter-clear.lovable.app/" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
-                            <h3 className="proj-name" style={{ marginBottom: 0 }}>/Card Clutter Clear</h3>
+                            <h3 className="proj-name" style={{ marginBottom: 0 }}>/subkit</h3>
                         </a>
-                        <p className="proj-desc">Live Prototype • Built & Shipped in &lt; 2 hrs by AI Product Engineer</p>
+                        <p className="proj-desc">Live Prototype</p>
                     </div>
                     <a href="https://card-clutter-clear.lovable.app/" target="_blank" rel="noopener noreferrer" className="proj-img-box" style={{ textDecoration: 'none', overflow: 'hidden' }}>
-                        <img src="https://image.thum.io/get/width/1200/crop/800/https://card-clutter-clear.lovable.app/" alt="Card Clutter Clear Live App Thumbnail" style={{ border: 'var(--b-border)', minHeight: '100%', objectFit: 'cover' }} />
+                        <img src="/subkit.png" alt="Subkit Live App Thumbnail" style={{ border: 'var(--b-border)', minHeight: '100%', objectFit: 'cover' }} />
                     </a>
                 </div>
 
