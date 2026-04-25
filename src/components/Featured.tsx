@@ -6,6 +6,18 @@ export function Featured() {
             <div className="projects-grid">
                 <div className="proj-card">
                     <div className="proj-header">
+                        <a href="https://galaxyflow.lovable.app/" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <h3 className="proj-name" style={{ marginBottom: 0 }}>/Galaxyflow</h3>
+                        </a>
+                        <p className="proj-desc">Live Prototype - Audio mood to Album Art</p>
+                    </div>
+                    <a href="https://galaxyflow.lovable.app/" target="_blank" rel="noopener noreferrer" className="proj-img-box" style={{ textDecoration: 'none', overflow: 'hidden' }}>
+                        <img src="/galaxyflow_thumbnail.png" alt="Galaxyflow Live App Thumbnail" style={{ border: 'var(--b-border)', minHeight: '100%', objectFit: 'cover' }} />
+                    </a>
+                </div>
+
+                <div className="proj-card">
+                    <div className="proj-header">
                         <a href="https://card-clutter-clear.lovable.app/" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
                             <h3 className="proj-name" style={{ marginBottom: 0 }}>/subkit</h3>
                         </a>
