@@ -54,11 +54,11 @@ export function Works() {
                     <img src="https://images.unsplash.com/photo-1555680202-c86f0e12f086?auto=format&fit=crop&w=800&q=80" alt="PDF Gallery App" className="preview-flyout" />
                 </a>
 
-                <a href="https://github.com/EmperorDa8/art-app-cover-gen" target="_blank" className="work-row">
-                    <div className="w-col-name">Art Cover Gen</div>
-                    <div className="w-col-tags">Vibe-Coding / AI Image Generation / Early 2026 Sandbox</div>
-                    <div className="w-col-type">GitHub</div>
-                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" alt="Cover Gen" className="preview-flyout" />
+                <a href="https://galaxyflow.lovable.app" target="_blank" className="work-row">
+                    <div className="w-col-name">Galaxyflow</div>
+                    <div className="w-col-tags">Audio-to-Music Art / Lovable / AI Generated Concepts</div>
+                    <div className="w-col-type">Prototype</div>
+                    <img src="/galaxyflow_thumbnail.png" alt="Galaxyflow Cover Gen" className="preview-flyout" />
                 </a>
 
                 <a href="https://github.com/EmperorDa8/agentic-x-bot" target="_blank" className="work-row">

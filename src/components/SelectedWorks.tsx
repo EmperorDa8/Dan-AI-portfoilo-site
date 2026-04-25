@@ -46,7 +46,26 @@ export function SelectedWorks() {
                     </div>
                 </a>
 
-                {/* Project 3 (In Dev) */}
+                {/* Project 3 */}
+                <a href="https://galaxyflow.lovable.app" target="_blank" rel="noopener noreferrer" className="group reveal block" style={{ transitionDelay: '0.2s' }}>
+                    <div className="w-full aspect-[4/3] rounded-4xl overflow-hidden border border-borderDark mb-6 transition-transform duration-500 group-hover:scale-[0.98] relative bg-[#0a0a0a]">
+                        <img src="/galaxyflow_thumbnail.png" alt="Galaxyflow Application" className="absolute inset-0 w-full h-full object-cover" />
+                    </div>
+                    <div className="flex justify-between items-start px-2">
+                        <div>
+                            <h3 className="text-2xl font-bold mb-3 uppercase tracking-tight">Galaxyflow Platform</h3>
+                            <div className="flex gap-2">
+                                <span className="px-3 py-1 text-xs border border-borderDark rounded-full text-textMuted">Lovable App</span>
+                                <span className="px-3 py-1 text-xs border border-borderDark rounded-full text-textMuted">Gen Audio Arts</span>
+                            </div>
+                        </div>
+                        <div className="w-10 h-10 rounded-full bg-cardDark border border-borderDark flex items-center justify-center group-hover:bg-white group-hover:text-black transition-colors">
+                            <i className="ph ph-arrow-up-right text-lg"></i>
+                        </div>
+                    </div>
+                </a>
+
+                {/* Project 4 (In Dev) */}
                 <div className="group reveal block md:col-span-2 mt-8">
                     <div className="bg-cardDark border border-borderDark rounded-4xl p-8 md:p-12 flex flex-col md:flex-row justify-between items-center gap-8">
                         <div className="max-w-xl">
