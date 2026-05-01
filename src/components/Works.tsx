@@ -54,6 +54,13 @@ export function Works() {
                     <img src="https://images.unsplash.com/photo-1555680202-c86f0e12f086?auto=format&fit=crop&w=800&q=80" alt="PDF Gallery App" className="preview-flyout" />
                 </a>
 
+                <a href="https://venuturescout.lovable.app/" target="_blank" className="work-row active">
+                    <div className="w-col-name">VentureScout</div>
+                    <div className="w-col-tags">AI Investment Scout / Local Business Risk Scoring / Portfolio Management</div>
+                    <div className="w-col-type">Prototype</div>
+                    <img src="/venturescout_thumbnail.png" alt="VentureScout AI Asset Manager" className="preview-flyout" />
+                </a>
+
                 <a href="https://galaxyflow.lovable.app" target="_blank" className="work-row">
                     <div className="w-col-name">Galaxyflow</div>
                     <div className="w-col-tags">Audio-to-Music Art / Lovable / AI Generated Concepts</div>

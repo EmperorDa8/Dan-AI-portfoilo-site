@@ -18,8 +18,9 @@
     --b-shadow-hover: 12px 12px 0px #111;
 
     /* Typography */
-    --font-display: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    --font-body: 'Inter', sans-serif;
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'JetBrains Mono', monospace;
+    --font-mono: 'JetBrains Mono', monospace;
   }
 
   * {
@@ -43,7 +44,7 @@
     font-family: var(--font-display);
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
-    line-height: 1;
+    line-height: 1.5;
   }
 }
 
@@ -68,6 +69,12 @@ nav {
 .nav-left {
   display: flex;
   gap: 3rem;
+}
+
+.nav-right {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
 }
 
 nav a {
@@ -712,6 +719,79 @@ nav a.active::after {
   background: var(--secondary-accent);
   color: #fff;
   box-shadow: var(--b-shadow-hover);
+}
+
+/* --- Marquee --- */
+.marquee-container {
+  overflow: hidden;
+  border-top: var(--b-border);
+  border-bottom: var(--b-border);
+  padding: 1.2rem 0;
+  background: var(--text-color);
+  color: #fff;
+}
+
+.marquee-content {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 22s linear infinite;
+}
+
+.marquee-content span {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  padding: 0 2.5rem;
+  position: relative;
+}
+
+.marquee-content span::after {
+  content: '·';
+  position: absolute;
+  right: 0;
+  transform: translateX(50%);
+  opacity: 0.4;
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* --- Site Footer --- */
+.site-footer {
+  border-top: var(--b-border);
+  padding: 3vw 4vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: var(--bg-color);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.site-footer a {
+  text-decoration: none;
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+
+.site-footer a:hover {
+  color: var(--primary-accent);
+}
+
+.site-footer-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
 }
 
 /* --- Responsive --- */

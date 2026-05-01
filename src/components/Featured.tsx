@@ -6,6 +6,18 @@ export function Featured() {
             <div className="projects-grid">
                 <div className="proj-card">
                     <div className="proj-header">
+                        <a href="https://venuturescout.lovable.app/" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <h3 className="proj-name" style={{ marginBottom: 0 }}>/VentureScout</h3>
+                        </a>
+                        <p className="proj-desc">Live Prototype - AI Scout & Asset Manager for Local Investments</p>
+                    </div>
+                    <a href="https://venuturescout.lovable.app/" target="_blank" rel="noopener noreferrer" className="proj-img-box" style={{ textDecoration: 'none', overflow: 'hidden' }}>
+                        <img src="/venturescout_thumbnail.png" alt="VentureScout Live App Thumbnail" style={{ border: 'var(--b-border)', minHeight: '100%', objectFit: 'cover' }} />
+                    </a>
+                </div>
+
+                <div className="proj-card">
+                    <div className="proj-header">
                         <a href="https://galaxyflow.lovable.app/" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
                             <h3 className="proj-name" style={{ marginBottom: 0 }}>/Galaxyflow</h3>
                         </a>
