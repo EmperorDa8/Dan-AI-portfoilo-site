@@ -48,7 +48,7 @@ export function CaseStudy() {
                     Architected complex system prompts and automation workflows for an interactive voice AI application, enabling the platform to generate dynamic, personality-driven NPC dialogue in real-time.
                 </div>
                 <div className="case-thumbs">
-                    <div className="thumb" style={{ background: 'white', border: '1px solid #ddd' }}>
+                    <div className="thumb">
                         <img src="https://images.unsplash.com/photo-1558769132-cb1fac08404a?w=200&q=80" style={{ opacity: 0.4 }} alt="Thumb 1" />
                     </div>
                     <div className="thumb">

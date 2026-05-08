@@ -35,8 +35,8 @@ export function Navigation() {
                 <a href="#work" className={activeSection === 'work' ? 'active' : ''}>WORK</a>
             </div>
             <div className="nav-right">
-                <a href="https://www.linkedin.com/in/dan-usman/" target="_blank" rel="noopener noreferrer" style={{ marginRight: '1rem' }}>LINKEDIN</a>
-                <a href="https://github.com/EmperorDa8" target="_blank" rel="noopener noreferrer" style={{ marginRight: '1rem' }}>GITHUB</a>
+                <a href="https://www.linkedin.com/in/dan-usman/" target="_blank" rel="noopener noreferrer">LINKEDIN</a>
+                <a href="https://github.com/EmperorDa8" target="_blank" rel="noopener noreferrer">GITHUB</a>
                 <a href="mailto:Uabdul88@gmail.com">CONTACT</a>
             </div>
         </nav>

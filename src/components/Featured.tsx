@@ -11,8 +11,8 @@ export function Featured() {
                         </a>
                         <p className="proj-desc">Live Prototype - AI Scout & Asset Manager for Local Investments</p>
                     </div>
-                    <a href="https://venuturescout.lovable.app/" target="_blank" rel="noopener noreferrer" className="proj-img-box" style={{ textDecoration: 'none', overflow: 'hidden' }}>
-                        <img src="/venturescout_thumbnail.png" alt="VentureScout Live App Thumbnail" style={{ border: 'var(--b-border)', minHeight: '100%', objectFit: 'cover' }} />
+                    <a href="https://venuturescout.lovable.app/" target="_blank" rel="noopener noreferrer" className="proj-img-box" style={{ textDecoration: 'none' }}>
+                        <img src="/venturescout_thumbnail.png" alt="VentureScout Live App Thumbnail" />
                     </a>
                 </div>
 
@@ -23,8 +23,8 @@ export function Featured() {
                         </a>
                         <p className="proj-desc">Live Prototype - Audio mood to Album Art</p>
                     </div>
-                    <a href="https://galaxyflow.lovable.app/" target="_blank" rel="noopener noreferrer" className="proj-img-box" style={{ textDecoration: 'none', overflow: 'hidden' }}>
-                        <img src="/galaxyflow_thumbnail.png" alt="Galaxyflow Live App Thumbnail" style={{ border: 'var(--b-border)', minHeight: '100%', objectFit: 'cover' }} />
+                    <a href="https://galaxyflow.lovable.app/" target="_blank" rel="noopener noreferrer" className="proj-img-box" style={{ textDecoration: 'none' }}>
+                        <img src="/galaxyflow_thumbnail.png" alt="Galaxyflow Live App Thumbnail" />
                     </a>
                 </div>
 
@@ -35,8 +35,8 @@ export function Featured() {
                         </a>
                         <p className="proj-desc">Live Prototype</p>
                     </div>
-                    <a href="https://card-clutter-clear.lovable.app/" target="_blank" rel="noopener noreferrer" className="proj-img-box" style={{ textDecoration: 'none', overflow: 'hidden' }}>
-                        <img src="/subkit.png" alt="Subkit Live App Thumbnail" style={{ border: 'var(--b-border)', minHeight: '100%', objectFit: 'cover' }} />
+                    <a href="https://card-clutter-clear.lovable.app/" target="_blank" rel="noopener noreferrer" className="proj-img-box" style={{ textDecoration: 'none' }}>
+                        <img src="/subkit.png" alt="Subkit Live App Thumbnail" />
                     </a>
                 </div>
 
@@ -55,7 +55,7 @@ export function Featured() {
                         <p className="proj-desc">YouTube Competitor Analyzer - Live Channel Intelligence</p>
                     </div>
                     <a href="https://you-rev.vercel.app/" target="_blank" rel="noopener noreferrer" className="proj-img-box" style={{ textDecoration: 'none' }}>
-                        <img src="/yourev_screenshot.png" alt="YouRev UI" style={{ border: 'var(--b-border)' }} />
+                        <img src="/yourev_screenshot.png" alt="YouRev UI" />
                     </a>
                 </div>
 
@@ -79,7 +79,7 @@ export function Featured() {
                         <p className="proj-desc">Live Vibe-Coded Web Environment with Voice Interactions</p>
                     </div>
                     <a href="https://vermillion-travesseiro-d1b2de.netlify.app/" target="_blank" rel="noopener noreferrer" className="proj-img-box" style={{ textDecoration: 'none' }}>
-                        <img src="https://images.unsplash.com/photo-1618761714954-0b8cd0026356?auto=format&fit=crop&w=1000&q=80" alt="Web Agent UI" style={{ border: 'var(--b-border)', transform: 'scale(0.85)' }} />
+                        <img src="https://images.unsplash.com/photo-1618761714954-0b8cd0026356?auto=format&fit=crop&w=1000&q=80" alt="Web Agent UI" />
                     </a>
                 </div>
                 <div className="proj-card">

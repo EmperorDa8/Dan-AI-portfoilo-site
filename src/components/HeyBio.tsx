@@ -33,7 +33,7 @@ export function HeyBio() {
 
                     <h3 style={{ fontSize: '1.2rem', marginTop: '2rem', marginBottom: '1rem', fontWeight: 700, fontFamily: 'var(--font-mono)', borderBottom: '2px solid #111', paddingBottom: '0.5rem', width: '100%' }}>CORE_COMPETENCIES</h3>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                        {['Advanced Prompting', 'Sora / VEO 3', 'Midjourney', 'Voice AI Agents', 'Cursor IDE', 'n8n Workflow', 'Google Antigravity'].map((skill, i) => (
+                        {['Advanced Prompting', 'Sora / VEO 3', 'Midjourney', 'Voice AI Agents', 'Cursor IDE', 'n8n Workflow', 'Google Antigravity', 'Claude Code', 'OpenDesign.to'].map((skill, i) => (
                             <span key={i} style={{ padding: '6px 12px', fontSize: '0.8rem', border: 'var(--b-border)', boxShadow: '2px 2px 0px #111', borderRadius: '0', fontFamily: 'var(--font-mono)', fontWeight: 'bold', background: '#fff' }}>{skill}</span>
                         ))}
                     </div>
