@@ -36,6 +36,9 @@ export function Expertise() {
                     <p className="text-textMuted text-sm leading-relaxed mb-6">Rapid app logic deployment, NLP &amp; Machine learning scripting, and advanced API workflow routing.</p>
                     <div className="flex flex-wrap gap-2">
                         <span className="px-3 py-1 border border-borderDark rounded-full text-xs">Cursor App</span>
+                        <span className="px-3 py-1 border border-borderDark rounded-full text-xs">Claude Code</span>
+                        <span className="px-3 py-1 border border-borderDark rounded-full text-xs">Lovable</span>
+                        <span className="px-3 py-1 border border-borderDark rounded-full text-xs">Rocket AI</span>
                         <span className="px-3 py-1 border border-borderDark rounded-full text-xs">Python / Node.js</span>
                         <span className="px-3 py-1 border border-borderDark rounded-full text-xs">n8n Automation</span>
                     </div>
