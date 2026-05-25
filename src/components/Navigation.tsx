@@ -37,7 +37,7 @@ export function Navigation() {
                 <a href="#expertise" className={activeSection === 'expertise' ? 'active' : ''}>EXPERTISE</a>
             </div>
             <div className="nav-right">
-                <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">RESUME ↗</a>
+                <a href="/Dan_Usman_CV_PE_2026.docx" download>RESUME ↗</a>
                 <a href="https://www.linkedin.com/in/dan-usman/" target="_blank" rel="noopener noreferrer">LINKEDIN</a>
                 <a href="https://github.com/EmperorDa8" target="_blank" rel="noopener noreferrer">GITHUB</a>
                 <a href="mailto:Uabdul88@gmail.com">CONTACT</a>
