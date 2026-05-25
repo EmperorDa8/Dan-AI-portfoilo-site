@@ -6,6 +6,7 @@ import { Works } from './components/Works';
 import { CaseStudy } from './components/CaseStudy';
 import { Featured } from './components/Featured';
 import { VentureScoutCase } from './components/VentureScoutCase';
+import { FreelanceCase } from './components/FreelanceCase';
 import { Experience } from './components/Experience';
 import { Expertise } from './components/Expertise';
 import { HeyBio } from './components/HeyBio';
@@ -39,6 +40,7 @@ function App() {
       <Works />
       <CaseStudy />
       <VentureScoutCase />
+      <FreelanceCase />
       <Featured />
       <Experience />
       <Expertise />
