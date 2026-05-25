@@ -29,7 +29,7 @@ export function HeyBio() {
                     viewport={{ once: true }}
                     className="hey-col-1" style={{ flexDirection: 'column', alignItems: 'flex-start' }}
                 >
-                    <p>Vibe-coded by <em>Dan Usman</em>, an AI Product Engineer &amp; Vibe Coder based remotely, engineering production-ready assets and environments.</p>
+                    <p>By <em>Dan Usman</em> &mdash; an <strong>AI Product Engineer</strong> based remotely, engineering production-ready AI tools, environments, and shipping them end-to-end.</p>
 
                     <h3 style={{ fontSize: '1.2rem', marginTop: '2rem', marginBottom: '1rem', fontWeight: 700, fontFamily: 'var(--font-mono)', borderBottom: '2px solid #111', paddingBottom: '0.5rem', width: '100%' }}>CORE_COMPETENCIES</h3>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
@@ -63,7 +63,7 @@ export function HeyBio() {
                     className="hey-col-3"
                 >
                     <div className="hey-num">(AI)</div>
-                    <p>I am an innovative <strong>AI Product Engineer</strong>, <strong>AI Prompt Engineer</strong>, and <strong>Vibe-Coder</strong> specializing in fast prototyping, building MVPs, and shipping them to production. The projects listed here demonstrate my experience taking ideas from concept to fully deployed systems.</p>
+                    <p>I am an <strong>AI Product Engineer</strong> specializing in rapid prototyping, building MVPs, and shipping them to production. The projects listed here demonstrate my experience taking ideas from concept to fully deployed systems &mdash; prompt architecture, vibe-coding workflows, and modern AI tooling included.</p>
                     <p>Some projects are live in production while others are queued for deployment as I scope hosting infrastructure. Recently wrapped a contract at <strong>AZer-t</strong> and am <strong>actively open to AI Product Engineer roles</strong> &mdash; fully remote, or onsite with relocation.</p>
                     <div style={{ borderLeft: '2px solid var(--secondary-accent)', paddingLeft: '1rem', marginTop: '2rem', fontStyle: 'italic', fontSize: '0.9rem' }}>
                         "Focusing on highly-detailed visuals, rapid MVPs, and vibe-coding full-stack applications with modern IDEs and automation protocols."

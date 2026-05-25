@@ -24,7 +24,7 @@ export function Hero() {
                     {...fadeUp(0.3)}
                     style={{ textAlign: "left", paddingLeft: "12vw", marginTop: "1rem", fontFamily: "var(--font-mono)", fontSize: "1rem", color: "var(--text-color)", opacity: 0.6, letterSpacing: "0.08em", textTransform: "uppercase" }}
                 >
-                    AI Prompt Engineer / Vibe-Coder
+                    Builds &amp; Ships AI Products / MVPs
                 </motion.p>
 
                 <svg className="ai-sparkle" viewBox="0 0 100 100" fill="none" stroke="var(--text-color)" strokeWidth="6" strokeLinecap="square" strokeLinejoin="miter">

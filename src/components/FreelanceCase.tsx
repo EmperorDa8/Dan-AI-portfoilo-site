@@ -34,7 +34,7 @@ export function FreelanceCase() {
                         Private<br/><span className="text-textMuted">Client &mdash; AI MVP</span>
                     </h2>
                     <p className="text-textMuted mt-4 max-w-lg">
-                        Freelance engagement &mdash; built and shipped an open-source AI tool MVP for an independent client preparing for a digital-technology role.
+                        Freelance engagement &mdash; built and shipped an <strong className="text-white">LLM-powered developer tool MVP</strong>, open-sourced on GitHub, for an independent client entering a digital-technology role.
                     </p>
                 </motion.div>
 
