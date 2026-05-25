@@ -47,7 +47,7 @@ export function VentureScoutCase() {
 
                 <motion.div {...reveal(0)} className="bg-[#0a0a0a] border border-borderDark rounded-4xl p-8">
                     <div className="text-xs mb-4 text-[#ff6b6b]" style={{ fontFamily: 'var(--font-mono)' }}>01 / PROBLEM</div>
-                    <h3 className="text-xl font-bold mb-4 uppercase tracking-tight">Local investors fly blind.</h3>
+                    <h3 className="text-xl font-bold mb-4 uppercase tracking-tight text-white">Local investors fly blind.</h3>
                     <p className="text-textMuted text-sm leading-relaxed">
                         Angel investors and family offices evaluating local SMBs lack structured risk signals.
                         Decisions rely on gut feel, sparse spreadsheets, and slow human due-diligence.
@@ -56,7 +56,7 @@ export function VentureScoutCase() {
 
                 <motion.div {...reveal(0.1)} className="bg-[#0a0a0a] border border-borderDark rounded-4xl p-8">
                     <div className="text-xs mb-4 text-[#ffaa00]" style={{ fontFamily: 'var(--font-mono)' }}>02 / APPROACH</div>
-                    <h3 className="text-xl font-bold mb-4 uppercase tracking-tight">Score, surface, decide.</h3>
+                    <h3 className="text-xl font-bold mb-4 uppercase tracking-tight text-white">Score, surface, decide.</h3>
                     <p className="text-textMuted text-sm leading-relaxed">
                         Built an LLM-powered scoring pipeline that ingests business signals, weights them against
                         a tunable risk model, and renders a portfolio dashboard with explainable verdicts.
@@ -65,7 +65,7 @@ export function VentureScoutCase() {
 
                 <motion.div {...reveal(0.2)} className="bg-[#0a0a0a] border border-borderDark rounded-4xl p-8">
                     <div className="text-xs mb-4 text-[#7cf29c]" style={{ fontFamily: 'var(--font-mono)' }}>03 / IMPACT</div>
-                    <h3 className="text-xl font-bold mb-4 uppercase tracking-tight">Idea → MVP in 9 days.</h3>
+                    <h3 className="text-xl font-bold mb-4 uppercase tracking-tight text-white">Idea → MVP in 9 days.</h3>
                     <p className="text-textMuted text-sm leading-relaxed">
                         Shipped a live, shareable prototype that turns a 2&ndash;3 week diligence cycle into a
                         same-day scan. Demoed to early users for qualitative feedback &amp; iteration.
@@ -81,7 +81,7 @@ export function VentureScoutCase() {
                     <div className="text-xs mb-6 text-textMuted" style={{ fontFamily: 'var(--font-mono)' }}>BUILD_STACK</div>
                     <div className="flex flex-wrap gap-3">
                         {['Lovable', 'Claude Code', 'GPT-4o', 'Supabase', 'TypeScript', 'TailwindCSS', 'Prompt Engineering', 'Risk Modeling'].map((t, i) => (
-                            <span key={i} className="px-4 py-2 text-sm border border-borderDark rounded-full bg-[#0a0a0a]">{t}</span>
+                            <span key={i} className="px-4 py-2 text-sm border border-borderDark rounded-full bg-[#0a0a0a] text-white">{t}</span>
                         ))}
                     </div>
                 </motion.div>

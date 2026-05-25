@@ -13,10 +13,10 @@ export function Experience() {
                     <div className="bg-cardDark border border-borderDark rounded-4xl p-8 md:p-10 reveal">
                         <div className="flex flex-col md:flex-row justify-between md:items-center gap-4 mb-8">
                             <div>
-                                <h3 className="text-2xl font-bold uppercase tracking-tight">AI Prompt Engineer</h3>
+                                <h3 className="text-2xl font-bold uppercase tracking-tight text-white">AI Prompt Engineer</h3>
                                 <p className="text-textMuted mt-1">AZer-t (French Video Game Studio)</p>
                             </div>
-                            <span className="px-4 py-2 rounded-full border border-borderDark text-sm">Sept 2025 - Present</span>
+                            <span className="px-4 py-2 rounded-full border border-borderDark text-sm text-white">Sept 2025 - Present</span>
                         </div>
                         <ul className="space-y-4 text-textMuted">
                             <li className="flex items-start gap-3"><i className="ph-fill ph-check-circle text-white mt-1"></i> Engineered <strong className="text-white">50+ production-quality game assets</strong> (environments, UI, characters) via multi-modal prompts in Midjourney &amp; Stable Diffusion, cutting concept-to-asset turnaround by ~60%.</li>
@@ -29,10 +29,10 @@ export function Experience() {
                     <div className="bg-cardDark border border-borderDark rounded-4xl p-8 md:p-10 reveal">
                         <div className="flex flex-col md:flex-row justify-between md:items-center gap-4 mb-8">
                             <div>
-                                <h3 className="text-2xl font-bold uppercase tracking-tight">AI Solutions Developer</h3>
+                                <h3 className="text-2xl font-bold uppercase tracking-tight text-white">AI Solutions Developer</h3>
                                 <p className="text-textMuted mt-1">Freelance &amp; Contract</p>
                             </div>
-                            <span className="px-4 py-2 rounded-full border border-borderDark text-sm">2024 - 2025</span>
+                            <span className="px-4 py-2 rounded-full border border-borderDark text-sm text-white">2024 - 2025</span>
                         </div>
                         <ul className="space-y-4 text-textMuted">
                             <li className="flex items-start gap-3"><i className="ph-fill ph-check-circle text-white mt-1"></i> Developed optimized semantic prompts for marketing, blogs, and translations across GPT-4, Claude, and Gemini &mdash; shipped to <strong className="text-white">12+ client projects</strong> with measurable copy-quality lift.</li>
