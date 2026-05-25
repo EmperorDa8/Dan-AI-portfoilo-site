@@ -35,14 +35,14 @@ export function Hero() {
             <motion.div {...fadeUp(0.45)} className="hero-bottom">
                 <div className="hero-year" style={{ border: "var(--b-border)", padding: "0.5rem 1rem", background: "var(--primary-accent)", color: "#fff", boxShadow: "4px 4px 0px #111" }}>©2026_SYS</div>
                 <img
-                    src="/profile-pic.png.png"
+                    src="/profile-pic.png"
                     alt="Dan Usman"
                     className="hero-avatar"
                     onError={(e) => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&q=80&w=300'; }}
                 />
                 <div className="hero-since">
                     <span className="animate-pulse" style={{ display: "inline-block", width: "12px", height: "12px", background: "var(--secondary-accent)", borderRadius: "50%", marginRight: "8px" }}></span>
-                    VIBE_CODER_MODE: ACTIVE
+                    OPEN_TO_WORK: TRUE
                 </div>
             </motion.div>
         </section>

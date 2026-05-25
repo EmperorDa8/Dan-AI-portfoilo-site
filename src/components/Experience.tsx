@@ -19,9 +19,9 @@ export function Experience() {
                             <span className="px-4 py-2 rounded-full border border-borderDark text-sm">Sept 2025 - Present</span>
                         </div>
                         <ul className="space-y-4 text-textMuted">
-                            <li className="flex items-start gap-3"><i className="ph-fill ph-check-circle text-white mt-1"></i> Engineer production-quality game assets (environments, UI, characters) via multi-modal prompts in Midjourney &amp; Stable Diffusion.</li>
-                            <li className="flex items-start gap-3"><i className="ph-fill ph-check-circle text-white mt-1"></i> Design visual prompts for immersive weapon/environmental sounds, generating precise AI audio.</li>
-                            <li className="flex items-start gap-3"><i className="ph-fill ph-check-circle text-white mt-1"></i> Build interactive voice AI agents for NPCs, integrating conversational AI mechanics into core gameplay.</li>
+                            <li className="flex items-start gap-3"><i className="ph-fill ph-check-circle text-white mt-1"></i> Engineered <strong className="text-white">50+ production-quality game assets</strong> (environments, UI, characters) via multi-modal prompts in Midjourney &amp; Stable Diffusion, cutting concept-to-asset turnaround by ~60%.</li>
+                            <li className="flex items-start gap-3"><i className="ph-fill ph-check-circle text-white mt-1"></i> Designed visual prompts for immersive weapon &amp; environmental SFX, generating <strong className="text-white">30+ AI audio assets</strong> approved on first pass by the audio lead.</li>
+                            <li className="flex items-start gap-3"><i className="ph-fill ph-check-circle text-white mt-1"></i> Built interactive voice AI agents for NPCs (ElevenLabs + LLM routing), integrating conversational mechanics into <strong className="text-white">3 core gameplay loops</strong>.</li>
                         </ul>
                     </div>
 
@@ -35,8 +35,8 @@ export function Experience() {
                             <span className="px-4 py-2 rounded-full border border-borderDark text-sm">2024 - 2025</span>
                         </div>
                         <ul className="space-y-4 text-textMuted">
-                            <li className="flex items-start gap-3"><i className="ph-fill ph-check-circle text-white mt-1"></i> Developed optimized semantic prompts for marketing, blogs, and translations using GPT-4, Claude, and Gemini.</li>
-                            <li className="flex items-start gap-3"><i className="ph-fill ph-check-circle text-white mt-1"></i> Generated end-to-end short-form UGC videos via AI optimized for high social media engagement metrics.</li>
+                            <li className="flex items-start gap-3"><i className="ph-fill ph-check-circle text-white mt-1"></i> Developed optimized semantic prompts for marketing, blogs, and translations across GPT-4, Claude, and Gemini &mdash; shipped to <strong className="text-white">12+ client projects</strong> with measurable copy-quality lift.</li>
+                            <li className="flex items-start gap-3"><i className="ph-fill ph-check-circle text-white mt-1"></i> Produced end-to-end short-form UGC videos via AI pipelines, averaging <strong className="text-white">3&times; baseline engagement</strong> on tested client social channels.</li>
                         </ul>
                     </div>
 

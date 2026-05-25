@@ -5,6 +5,9 @@ import { Marquee } from './components/Marquee';
 import { Works } from './components/Works';
 import { CaseStudy } from './components/CaseStudy';
 import { Featured } from './components/Featured';
+import { VentureScoutCase } from './components/VentureScoutCase';
+import { Experience } from './components/Experience';
+import { Expertise } from './components/Expertise';
 import { HeyBio } from './components/HeyBio';
 import { FooterCTA } from './components/FooterCTA';
 import { Footer } from './components/Footer';
@@ -35,7 +38,10 @@ function App() {
       <Marquee />
       <Works />
       <CaseStudy />
+      <VentureScoutCase />
       <Featured />
+      <Experience />
+      <Expertise />
       <HeyBio />
       <FooterCTA />
       <Footer />

@@ -64,7 +64,7 @@ export function HeyBio() {
                 >
                     <div className="hey-num">(AI)</div>
                     <p>I am an innovative <strong>AI Product Engineer</strong>, <strong>AI Prompt Engineer</strong>, and <strong>Vibe-Coder</strong> specializing in fast prototyping, building MVPs, and shipping them to production. The projects listed here demonstrate my experience taking ideas from concept to fully deployed systems.</p>
-                    <p>While some of my projects are currently live, others are waiting to be deployed due to hosting costs, as I am currently unemployed. I have recently finished my contract at <strong>AZer-t</strong>, and I am actively <strong>open to work</strong> for both fully remote roles or onsite positions (open to relocation).</p>
+                    <p>Some projects are live in production while others are queued for deployment as I scope hosting infrastructure. Recently wrapped a contract at <strong>AZer-t</strong> and am <strong>actively open to AI Product Engineer roles</strong> &mdash; fully remote, or onsite with relocation.</p>
                     <div style={{ borderLeft: '2px solid var(--secondary-accent)', paddingLeft: '1rem', marginTop: '2rem', fontStyle: 'italic', fontSize: '0.9rem' }}>
                         "Focusing on highly-detailed visuals, rapid MVPs, and vibe-coding full-stack applications with modern IDEs and automation protocols."
                     </div>

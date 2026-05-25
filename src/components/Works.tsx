@@ -1,6 +1,6 @@
 export function Works() {
     return (
-        <section className="work-section" id="work">
+        <section className="work-section" id="repos">
             <h2 className="work-title">Repositories &amp; Worlds</h2>
             <div className="work-list">
                 <a href="https://github.com/EmperorDa8/generativeAI" target="_blank" className="work-row active">
