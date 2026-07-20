@@ -992,6 +992,208 @@
   color: var(--ink);
 }
 
+/* ============ CASE STUDIES ============ */
+.case-section {
+  padding: 7rem 4vw;
+  border-top: 1px solid var(--line);
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.case-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-pill);
+  padding: 0.45rem 1rem;
+  margin-bottom: 1.3rem;
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--ink);
+}
+
+.pulse-dot.amber {
+  background: #e0a100;
+}
+
+.case-lead {
+  margin-top: 1rem;
+  max-width: 40ch;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.case-lead strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.case-meta-block {
+  display: grid;
+  gap: 0.3rem;
+  align-content: start;
+  text-align: right;
+}
+
+.case-meta-block strong {
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.case-hero {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--r-card);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-soft);
+  margin-bottom: 3rem;
+  background: var(--white);
+}
+
+.case-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.case-hero:hover img {
+  transform: scale(1.03);
+}
+
+.case-phase-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem;
+  margin-bottom: 1.4rem;
+}
+
+.case-phase {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-soft);
+  padding: 2rem;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.case-phase:hover {
+  transform: translateY(-5px);
+}
+
+.case-phase-tag {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.case-phase-title {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 1.2rem;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.7rem;
+}
+
+.case-phase-body {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.case-split {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 1.4rem;
+}
+
+.case-panel {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-soft);
+  padding: 2.2rem;
+}
+
+.case-panel-head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.4rem;
+}
+
+.case-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 1.2rem;
+}
+
+.case-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-pill);
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.5);
+  transition: border-color 0.25s, transform 0.25s;
+}
+
+.case-tag.logo:hover {
+  border-color: var(--ink);
+  transform: translateY(-2px);
+}
+
+.case-tag img {
+  display: block;
+}
+
+.case-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.4rem;
+}
+
+.case-metric {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-soft);
+  padding: 1.6rem;
+}
+
+.case-metric-value {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 1.9rem;
+  letter-spacing: -0.03em;
+  margin: 0.5rem 0 0.2rem;
+}
+
+.case-metric-sub {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
 /* ============ CREDENTIALS ============ */
 .cred-section {
   padding: 7rem 4vw;
@@ -1461,12 +1663,22 @@
 
   .hey-grid,
   .projects-grid,
-  .cred-grid {
+  .cred-grid,
+  .case-phase-grid,
+  .case-split {
     grid-template-columns: 1fr;
   }
 
   .cred-grid {
     gap: 3rem;
+  }
+
+  .case-metric-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .case-meta-block {
+    text-align: left;
   }
 
   .hey-col-2 {

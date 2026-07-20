@@ -6,7 +6,7 @@ import { playTick } from '../sound';
    the hero picks them up automatically, no code change needed. */
 const HERO_BW = '/hero_portrait_bw.jpg';
 const HERO_COLOR = '/hero_portrait_color.jpg';
-const FALLBACK = '/profile-pic.png.png';
+const FALLBACK = '/profile-pic.png';
 
 const CAROUSEL = [
     { src: '/venturescout_thumbnail.png', label: 'VentureScout' },
@@ -94,7 +94,7 @@ export function Hero() {
                 </a>
                 <div className="hero-badge avatar">
                     <img
-                        src="/profile-pic.png.png"
+                        src="/profile-pic.png"
                         alt="Dan Usman"
                         onError={e => {
                             (e.target as HTMLImageElement).src = FALLBACK;

@@ -78,7 +78,7 @@ export function Navigation() {
                             onClick={playClick}
                         >
                             <img
-                                src="/profile-pic.png.png"
+                                src="/profile-pic.png"
                                 alt=""
                                 onError={e => {
                                     (e.target as HTMLImageElement).style.display = 'none';

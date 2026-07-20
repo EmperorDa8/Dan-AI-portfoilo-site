@@ -9,7 +9,13 @@ export default {
       },
       colors: {
         primary: '#6b4cff',
-        secondary: '#ff4c8b'
+        secondary: '#ff4c8b',
+        cardDark: '#0f0f10',
+        borderDark: '#2a2a2c',
+        textMuted: '#a8a8ad',
+      },
+      borderRadius: {
+        '4xl': '2rem',
       },
     },
   },
