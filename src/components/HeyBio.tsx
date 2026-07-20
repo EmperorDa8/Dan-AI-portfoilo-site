@@ -92,10 +92,11 @@ export function HeyBio() {
                     </p>
                     <p>
                         Currently a <strong>freelance / self-directed AI Product Engineer</strong> (Feb 2026 – present): shipped
-                        a UK photo &amp; print e-commerce MVP in one week and an LLM risk-scoring MVP in nine days, and I move
-                        into unfamiliar domains — fintech trade finance, cybersecurity, gaming — in days, not months. Based in{' '}
-                        <strong>Lagos, Nigeria</strong>, working <strong>remote worldwide</strong>, and{' '}
-                        <strong>open to relocation</strong>.
+                        a UK photo &amp; print e-commerce MVP in one week and an LLM risk-scoring MVP in nine days. Before that,
+                        a remote contract as <strong>AI Prompt Engineer</strong> for <strong>AZer-t</strong>, a French mobile
+                        game studio. I'm a <strong>certified AI Prompt Engineer</strong> (Google Prompting Essentials) and{' '}
+                        <strong>certified AI Builder</strong> (CodePath × Anthropic). Based in <strong>Lagos, Nigeria</strong>,
+                        working <strong>remote worldwide</strong>, and <strong>open to relocation</strong>.
                     </p>
                     <div className="hey-quote">
                         "PRD-first specs, CLAUDE.md context files, ruthless scoping — the workflow discipline that makes
