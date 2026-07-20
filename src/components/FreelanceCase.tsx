@@ -21,9 +21,9 @@ const STACK: Tech[] = [
 ];
 
 const PHASES = [
-    { tag: '01 / Problem', accent: '#d1495b', title: 'Need tangible proof, fast.', body: 'Client needed a credible, public AI artefact to demonstrate hands-on capability — understandable to non-technical reviewers, on a fixed budget, with no room for rework.' },
-    { tag: '02 / Approach', accent: '#c07f00', title: 'Scope down. Ship one thing well.', body: 'Resisted the urge to overbuild. Chose a single-purpose MVP with clean docs, a runnable demo, and sensible defaults — built using AI-assisted scaffolding plus manual polish.' },
-    { tag: '03 / Outcome', accent: '#1f9d55', title: 'Live on GitHub in 24h.', body: 'Built end-to-end and shipped to a public open-source repo in a single day. Client signed off same-day — the first deliverable set the bar for the rest of the engagement.' },
+    { tag: '01 / Problem', title: 'Need tangible proof, fast.', body: 'Client needed a credible, public AI artefact to demonstrate hands-on capability — understandable to non-technical reviewers, on a fixed budget, with no room for rework.' },
+    { tag: '02 / Approach', title: 'Scope down. Ship one thing well.', body: 'Resisted the urge to overbuild. Chose a single-purpose MVP with clean docs, a runnable demo, and sensible defaults — built using AI-assisted scaffolding plus manual polish.' },
+    { tag: '03 / Outcome', title: 'Live on GitHub in 24h.', body: 'Built end-to-end and shipped to a public open-source repo in a single day. Client signed off same-day — the first deliverable set the bar for the rest of the engagement.' },
 ];
 
 const METRICS = [
@@ -60,7 +60,7 @@ export function FreelanceCase() {
             <div className="case-phase-grid">
                 {PHASES.map((p, i) => (
                     <motion.div {...reveal(i * 0.1)} className="case-phase" key={p.tag} onMouseEnter={playTick}>
-                        <div className="case-phase-tag" style={{ color: p.accent }}>{p.tag}</div>
+                        <div className="case-phase-tag">{p.tag}</div>
                         <h3 className="case-phase-title">{p.title}</h3>
                         <p className="case-phase-body">{p.body}</p>
                     </motion.div>

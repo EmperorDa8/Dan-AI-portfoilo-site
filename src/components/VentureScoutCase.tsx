@@ -9,9 +9,9 @@ const reveal = (delay = 0) => ({
 });
 
 const PHASES = [
-    { tag: '01 / Problem', accent: '#d1495b', title: 'Local investors fly blind.', body: 'Angel investors and family offices evaluating local SMBs lack structured risk signals. Decisions rely on gut feel, sparse spreadsheets, and slow human due-diligence.' },
-    { tag: '02 / Approach', accent: '#c07f00', title: 'Score, surface, decide.', body: 'Built an LLM-powered scoring pipeline that ingests business signals, weights them against a tunable risk model, and renders a portfolio dashboard with explainable verdicts.' },
-    { tag: '03 / Impact', accent: '#1f9d55', title: 'Idea → MVP in 9 days.', body: 'Shipped a live, shareable prototype that turns a 2–3 week diligence cycle into a same-day scan. Demoed to early users for qualitative feedback and iteration.' },
+    { tag: '01 / Problem', title: 'Local investors fly blind.', body: 'Angel investors and family offices evaluating local SMBs lack structured risk signals. Decisions rely on gut feel, sparse spreadsheets, and slow human due-diligence.' },
+    { tag: '02 / Approach', title: 'Score, surface, decide.', body: 'Built an LLM-powered scoring pipeline that ingests business signals, weights them against a tunable risk model, and renders a portfolio dashboard with explainable verdicts.' },
+    { tag: '03 / Impact', title: 'Idea → MVP in 9 days.', body: 'Shipped a live, shareable prototype that turns a 2–3 week diligence cycle into a same-day scan. Demoed to early users for qualitative feedback and iteration.' },
 ];
 
 const STACK = ['Lovable', 'Claude Code', 'GPT-4o', 'Supabase', 'TypeScript', 'TailwindCSS', 'Prompt Engineering', 'Risk Modeling'];
@@ -54,7 +54,7 @@ export function VentureScoutCase() {
             <div className="case-phase-grid">
                 {PHASES.map((p, i) => (
                     <motion.div {...reveal(i * 0.1)} className="case-phase" key={p.tag} onMouseEnter={playTick}>
-                        <div className="case-phase-tag" style={{ color: p.accent }}>{p.tag}</div>
+                        <div className="case-phase-tag">{p.tag}</div>
                         <h3 className="case-phase-title">{p.title}</h3>
                         <p className="case-phase-body">{p.body}</p>
                     </motion.div>

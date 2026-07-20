@@ -23,7 +23,7 @@ export function Works() {
                     <div className="w-col-name">Gen-AI Repo</div>
                     <div className="w-col-tags">Prompt Engineering / Text, Image &amp; Video Generative Models</div>
                     <div className="w-col-type"><span>GitHub</span></div>
-                    <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=800&q=80" alt="Generative AI" className="preview-flyout" />
+                    <img src="/game_character.png" alt="Generative AI" className="preview-flyout" />
                 </motion.a>
 
                 <motion.a {...rowReveal} href="https://drive.google.com/drive/folders/1O8acef1kl6LuIFuo7I3l3vauvuBl_4Fu" target="_blank" className="work-row" onMouseEnter={playTick}>
@@ -60,14 +60,14 @@ export function Works() {
                     <div className="w-col-name">Enterprise Banking</div>
                     <div className="w-col-tags">Voice-Enabled Care / ElevenLabs API / n8n Background Automation</div>
                     <div className="w-col-type"><span>Voice Bot</span></div>
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="Dashboard" className="preview-flyout" />
+                    <img src="/ai_web_app_ui.png" alt="Dashboard" className="preview-flyout" />
                 </motion.a>
 
                 <motion.a {...rowReveal} href="https://github.com/EmperorDa8/pdf-platf" target="_blank" className="work-row" onMouseEnter={playTick}>
                     <div className="w-col-name">PDF Gallery</div>
                     <div className="w-col-tags">Vibe-Coding / Next.js / MVP / Netflix-style UI</div>
                     <div className="w-col-type"><span>GitHub</span></div>
-                    <img src="https://images.unsplash.com/photo-1555680202-c86f0e12f086?auto=format&fit=crop&w=800&q=80" alt="PDF Gallery App" className="preview-flyout" />
+                    <img src="/subkit.png" alt="PDF Gallery App" className="preview-flyout" />
                 </motion.a>
 
                 <motion.a {...rowReveal} href="https://venuturescout.lovable.app/" target="_blank" className="work-row" onMouseEnter={playTick}>
@@ -88,7 +88,7 @@ export function Works() {
                     <div className="w-col-name">Agent X-Bot</div>
                     <div className="w-col-tags">Agentic AI / X (Twitter) Automation / Autonomous Social Agent</div>
                     <div className="w-col-type"><span>GitHub</span></div>
-                    <img src="https://images.unsplash.com/photo-1611605698335-8b1569810432?auto=format&fit=crop&w=800&q=80" alt="Agent X-Bot" className="preview-flyout" />
+                    <img src="/ad_generator_thumbnail.png" alt="Agent X-Bot" className="preview-flyout" />
                 </motion.a>
 
                 <motion.div {...rowReveal} className="work-row" onMouseEnter={playTick}>

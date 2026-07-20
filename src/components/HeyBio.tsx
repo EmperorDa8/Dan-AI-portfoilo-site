@@ -1,20 +1,4 @@
 import { motion } from 'framer-motion';
-import { playTick } from '../sound';
-
-const TOOLS = [
-    'Claude Code',
-    'Cursor IDE',
-    'Lovable / Bolt',
-    'MCP Architecture',
-    'Multi-Agent Orchestration',
-    'n8n Workflow',
-    'React / Next.js',
-    'FastAPI / Node.js',
-    'PostgreSQL / Supabase',
-    'Python / TypeScript',
-    'Midjourney / VEO 3',
-    'ElevenLabs Voice AI',
-];
 
 export function HeyBio() {
     return (
@@ -42,15 +26,10 @@ export function HeyBio() {
                         Delivery</strong>. Business problem → deployed product, end-to-end ownership, directing Claude Code as
                         the engineering team.
                     </p>
-
-                    <div className="mono-label tool-grid-label">Core_Competencies</div>
-                    <div className="tool-grid">
-                        {TOOLS.map(tool => (
-                            <div className="tool-cell" key={tool} onMouseEnter={playTick}>
-                                {tool}
-                            </div>
-                        ))}
-                    </div>
+                    <p style={{ marginTop: '1.4rem' }}>
+                        I scope ruthlessly to what's good enough now versus what must be robust on day one, and validate, test,
+                        and correct AI output until the software runs in production.
+                    </p>
                 </motion.div>
 
                 <motion.div
