@@ -10,6 +10,13 @@ const cardReveal = (i: number) => ({
 
 const PROJECTS = [
     {
+        name: '/PricePal',
+        desc: 'Live Prototype - AI Grocery Basket & Price Comparison (UK & Nigeria)',
+        href: 'https://savvy-shelf-scout.lovable.app/',
+        img: '/pricepal_thumbnail.png',
+        alt: 'PricePal AI Grocery Price Comparison Thumbnail',
+    },
+    {
         name: '/VentureScout',
         desc: 'Live Prototype - AI Scout & Asset Manager for Local Investments',
         href: 'https://venuturescout.lovable.app/',
