@@ -2087,3 +2087,102 @@
 @media (prefers-reduced-motion: reduce) {
   .hero-backdrop-media { scale: 1; }
 }
+
+/* ============ PORTRAIT PLACEMENTS ============ */
+/* Identity anchor in the hero — face early, at supporting scale. */
+.hero-id {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 1.8rem;
+}
+
+.hero-id-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  flex-shrink: 0;
+}
+
+.hero-id-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.hero-id-name {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.hero-id-role {
+  font-size: 0.76rem;
+  letter-spacing: 0.1em;
+}
+
+/* Portrait beside the closing CTA. */
+.cta-head {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 3vw;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto 3.5rem;
+}
+
+.cta-portrait {
+  width: clamp(150px, 17vw, 230px);
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: var(--r-card);
+  border: 1px solid var(--dark-line);
+  background: var(--dark-surface);
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.cta-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 30%;
+  filter: contrast(1.06);
+}
+
+.cta-head .cta-title {
+  text-align: left;
+  margin-bottom: 0;
+}
+
+.cta-sig {
+  display: block;
+  margin-top: 1.4rem;
+  color: var(--dark-muted);
+  letter-spacing: 0.12em;
+}
+
+@media (max-width: 900px) {
+  .cta-head {
+    grid-template-columns: 1fr;
+    gap: 1.8rem;
+    justify-items: start;
+  }
+
+  .cta-portrait {
+    width: 130px;
+  }
+
+  .hero-id-avatar {
+    width: 46px;
+    height: 46px;
+  }
+}

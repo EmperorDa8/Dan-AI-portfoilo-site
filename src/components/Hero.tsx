@@ -24,9 +24,23 @@ export function Hero() {
 
             <div className="hero-grid">
                 <div className="hero-copy">
-                    <motion.p {...rise(0.05)} className="mono-label hero-eyebrow">
-                        AI Product Engineer · Lagos · Remote worldwide
-                    </motion.p>
+                    {/* Identity anchor: a face early, at a scale that supports the
+                        claim rather than competing with it. */}
+                    <motion.div {...rise(0.05)} className="hero-id">
+                        <img
+                            src="/profile-pic.webp"
+                            alt="Dan Usman"
+                            width={52}
+                            height={52}
+                            className="hero-id-avatar"
+                        />
+                        <span className="hero-id-text">
+                            <span className="hero-id-name">Dan Usman</span>
+                            <span className="hero-id-role mono-label">
+                                AI Product Engineer · Lagos · Remote worldwide
+                            </span>
+                        </span>
+                    </motion.div>
 
                     <motion.h1 {...rise(0.14)} className="hero-h1">
                         I turn vague business problems into <em>deployed software.</em>

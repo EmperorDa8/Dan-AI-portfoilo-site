@@ -49,17 +49,40 @@ export function FooterCTA() {
 
     return (
         <section className="cta-section" id="contact">
-            <motion.h2
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                viewport={{ once: true }}
-                className="cta-title"
-            >
-                Let&apos;s build
-                <br />
-                <em>the future.</em>
-            </motion.h2>
+            {/* A face at the conversion point — people reply to people. */}
+            <div className="cta-head">
+                <motion.figure
+                    className="cta-portrait"
+                    initial={{ opacity: 0, scale: 0.94 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                >
+                    <img
+                        src="/hero_portrait_bw.webp"
+                        alt="Dan Usman"
+                        width={1200}
+                        height={1600}
+                        loading="lazy"
+                        decoding="async"
+                    />
+                </motion.figure>
+
+                <motion.h2
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                    viewport={{ once: true }}
+                    className="cta-title"
+                >
+                    Let&apos;s build
+                    <br />
+                    <em>the future.</em>
+                    <span className="cta-sig mono-label">
+                        Dan Usman · usually replies within a day
+                    </span>
+                </motion.h2>
+            </div>
 
             <div className="cta-socials">
                 <a href="https://www.linkedin.com/in/dan-usman/" target="_blank" rel="noopener noreferrer" className="cta-social-pill" onMouseEnter={playTick}>
