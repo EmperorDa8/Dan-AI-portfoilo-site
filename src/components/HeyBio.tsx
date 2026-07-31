@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion';
+import { AmbientVideo } from './AmbientVideo';
 
 export function HeyBio() {
     return (
-        <section className="hey-section" id="bio">
+        <section className="hey-section has-ambient" id="bio">
+            <AmbientVideo name="library" opacity={0.14} />
             <motion.h2
                 initial={{ opacity: 0, x: -40 }}
                 whileInView={{ opacity: 1, x: 0 }}

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { playTick } from '../sound';
+import { AmbientVideo } from './AmbientVideo';
 
 const reveal = (delay = 0) => ({
     initial: { opacity: 0, y: 30 },
@@ -31,7 +32,8 @@ const EXPERIENCE = [
 
 export function Credentials() {
     return (
-        <section className="cred-section" id="credentials">
+        <section className="cred-section has-ambient" id="credentials">
+            <AmbientVideo name="schoolroom" opacity={0.12} />
             <div className="section-head">
                 <h2 className="section-title">
                     Certified <em>&amp; proven.</em>

@@ -3,40 +3,45 @@
 @tailwind utilities;
 
 /* ============================================================
-   DAN USMAN — 2026 REVAMP
-   Ice-blue AI-lab aesthetic · General Sans + Instrument Serif
+   DAN USMAN — 2026 · 3D SCROLL EDITION
+   Warm lab aesthetic (Contralabs-derived) · Source Serif 4 +
+   General Sans + JetBrains Mono
    ============================================================ */
 
 @layer base {
   :root {
-    /* Ice palette (template 1) */
-    --bg: #e9edf2;
-    --bg-deep: #dfe6ed;
-    --surface: #f7fafd;
+    /* Warm palette */
+    --bg: #fbfaf6;
+    --bg-deep: #f3f1ea;
+    --surface: #ffffff;
     --white: #ffffff;
-    --ink: #10141a;
-    --ink-soft: #3c4653;
-    --muted: #7d8794;
-    --line: rgba(16, 20, 26, 0.1);
-    --line-strong: rgba(16, 20, 26, 0.16);
-    --accent: #2f6bf3;
+    --ink: #2b2b29;
+    --ink-soft: #494444;
+    --muted: #918989;
+    --line: rgba(43, 43, 41, 0.13);
+    --line-strong: rgba(43, 43, 41, 0.22);
 
-    /* Dark closing block */
-    --dark: #0b0e12;
-    --dark-surface: #12161c;
-    --dark-line: rgba(255, 255, 255, 0.09);
-    --dark-muted: #8b95a1;
+    /* Brand accents */
+    --accent: #387478;
+    --sage: #a5bcba;
+    --mint: #c8e1dd;
+
+    /* Dark closing block — warm charcoal, not black */
+    --dark: #2b2b29;
+    --dark-surface: #363431;
+    --dark-line: rgba(251, 250, 246, 0.13);
+    --dark-muted: #a49c9c;
 
     /* Type */
     --font-sans: 'General Sans', 'Segoe UI', sans-serif;
-    --font-serif: 'Instrument Serif', Georgia, serif;
+    --font-serif: 'Source Serif 4', Georgia, serif;
     --font-mono: 'JetBrains Mono', monospace;
 
-    /* Shape */
+    /* Shape — editorial, near-sharp corners */
     --r-pill: 999px;
-    --r-card: 24px;
-    --shadow-soft: 0 24px 60px -24px rgba(24, 36, 52, 0.28);
-    --shadow-lift: 0 36px 80px -28px rgba(24, 36, 52, 0.38);
+    --r-card: 3px;
+    --shadow-soft: 0 24px 60px -28px rgba(43, 43, 41, 0.26);
+    --shadow-lift: 0 36px 80px -30px rgba(43, 43, 41, 0.34);
   }
 
   * {
@@ -45,20 +50,40 @@
     box-sizing: border-box;
   }
 
-  html {
-    scroll-behavior: smooth;
+  /* Lenis drives smooth scrolling — native smooth would fight it */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
   }
 
   body {
     background-color: var(--bg);
-    background-image: radial-gradient(1200px 800px at 70% -10%, rgba(255, 255, 255, 0.85), transparent 60%),
-      radial-gradient(900px 700px at 10% 20%, rgba(255, 255, 255, 0.5), transparent 55%),
+    background-image: radial-gradient(1100px 780px at 72% -8%, rgba(200, 225, 221, 0.5), transparent 62%),
+      radial-gradient(900px 700px at 8% 18%, rgba(255, 255, 255, 0.75), transparent 58%),
       linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
     color: var(--ink);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
     line-height: 1.5;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
   }
 
   ::selection {
@@ -76,6 +101,92 @@
   opacity: 0.55;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.28'/%3E%3C/svg%3E");
+}
+
+/* Scroll progress rail */
+.scroll-rail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 200;
+  pointer-events: none;
+  background: transparent;
+}
+
+.scroll-rail-bar {
+  height: 100%;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, var(--accent), var(--sage));
+}
+
+/* Persistent WebGL layer — sits behind all content */
+.scene3d {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.75;
+}
+
+/* R3F sizes via ResizeObserver; force fill so the canvas never sticks at 300x150 */
+.scene3d > div,
+.scene3d canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+/* Content rides above the 3D layer */
+.site-nav,
+.hero-section,
+.marquee-container,
+.work-section,
+.carousel-section,
+.case-section,
+.featured-section,
+.hey-section,
+.tool-wall-section,
+.cred-section,
+.cta-section,
+.site-footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* Ambient looping video used as section texture */
+.ambient-video {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+}
+
+.ambient-video video {
+  width: 100%;
+  height: 120%;
+  object-fit: cover;
+  opacity: var(--ambient-op, 0.16);
+  filter: saturate(0.7) contrast(1.02);
+  mix-blend-mode: multiply;
+}
+
+.ambient-video::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--bg) 0%, transparent 22%, transparent 78%, var(--bg) 100%);
+}
+
+/* Sections hosting ambient video need their own children lifted above it */
+.has-ambient > *:not(.ambient-video) {
+  position: relative;
+  z-index: 1;
 }
 
 /* Shared bits */
@@ -363,7 +474,7 @@
   color: var(--ink);
   font-family: var(--font-serif);
   font-style: italic;
-  font-weight: 400;
+  font-weight: 380;
   line-height: 0.92;
   letter-spacing: -0.015em;
   white-space: nowrap;
@@ -797,12 +908,18 @@
 .projects-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4rem 3vw;
+  gap: 3.4rem 2.2vw;
 }
 
 .proj-card {
   display: flex;
   flex-direction: column;
+  transition: opacity 0.45s ease;
+}
+
+/* Contralabs-style focus: hovering one card recedes the rest */
+.projects-grid.has-active .proj-card:not(.is-active) {
+  opacity: 0.42;
 }
 
 .proj-header {
@@ -867,13 +984,32 @@
 
 .proj-img-box img {
   width: 100%;
-  height: 100%;
+  height: 112%;
   object-fit: cover;
   transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .proj-card:hover .proj-img-box img {
   transform: scale(1.05);
+}
+
+.proj-view {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -40%);
+  background: var(--bg);
+  color: var(--ink);
+  border-radius: var(--r-pill);
+  padding: 0.6rem 1.3rem;
+  opacity: 0;
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 2;
+}
+
+.proj-card:hover .proj-view {
+  opacity: 1;
+  transform: translate(-50%, -50%);
 }
 
 /* ============ BIO ============ */
@@ -891,7 +1027,6 @@
   line-height: 0.9;
   margin-bottom: 3rem;
   color: var(--ink);
-  text-shadow: 0 1px 0 rgba(16, 20, 26, 0.12);
 }
 
 .hey-grid {

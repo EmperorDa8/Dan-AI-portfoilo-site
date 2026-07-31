@@ -1,12 +1,6 @@
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { gsap, prefersReducedMotion, revealElement, useGsapScope } from '../lib/scroll';
 import { playTick } from '../sound';
-
-const cardReveal = (i: number) => ({
-    initial: { opacity: 0, y: 40 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, margin: '-80px' },
-    transition: { duration: 0.6, delay: (i % 2) * 0.12, ease: [0.22, 1, 0.36, 1] as const },
-});
 
 const PROJECTS = [
     {
@@ -69,8 +63,36 @@ const PROJECTS = [
 ];
 
 export function Featured() {
+    const [active, setActive] = useState<number | null>(null);
+
+    const scopeRef = useGsapScope<HTMLElement>(({ scope }) => {
+        const cards = gsap.utils.toArray<HTMLElement>('.proj-card', scope);
+        if (prefersReducedMotion()) {
+            gsap.set(cards, { opacity: 1, y: 0 });
+            return;
+        }
+
+        cards.forEach(card => {
+            revealElement(card, { y: 70 });
+
+            // Slow inner drift so the grid feels alive as it passes.
+            const img = card.querySelector('img');
+            if (img) {
+                gsap.fromTo(
+                    img,
+                    { yPercent: -5 },
+                    {
+                        yPercent: 5,
+                        ease: 'none',
+                        scrollTrigger: { trigger: card, start: 'top bottom', end: 'bottom top', scrub: true },
+                    }
+                );
+            }
+        });
+    }, []);
+
     return (
-        <section className="featured-section">
+        <section className="featured-section" ref={scopeRef}>
             <div className="section-head">
                 <h2 className="section-title">
                     Featured <em>Generations&#8203;/Prototypes</em>
@@ -79,9 +101,17 @@ export function Featured() {
                 <span className="mono-label">/ live &amp; shipped</span>
             </div>
 
-            <div className="projects-grid">
+            <div className={`projects-grid${active !== null ? ' has-active' : ''}`}>
                 {PROJECTS.map((p, i) => (
-                    <motion.div {...cardReveal(i)} className="proj-card" key={p.name} onMouseEnter={playTick}>
+                    <div
+                        className={`proj-card${active === i ? ' is-active' : ''}`}
+                        key={p.name}
+                        onMouseEnter={() => {
+                            setActive(i);
+                            playTick();
+                        }}
+                        onMouseLeave={() => setActive(null)}
+                    >
                         <div className="proj-header">
                             <div>
                                 <a href={p.href} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
@@ -99,8 +129,9 @@ export function Featured() {
                         </div>
                         <a href={p.href} target="_blank" rel="noopener noreferrer" className="proj-img-box" style={{ textDecoration: 'none' }}>
                             <img src={p.img} alt={p.alt} />
+                            <span className="proj-view mono-label">View ↗</span>
                         </a>
-                    </motion.div>
+                    </div>
                 ))}
             </div>
         </section>
