@@ -61,27 +61,20 @@ export function Credentials() {
                         </p>
                         <div className="cert-links">
                             <span className="cert-view">View certificate ↗</span>
-                            <span
-                                className="cert-verify"
-                                role="link"
-                                tabIndex={0}
-                                onClick={e => {
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                                    window.open('https://coursera.org/verify/specialization/CYHKREZ8JAA1', '_blank', 'noopener');
-                                }}
-                                onKeyDown={e => {
-                                    if (e.key === 'Enter') {
-                                        e.preventDefault();
-                                        e.stopPropagation();
-                                        window.open('https://coursera.org/verify/specialization/CYHKREZ8JAA1', '_blank', 'noopener');
-                                    }
-                                }}
-                            >
-                                Verify on Coursera ↗
-                            </span>
                         </div>
                     </motion.a>
+
+                    {/* Sibling, not nested: an interactive element inside an <a> is
+                        invalid and breaks assistive tech on the best trust signal here. */}
+                    <a
+                        className="cert-verify-link"
+                        href="https://coursera.org/verify/specialization/CYHKREZ8JAA1"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onMouseEnter={playTick}
+                    >
+                        Verify this credential on Coursera ↗
+                    </a>
 
                     <motion.a
                         {...reveal(0.15)}

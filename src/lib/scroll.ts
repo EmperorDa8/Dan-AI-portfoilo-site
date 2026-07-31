@@ -30,7 +30,7 @@ export function useSmoothScroll() {
         if (prefersReducedMotion()) return;
 
         const instance = new Lenis({
-            duration: 1.05,
+            duration: 0.9,
             easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             smoothWheel: true,
             wheelMultiplier: 1,
@@ -93,13 +93,62 @@ export function useGsapScope<T extends HTMLElement>(
     return ref;
 }
 
-/**
- * Fade + rise reveal for a single element.
+/* ------------------------------------------------------------------ *
+ * Reveal safety net
  *
- * Content must never be left permanently invisible. If the ScrollTrigger has
- * not fired within `failsafeMs` (smooth-scroll loop stalled, rAF throttled in a
- * background tab, a JS error upstream), the element is forced visible.
- */
+ * A previous version armed its fail-safe timer at MOUNT and only checked
+ * whether the ScrollTrigger had fired. Two bugs followed: every element on the
+ * page was force-shown 2.5s after load (including content nine screens down,
+ * destroying its reveal), and the pending tween was never killed, so it later
+ * replayed from opacity:0 and flashed.
+ *
+ * This version instead: starts the grace period when the element actually
+ * reaches the viewport, verifies the real computed opacity rather than a proxy
+ * signal, and kills the tween before forcing. A single shared watchdog catches
+ * anything the observer misses — including elements animated by other systems.
+ * ------------------------------------------------------------------ */
+
+const pendingChecks = new Set<() => void>();
+let watchdogId: number | null = null;
+
+function ensureWatchdog() {
+    if (watchdogId !== null || typeof window === 'undefined') return;
+    watchdogId = window.setInterval(() => {
+        pendingChecks.forEach(check => check());
+        if (pendingChecks.size === 0 && watchdogId !== null) {
+            window.clearInterval(watchdogId);
+            watchdogId = null;
+        }
+    }, 2000);
+}
+
+function isOnScreen(el: HTMLElement) {
+    const r = el.getBoundingClientRect();
+    return r.bottom > 0 && r.top < window.innerHeight && r.width > 0;
+}
+
+/** Force an element visible if it is on screen but still transparent. */
+function guard(el: HTMLElement, onSettled: () => void) {
+    const check = () => {
+        if (!el.isConnected) {
+            pendingChecks.delete(check);
+            return;
+        }
+        if (parseFloat(getComputedStyle(el).opacity) >= 0.99) {
+            pendingChecks.delete(check);
+            return;
+        }
+        if (!isOnScreen(el)) return; // still below the fold — leave its animation intact
+        onSettled();
+        gsap.set(el, { opacity: 1, y: 0, clearProps: 'transform' });
+        pendingChecks.delete(check);
+    };
+    pendingChecks.add(check);
+    ensureWatchdog();
+    return check;
+}
+
+/** Fade + rise reveal for a single element. */
 export function revealElement(
     el: HTMLElement,
     opts: { y?: number; delay?: number; start?: string; failsafeMs?: number } = {}
@@ -109,15 +158,9 @@ export function revealElement(
         return;
     }
 
-    let played = false;
-    const show = () => {
-        played = true;
-        gsap.set(el, { opacity: 1, y: 0, clearProps: 'transform' });
-    };
-
     gsap.set(el, { opacity: 0, y: opts.y ?? 42 });
 
-    gsap.to(el, {
+    const tween = gsap.to(el, {
         opacity: 1,
         y: 0,
         duration: 0.9,
@@ -127,21 +170,51 @@ export function revealElement(
             trigger: el,
             start: opts.start ?? 'top 88%',
             once: true,
-            onEnter: () => {
-                played = true;
-            },
         },
     });
 
-    window.setTimeout(() => {
-        if (!played) show();
-    }, opts.failsafeMs ?? 2500);
+    // Killing the tween is what stops the old flash-back-to-invisible.
+    const settle = () => {
+        tween.scrollTrigger?.kill();
+        tween.kill();
+    };
+
+    const check = guard(el, settle);
+
+    // Grace period begins on viewport entry, not on mount.
+    const io = new IntersectionObserver(
+        entries => {
+            if (!entries.some(e => e.isIntersecting)) return;
+            io.disconnect();
+            window.setTimeout(check, opts.failsafeMs ?? 1500);
+        },
+        { threshold: 0.01 }
+    );
+    io.observe(el);
 }
 
 /** Reveal a set of elements with a stagger. */
 export function revealOnScroll(targets: gsap.TweenTarget, opts: { y?: number; stagger?: number } = {}) {
     const els = gsap.utils.toArray<HTMLElement>(targets as gsap.DOMTarget);
     els.forEach((el, i) => revealElement(el, { y: opts.y, delay: i * (opts.stagger ?? 0) }));
+}
+
+/**
+ * Extends the same guarantee to elements animated by framer-motion's
+ * `whileInView`, which ships no fallback of its own: if its observer never
+ * delivers, the case studies and credentials would render blank forever.
+ */
+export function installRevealSafetyNet(selectors: string[]) {
+    if (typeof window === 'undefined' || prefersReducedMotion()) return;
+    const sweep = () => {
+        selectors.forEach(sel => {
+            document.querySelectorAll<HTMLElement>(sel).forEach(el => {
+                if (parseFloat(getComputedStyle(el).opacity) < 0.99) guard(el, () => {});
+            });
+        });
+    };
+    window.setTimeout(sweep, 3000);
+    window.setTimeout(sweep, 9000);
 }
 
 export { gsap, ScrollTrigger };

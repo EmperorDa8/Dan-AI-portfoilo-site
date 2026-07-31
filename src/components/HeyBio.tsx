@@ -24,8 +24,7 @@ export function HeyBio() {
                     className="hey-col-1"
                 >
                     <p>
-                        Vibe-coded by <em>Dan Usman</em> — <strong>AI Product Engineer, AI Builder &amp; Full-Stack AI
-                        Delivery</strong>. Business problem → deployed product, end-to-end ownership, directing Claude Code as
+                        <em>Dan Usman</em> — <strong>AI Product Engineer, AI Builder &amp; Full-Stack AI Delivery</strong>. Business problem → deployed product, end-to-end ownership, directing Claude Code as
                         the engineering team.
                     </p>
                     <p style={{ marginTop: '1.4rem' }}>
@@ -42,7 +41,7 @@ export function HeyBio() {
                     className="hey-col-2"
                 >
                     <img
-                        src="/hero_portrait_color.jpg"
+                        src="/hero_portrait_color.webp" loading="lazy" decoding="async" width={800} height={1000}
                         alt="Dan Usman"
                         onError={e => {
                             (e.target as HTMLImageElement).src =

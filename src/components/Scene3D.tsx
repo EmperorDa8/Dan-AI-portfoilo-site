@@ -105,28 +105,49 @@ function Shards() {
 
 export function Scene3D() {
     const [enabled, setEnabled] = useState(false);
+    const [inRange, setInRange] = useState(true);
 
+    // Gate re-evaluates on resize — it previously ran once, so a desktop window
+    // narrowed to phone width kept WebGL running.
     useEffect(() => {
-        // Skip WebGL on reduced-motion, small screens, and low-core devices.
-        const smallScreen = window.matchMedia('(max-width: 820px)').matches;
+        const mq = window.matchMedia('(max-width: 820px)');
         const lowPower = (navigator.hardwareConcurrency ?? 8) <= 4;
-        setEnabled(!prefersReducedMotion() && !smallScreen && !lowPower);
+        const evaluate = () => setEnabled(!prefersReducedMotion() && !mq.matches && !lowPower);
+        evaluate();
+        mq.addEventListener('change', evaluate);
+        return () => mq.removeEventListener('change', evaluate);
     }, []);
 
-    if (!enabled) return null;
+    // Scoped to the first ~1.6 screens. Past that the field has flown behind the
+    // camera and is occluded anyway, so rendering it was pure waste.
+    useEffect(() => {
+        const onScroll = () => setInRange(window.scrollY < window.innerHeight * 1.6);
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
+    }, []);
+
+    // Never render while the tab is hidden.
+    useEffect(() => {
+        const onVis = () => setInRange(v => (document.hidden ? false : v));
+        document.addEventListener('visibilitychange', onVis);
+        return () => document.removeEventListener('visibilitychange', onVis);
+    }, []);
+
+    if (!enabled || !inRange) return null;
 
     return (
         <div className="scene3d" aria-hidden>
             <Canvas
-                dpr={[1, 1.6]}
+                dpr={[1, 1.25]}
                 gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
                 camera={{ position: [0, 0, 18], fov: 42 }}
             >
                 <ambientLight intensity={1.5} />
                 <directionalLight position={[6, 10, 8]} intensity={1.5} color="#fff6e8" />
-                <directionalLight position={[-8, -4, -6]} intensity={0.7} color="#c8e1dd" />
+                <directionalLight position={[-8, -4, -6]} intensity={0.7} color="#cbe3d8" />
                 <Shards />
-                <fog attach="fog" args={['#fbfaf6', 16, 46]} />
+                <fog attach="fog" args={['#faf8f3', 16, 46]} />
             </Canvas>
         </div>
     );

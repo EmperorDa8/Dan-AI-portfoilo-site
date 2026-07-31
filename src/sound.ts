@@ -116,6 +116,29 @@ export function setScrollIntensity(v: number) {
     ambientGain.gain.setTargetAtTime(target, ac.currentTime, 0.4);
 }
 
+/* The velocity feed used to be a permanent 120ms interval in App, running for
+   the life of the page even with sound off. It now exists only while enabled. */
+let velocityTimer: number | null = null;
+
+function startVelocityFeed(read: () => number) {
+    if (velocityTimer !== null) return;
+    velocityTimer = window.setInterval(() => setScrollIntensity(read()), 140);
+}
+
+function stopVelocityFeed() {
+    if (velocityTimer === null) return;
+    window.clearInterval(velocityTimer);
+    velocityTimer = null;
+}
+
+/** Supplies the scroll-velocity source; only polled while sound is on. */
+let velocitySource: (() => number) | null = null;
+
+export function registerVelocitySource(read: () => number) {
+    velocitySource = read;
+    if (enabled) startVelocityFeed(read);
+}
+
 export function isSoundEnabled() {
     return enabled;
 }
@@ -135,8 +158,10 @@ export function setSoundEnabled(on: boolean) {
             /* still blocked — the toggle click should satisfy autoplay, but never throw */
         });
         fadeAmbient(0.14);
+        if (velocitySource) startVelocityFeed(velocitySource);
         playClick();
     } else {
+        stopVelocityFeed();
         fadeAmbient(0, 0.5);
         window.setTimeout(() => ambientEl?.pause(), 550);
     }

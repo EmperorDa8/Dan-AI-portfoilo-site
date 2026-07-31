@@ -7,35 +7,35 @@ const PROJECTS = [
         name: '/PricePal',
         desc: 'Live Prototype - AI Grocery Basket & Price Comparison (UK & Nigeria)',
         href: 'https://savvy-shelf-scout.lovable.app/',
-        img: '/pricepal_thumbnail.png',
+        img: '/pricepal_thumbnail.webp',
         alt: 'PricePal AI Grocery Price Comparison Thumbnail',
     },
     {
         name: '/VentureScout',
         desc: 'Live Prototype - AI Scout & Asset Manager for Local Investments',
         href: 'https://venuturescout.lovable.app/',
-        img: '/venturescout_thumbnail.png',
+        img: '/venturescout_thumbnail.webp',
         alt: 'VentureScout Live App Thumbnail',
     },
     {
         name: '/Galaxyflow',
         desc: 'Live Prototype - Audio mood to Album Art',
         href: 'https://galaxyflow.lovable.app/',
-        img: '/galaxyflow_thumbnail.png',
+        img: '/galaxyflow_thumbnail.webp',
         alt: 'Galaxyflow Live App Thumbnail',
     },
     {
         name: '/subkit',
         desc: 'Live Prototype',
         href: 'https://card-clutter-clear.lovable.app/',
-        img: '/subkit.png',
+        img: '/subkit.webp',
         alt: 'Subkit Live App Thumbnail',
     },
     {
         name: '/YouRev',
         desc: 'YouTube Competitor Analyzer - Live Channel Intelligence',
         href: 'https://you-rev.vercel.app/',
-        img: '/yourev_screenshot.png',
+        img: '/yourev_screenshot.webp',
         alt: 'YouRev UI',
         github: 'https://github.com/EmperorDa8/YouRev',
     },
@@ -43,21 +43,21 @@ const PROJECTS = [
         name: '/AZer-t Studio',
         desc: 'Unreal Engine 5 Aesthetics & Production Quality Assets',
         href: 'https://drive.google.com/drive/folders/1O8acef1kl6LuIFuo7I3l3vauvuBl_4Fu',
-        img: '/game_character.png',
+        img: '/game_character.webp',
         alt: '3D Game Character',
     },
     {
         name: '/AI Web App',
-        desc: 'Live Vibe-Coded Web Environment with Voice Interactions',
+        desc: 'Live web environment with voice interactions',
         href: 'https://vermillion-travesseiro-d1b2de.netlify.app/',
-        img: '/ai_web_app_ui.png',
+        img: '/ai_web_app_ui.webp',
         alt: 'Web Agent UI',
     },
     {
         name: '/Ad Scale Gen',
         desc: 'AI Ad Image Generation Pipeline',
         href: 'https://drive.google.com/drive/folders/1GbHqFB70Bixpq5on7Efg1PGLLPEA0Af1?usp=sharing',
-        img: '/ad_generator_thumbnail.png',
+        img: '/ad_generator_thumbnail.webp',
         alt: 'Ad Generator UI',
     },
 ];
@@ -128,7 +128,7 @@ export function Featured() {
                             )}
                         </div>
                         <a href={p.href} target="_blank" rel="noopener noreferrer" className="proj-img-box" style={{ textDecoration: 'none' }}>
-                            <img src={p.img} alt={p.alt} />
+                            <img src={p.img} alt={p.alt} loading="lazy" decoding="async" width={640} height={440} />
                             <span className="proj-view mono-label">View ↗</span>
                         </a>
                     </div>

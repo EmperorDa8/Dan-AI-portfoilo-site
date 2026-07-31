@@ -1,34 +1,46 @@
 import { lazy, Suspense, useEffect } from 'react';
 import { Navigation } from './components/Navigation';
 import { Hero } from './components/Hero';
+import { ProofStrip } from './components/ProofStrip';
 import { Marquee } from './components/Marquee';
-import { Works } from './components/Works';
-import { PrototypeCarousel } from './components/PrototypeCarousel';
+import { MoTwoCase } from './components/MoTwoCase';
 import { VentureScoutCase } from './components/VentureScoutCase';
-import { FreelanceCase } from './components/FreelanceCase';
 import { Featured } from './components/Featured';
+import { Works } from './components/Works';
 import { HeyBio } from './components/HeyBio';
-import { ToolWall } from './components/ToolWall';
 import { Credentials } from './components/Credentials';
 import { FooterCTA } from './components/FooterCTA';
 import { Footer } from './components/Footer';
 import { ScrollProgress } from './components/ScrollProgress';
-import { getLenis, useSmoothScroll } from './lib/scroll';
-import { setScrollIntensity } from './sound';
+import { getLenis, installRevealSafetyNet, useSmoothScroll } from './lib/scroll';
+import { registerVelocitySource } from './sound';
 
 /* Three.js is heavy — keep it out of the initial bundle. */
 const Scene3D = lazy(() => import('./components/Scene3D').then(m => ({ default: m.Scene3D })));
 
+/* framer-motion's whileInView ships no fallback of its own; without this the
+   case studies and credentials render blank if its observer never delivers. */
+const WHILE_IN_VIEW = [
+  '.case-phase',
+  '.case-panel',
+  '.case-hero',
+  '.cert-card',
+  '.tl-entry',
+  '.proof-cell',
+  '.hey-title',
+  '.hey-col-1',
+  '.hey-col-2',
+  '.hey-col-3',
+  '.cta-title',
+];
+
 function App() {
   useSmoothScroll();
 
-  // Feed scroll velocity into the ambient sound bed.
   useEffect(() => {
-    const id = window.setInterval(() => {
-      const l = getLenis();
-      if (l) setScrollIntensity((l as unknown as { velocity: number }).velocity ?? 0);
-    }, 120);
-    return () => window.clearInterval(id);
+    installRevealSafetyNet(WHILE_IN_VIEW);
+    // Polled only while sound is enabled, not for the life of the page.
+    registerVelocitySource(() => (getLenis() as unknown as { velocity?: number })?.velocity ?? 0);
   }, []);
 
   return (
@@ -39,16 +51,33 @@ function App() {
       <div className="grain-overlay" aria-hidden />
       <ScrollProgress />
       <Navigation />
+
+      {/* Claim → proof → evidence → person → contact */}
       <Hero />
+      <ProofStrip />
       <Marquee />
-      <Works />
-      <PrototypeCarousel />
+
+      <MoTwoCase />
       <VentureScoutCase />
-      <FreelanceCase />
+
+      <section className="band">
+        <div className="band-inner">
+          <h2 className="band-title">
+            Unfamiliar domain on Monday, <em>deployed by Friday.</em>
+          </h2>
+          <p className="band-note">
+            Fintech trade finance, cybersecurity tooling, game asset pipelines — the pattern is the same: learn the
+            domain fast enough to make the right architectural calls, then ship.
+          </p>
+        </div>
+      </section>
+
       <Featured />
+      <Works />
+
       <HeyBio />
-      <ToolWall />
       <Credentials />
+
       <FooterCTA />
       <Footer />
     </>

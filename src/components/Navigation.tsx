@@ -59,7 +59,7 @@ export function Navigation() {
 
     return (
         <nav className="site-nav">
-            <a href="/" className="nav-name" onMouseEnter={playTick}>
+            <a href="#top" className="nav-name" onMouseEnter={playTick}>
                 DAN USMAN
             </a>
 
@@ -78,7 +78,7 @@ export function Navigation() {
                             onClick={playClick}
                         >
                             <img
-                                src="/profile-pic.png"
+                                src="/profile-pic.webp"
                                 alt=""
                                 onError={e => {
                                     (e.target as HTMLImageElement).style.display = 'none';

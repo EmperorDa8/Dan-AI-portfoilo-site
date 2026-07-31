@@ -48,7 +48,7 @@ export function VentureScoutCase() {
                 className="case-hero"
                 onMouseEnter={playTick}
             >
-                <img src="/venturescout_thumbnail.png" alt="VentureScout dashboard" />
+                <img src="/venturescout_thumbnail.webp" alt="VentureScout dashboard" loading="lazy" decoding="async" width={1200} height={675} />
             </motion.a>
 
             <div className="case-phase-grid">
