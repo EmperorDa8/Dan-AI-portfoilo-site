@@ -1,10 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion';
 import { playClick, playTick } from '../sound';
-
-const HERO_BW = '/hero_portrait_bw.webp';
-const HERO_COLOR = '/hero_portrait_color.webp';
-const FALLBACK = '/profile-pic.webp';
+import { prefersReducedMotion } from '../lib/scroll';
 
 const rise = (delay: number) => ({
     initial: { opacity: 0, y: 28 },
@@ -21,32 +18,10 @@ const rise = (delay: number) => ({
  * quantitative appeared until screen 9.5.
  */
 export function Hero() {
-    const sectionRef = useRef<HTMLElement>(null);
-
-    const mx = useMotionValue(0);
-    const my = useMotionValue(0);
-    const sx = useSpring(mx, { stiffness: 55, damping: 16 });
-    const sy = useSpring(my, { stiffness: 55, damping: 16 });
-    const rotateY = useTransform(sx, v => v * 6);
-    const rotateX = useTransform(sy, v => v * -6);
-
-    useEffect(() => {
-        const onMove = (e: MouseEvent) => {
-            mx.set(e.clientX / window.innerWidth - 0.5);
-            my.set(e.clientY / window.innerHeight - 0.5);
-        };
-        window.addEventListener('mousemove', onMove, { passive: true });
-        return () => window.removeEventListener('mousemove', onMove);
-    }, [mx, my]);
-
-    const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] });
-    const portraitY = useTransform(scrollYProgress, [0, 1], [0, 60]);
-    const imgScale = useTransform(scrollYProgress, [0, 1], [1, 1.12]);
-
-    const [dreaming, setDreaming] = useState(false);
-
     return (
-        <section className="hero-section" ref={sectionRef}>
+        <section className="hero-section">
+            <HeroBackdrop />
+
             <div className="hero-grid">
                 <div className="hero-copy">
                     <motion.p {...rise(0.05)} className="mono-label hero-eyebrow">
@@ -92,42 +67,81 @@ export function Hero() {
                     </motion.p>
                 </div>
 
-                <motion.div
-                    className="hero-portrait"
-                    style={{ y: portraitY, rotateX, rotateY, transformPerspective: 1200 }}
-                    initial={{ opacity: 0, scale: 0.94 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 1.1, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                    onMouseEnter={() => {
-                        setDreaming(true);
-                        playTick();
-                    }}
-                    onMouseLeave={() => setDreaming(false)}
-                >
-                    <motion.img
-                        src={HERO_BW}
-                        alt="Dan Usman"
-                        width={1200}
-                        height={1600}
-                        style={{ scale: imgScale }}
-                        onError={e => {
-                            (e.target as HTMLImageElement).src = FALLBACK;
-                        }}
-                    />
-                    <motion.img
-                        src={HERO_COLOR}
-                        alt=""
-                        aria-hidden
-                        width={1200}
-                        height={1600}
-                        className="hero-portrait-color"
-                        style={{ scale: imgScale, opacity: dreaming ? 1 : 0 }}
-                        onError={e => {
-                            (e.target as HTMLImageElement).style.display = 'none';
-                        }}
-                    />
-                </motion.div>
             </div>
         </section>
+    );
+}
+
+/**
+ * Hero backdrop: the period-craft-at-a-laptop loop, anchored right at close to
+ * native scale so it stays sharp (the source is 720x1280 — stretching it across
+ * a 1440px hero would visibly soften it). A cream scrim feathers left-to-right
+ * so the copy keeps its contrast while the footage stays plainly visible.
+ */
+export function HeroBackdrop() {
+    const wrapRef = useRef<HTMLDivElement>(null);
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const [ready, setReady] = useState(false);
+
+    const mx = useMotionValue(0);
+    const my = useMotionValue(0);
+    const sx = useSpring(mx, { stiffness: 45, damping: 18 });
+    const sy = useSpring(my, { stiffness: 45, damping: 18 });
+    const driftX = useTransform(sx, v => v * -18);
+    const driftY = useTransform(sy, v => v * -12);
+
+    const { scrollYProgress } = useScroll({ target: wrapRef, offset: ['start start', 'end start'] });
+    const scrollY = useTransform(scrollYProgress, [0, 1], [0, 90]);
+    const scrimFade = useTransform(scrollYProgress, [0, 0.7], [1, 0.55]);
+
+    useEffect(() => {
+        if (prefersReducedMotion()) return;
+        const onMove = (e: MouseEvent) => {
+            mx.set(e.clientX / window.innerWidth - 0.5);
+            my.set(e.clientY / window.innerHeight - 0.5);
+        };
+        window.addEventListener('mousemove', onMove, { passive: true });
+        return () => window.removeEventListener('mousemove', onMove);
+    }, [mx, my]);
+
+    useEffect(() => {
+        const v = videoRef.current;
+        if (!v) return;
+        if (prefersReducedMotion()) return; // poster frame only
+
+        // The hero is in view at load by definition — start it directly rather
+        // than waiting on an observer callback that may be delayed.
+        void v.play().catch(() => {});
+
+        // Then hand off to the observer so it pauses once scrolled past.
+        const io = new IntersectionObserver(
+            ([e]) => {
+                if (e.isIntersecting) void v.play().catch(() => {});
+                else v.pause();
+            },
+            { threshold: 0.05 }
+        );
+        io.observe(v);
+        return () => io.disconnect();
+    }, []);
+
+    return (
+        <div className="hero-backdrop" aria-hidden ref={wrapRef}>
+            <motion.video
+                style={{ x: driftX, y: useTransform([driftY, scrollY], ([a, b]: number[]) => a + b) }}
+                ref={videoRef}
+                className={`hero-backdrop-media${ready ? ' is-ready' : ''}`}
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                poster="/ambient/coder-poster.webp"
+                onLoadedData={() => setReady(true)}
+            >
+                <source src="/ambient/coder.webm" type="video/webm" />
+                <source src="/ambient/coder.mp4" type="video/mp4" />
+            </motion.video>
+            <motion.div className="hero-backdrop-scrim" style={{ opacity: scrimFade }} />
+        </div>
     );
 }
