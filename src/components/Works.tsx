@@ -5,21 +5,10 @@ export function Works() {
     const scopeRef = useGsapScope<HTMLElement>(({ scope }) => {
         if (prefersReducedMotion()) return;
 
-        // Section header pins while the list scrolls past it (Contralabs "Left Col (Sticky)").
-        const head = scope.querySelector<HTMLElement>('.work-head');
-        const list = scope.querySelector<HTMLElement>('.work-list');
-        if (head && list && window.matchMedia('(min-width: 901px)').matches) {
-            gsap.timeline({
-                scrollTrigger: {
-                    trigger: scope,
-                    start: 'top top+=90',
-                    end: () => `+=${Math.max(list.offsetHeight - head.offsetHeight - 160, 200)}`,
-                    pin: head,
-                    pinSpacing: false,
-                    invalidateOnRefresh: true,
-                },
-            });
-        }
+        /* The heading used to be GSAP-pinned with pinSpacing:false, which
+           reserved no space — the full-width list scrolled straight up under
+           the full-width heading and the two collided. It is now a sticky left
+           column in a two-column grid, which cannot overlap by construction. */
 
         gsap.utils.toArray<HTMLElement>('.work-row', scope).forEach(row => {
             revealElement(row, { y: 40, start: 'top 90%' });
@@ -112,13 +101,6 @@ export function Works() {
                     <div className="w-col-tags">Agentic AI / X (Twitter) Automation / Autonomous Social Agent</div>
                     <div className="w-col-type"><span>GitHub</span></div>
                 </a>
-
-                <div className="work-row" onMouseEnter={playTick}>
-                    <div className="w-col-name">MCP Analytics App</div>
-                    <div className="w-col-tags">Google Antigravity Framework / Edge AI Integration / Model Context Protocol</div>
-                    <div className="w-col-type"><span>In Dev</span></div>
-                    <img src="/mcp_analytics_app.webp" alt="MCP Analytics App" className="preview-flyout" loading="lazy" decoding="async" width={340} height={255} />
-                </div>
             </div>
         </section>
     );

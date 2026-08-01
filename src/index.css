@@ -655,6 +655,33 @@
 /* ============ WORKS ============ */
 .work-section {
   padding: 8rem 4vw 6rem;
+  max-width: 1560px;
+  margin-inline: auto;
+}
+
+/* Two-column layout with a sticky heading. Replaces a GSAP pin that used
+   pinSpacing:false and let the list scroll up underneath the heading. */
+@media (min-width: 901px) {
+  .work-section {
+    display: grid;
+    grid-template-columns: minmax(240px, 26%) 1fr;
+    gap: 4vw;
+    align-items: start;
+  }
+
+  .work-head {
+    position: sticky;
+    top: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+    margin-bottom: 0;
+  }
+
+  .work-head .section-title {
+    font-size: clamp(2.2rem, 3.4vw, 3.4rem);
+  }
 }
 
 .work-list {
