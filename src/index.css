@@ -2617,3 +2617,31 @@ p, .hero-sub, .case-lead, .case-phase-body, .story-body, .tl-note {
 img, video {
   background-color: var(--bg-deep);
 }
+
+/* The Marble row holds seven world links, so it cannot itself be an anchor.
+   Its primary line is the link instead, laid out to match every other row. */
+.work-row-group {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.work-row-main {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.work-row-main .w-col-tags {
+  flex: 1;
+}
+
+.work-row-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.6rem;
+}

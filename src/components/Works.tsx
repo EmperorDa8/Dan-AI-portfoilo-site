@@ -1,6 +1,16 @@
 import { playTick, playSwell } from '../sound';
 import { gsap, ScrollTrigger, prefersReducedMotion, revealElement, useGsapScope } from '../lib/scroll';
 
+const MARBLE_WORLDS = [
+    '0007ca41-6e04-47a7-b3cf-f4c2c9f372d5',
+    'c79cfa02-265e-4aad-8c2e-bfae9fd8a22e',
+    'eaf7a6be-601c-4cf2-9af2-388bfad7271e',
+    '0a6c848f-6a23-4f41-811e-e00c12ab9b97',
+    '00eee396-d19b-4063-afd2-8abe74de30cc',
+    '4846b76b-f426-4380-863d-c8479a8277aa',
+    '11db85f7-ed8f-4a23-81ab-189c3f872a9b',
+];
+
 export function Works() {
     const scopeRef = useGsapScope<HTMLElement>(({ scope }) => {
         if (prefersReducedMotion()) return;
@@ -46,22 +56,23 @@ export function Works() {
                     <img src="/generative_media_studio.webp" alt="Generative Media" className="preview-flyout" loading="lazy" decoding="async" width={340} height={255} />
                 </a>
 
-                <div className="work-row" style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
-                    <div style={{ display: 'flex', width: '100%', alignItems: 'center', flexWrap: 'wrap', gap: '0.6rem' }}>
+                {/* The one row that cannot be a single anchor: it holds seven world
+                    links, and nesting anchors is invalid. The primary line is its own
+                    link so the row still behaves like every other one. */}
+                <div className="work-row work-row-group">
+                    <a
+                        href={`https://marble.worldlabs.ai/world/${MARBLE_WORLDS[0]}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="work-row-main"
+                        onMouseEnter={playTick}
+                    >
                         <div className="w-col-name">Marble AI Worlds</div>
-                        <div className="w-col-tags" style={{ flex: 1 }}>Interactive Generative 3D Environments</div>
-                        <div className="w-col-type"><span>WorldLabs</span></div>
-                    </div>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.8rem', marginTop: '1.6rem' }}>
-                        {[
-                            "0007ca41-6e04-47a7-b3cf-f4c2c9f372d5",
-                            "c79cfa02-265e-4aad-8c2e-bfae9fd8a22e",
-                            "eaf7a6be-601c-4cf2-9af2-388bfad7271e",
-                            "0a6c848f-6a23-4f41-811e-e00c12ab9b97",
-                            "00eee396-d19b-4063-afd2-8abe74de30cc",
-                            "4846b76b-f426-4380-863d-c8479a8277aa",
-                            "11db85f7-ed8f-4a23-81ab-189c3f872a9b"
-                        ].map((id, idx) => (
+                        <div className="w-col-tags">Interactive Generative 3D Environments</div>
+                        <div className="w-col-type"><span>{MARBLE_WORLDS.length} Worlds</span></div>
+                    </a>
+                    <div className="work-row-chips">
+                        {MARBLE_WORLDS.map((id, idx) => (
                             <a key={id} href={`https://marble.worldlabs.ai/world/${id}`} target="_blank" rel="noopener noreferrer" className="sim-chip" onMouseEnter={playTick}>
                                 SIMULATION_0{idx + 1} ↗
                             </a>

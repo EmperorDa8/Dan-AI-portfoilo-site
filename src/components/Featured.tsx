@@ -150,7 +150,6 @@ export function Featured() {
             <div className="section-head">
                 <h2 className="section-title">
                     Featured <em>Generations&#8203;/Prototypes</em>
-                    <sup style={{ fontSize: '0.35em', fontFamily: 'var(--font-mono)', fontWeight: 500 }}>®</sup>
                 </h2>
                 <span className="mono-label">/ live &amp; shipped</span>
             </div>
