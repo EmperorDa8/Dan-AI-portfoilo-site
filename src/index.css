@@ -2219,6 +2219,10 @@
   flex-direction: column;
   height: 100%;
   transform-style: preserve-3d;
+  /* Defaults matter: before the first pointermove these vars are unset, and
+     rotateX(var(--rx)) with no fallback invalidates the whole declaration. */
+  --rx: 0deg;
+  --ry: 0deg;
   transform: rotateX(var(--rx)) rotateY(var(--ry));
   transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -2269,6 +2273,8 @@
 .proj-sheen {
   position: absolute;
   inset: 0;
+  --mx: 50%;
+  --my: 50%;
   z-index: 1;
   pointer-events: none;
   opacity: 0;
