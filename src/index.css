@@ -774,6 +774,8 @@
 }
 
 .projects-grid {
+  perspective: 1400px;
+  perspective-origin: 50% 40%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 3.4rem 2.2vw;
@@ -782,12 +784,22 @@
 .proj-card {
   display: flex;
   flex-direction: column;
+  transform-style: preserve-3d;
   transition: opacity 0.45s ease;
+  --rx: 0deg;
+  --ry: 0deg;
+  --mx: 50%;
+  --my: 50%;
 }
 
 /* Contralabs-style focus: hovering one card recedes the rest */
 .projects-grid.has-active .proj-card:not(.is-active) {
   opacity: 0.62;
+}
+
+/* Unfocused cards recede in depth, not just in opacity. */
+.projects-grid.has-active .proj-card:not(.is-active) .proj-card-3d {
+  transform: translateZ(-40px) scale(0.985);
 }
 
 .proj-header {
@@ -2185,4 +2197,106 @@
     width: 46px;
     height: 46px;
   }
+}
+
+/* ============ FEATURED — 3D CARD PLANE ============ */
+/* GSAP scrubs rotateX/rotateY/z on this wrapper as the card crosses the
+   viewport; the pointer adds its own tilt on top via CSS variables. Keeping
+   3D here rather than on .proj-card leaves the reveal's transform untouched. */
+.proj-card-3d {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Separate layer for the pointer tilt. GSAP writes an inline transform on
+   .proj-card-3d for the scroll swing; if the cursor tilt lived there too the
+   inline style would silently win and the hover would do nothing. */
+.proj-card-face {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.proj-card:hover .proj-card-face {
+  transition: transform 0.12s linear;
+}
+
+/* Layered depth: contents sit at different z, so tilting produces real
+   parallax between the face, the artwork and the labels. */
+.proj-card-face .proj-header {
+  transform: translateZ(28px);
+}
+
+.proj-card-face .proj-img-box {
+  transform: translateZ(14px);
+  transform-style: preserve-3d;
+}
+
+.proj-card:hover .proj-img-box {
+  transform: translateZ(46px);
+  box-shadow: var(--shadow-lift);
+}
+
+.proj-view {
+  transform: translate(-50%, -40%) translateZ(70px);
+}
+
+.proj-card:hover .proj-view {
+  transform: translate(-50%, -50%) translateZ(70px);
+}
+
+/* Running index, pinned to the artwork's far corner. */
+.proj-index {
+  position: absolute;
+  left: 14px;
+  top: 12px;
+  z-index: 2;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  color: var(--bg);
+  mix-blend-mode: difference;
+  transform: translateZ(34px);
+  opacity: 0.75;
+}
+
+/* Travelling sheen — light catching a physical card as it tilts. */
+.proj-sheen {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(
+    420px circle at var(--mx) var(--my),
+    rgba(255, 255, 255, 0.42),
+    rgba(255, 255, 255, 0.06) 42%,
+    transparent 68%
+  );
+}
+
+.proj-card:hover .proj-sheen {
+  opacity: 1;
+}
+
+/* Flatten everything where motion is unwelcome or the tilt has no pointer. */
+@media (prefers-reduced-motion: reduce) {
+  .projects-grid { perspective: none; }
+  .proj-card-3d,
+  .proj-card-face,
+  .proj-card:hover .proj-img-box,
+  .proj-view,
+  .proj-index { transform: none !important; }
+  .proj-sheen { display: none; }
+}
+
+@media (hover: none) {
+  .proj-sheen { display: none; }
+  .proj-card-face { transform: none; }
 }

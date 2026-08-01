@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { gsap, prefersReducedMotion, revealElement, useGsapScope } from '../lib/scroll';
 import { playTick } from '../sound';
 
@@ -72,8 +72,34 @@ export function Featured() {
             return;
         }
 
-        cards.forEach(card => {
+        cards.forEach((card, i) => {
+            // The reveal owns .proj-card's opacity/y. The 3D transforms live on
+            // an inner wrapper so the two never fight over `transform` — that
+            // collision is what stranded the Works rows invisible earlier.
             revealElement(card, { y: 70 });
+
+            const plane = card.querySelector<HTMLElement>('.proj-card-3d');
+            if (plane) {
+                // Each card swings through a plane as it crosses the viewport:
+                // tipped back on entry, flat at centre, tipping away on exit.
+                // Odd/even columns lean from opposite sides so the grid weaves.
+                const lean = i % 2 === 0 ? 1 : -1;
+                gsap
+                    .timeline({
+                        scrollTrigger: {
+                            trigger: card,
+                            start: 'top bottom',
+                            end: 'bottom top',
+                            scrub: 0.6,
+                        },
+                    })
+                    .fromTo(
+                        plane,
+                        { rotateX: 13, rotateY: 9 * lean, z: -150 },
+                        { rotateX: 0, rotateY: 0, z: 0, duration: 0.5, ease: 'power2.out' }
+                    )
+                    .to(plane, { rotateX: -7, rotateY: -5 * lean, z: -80, duration: 0.5, ease: 'power2.in' });
+            }
 
             // Slow inner drift so the grid feels alive as it passes.
             const img = card.querySelector('img');
@@ -90,6 +116,34 @@ export function Featured() {
             }
         });
     }, []);
+
+    /* Pointer tilt + travelling sheen. Writes CSS variables only, batched into
+       a frame, so hovering never triggers layout. */
+    const frame = useRef(0);
+    const tilt = (e: React.PointerEvent<HTMLDivElement>) => {
+        if (prefersReducedMotion()) return;
+        const el = e.currentTarget;
+        const x = e.clientX;
+        const y = e.clientY;
+        cancelAnimationFrame(frame.current);
+        frame.current = requestAnimationFrame(() => {
+            const r = el.getBoundingClientRect();
+            const px = (x - r.left) / r.width;
+            const py = (y - r.top) / r.height;
+            el.style.setProperty('--mx', `${(px * 100).toFixed(1)}%`);
+            el.style.setProperty('--my', `${(py * 100).toFixed(1)}%`);
+            el.style.setProperty('--ry', `${((px - 0.5) * 13).toFixed(2)}deg`);
+            el.style.setProperty('--rx', `${((0.5 - py) * 9).toFixed(2)}deg`);
+        });
+    };
+
+    const untilt = (e: React.PointerEvent<HTMLDivElement>) => {
+        cancelAnimationFrame(frame.current);
+        const el = e.currentTarget;
+        el.style.setProperty('--rx', '0deg');
+        el.style.setProperty('--ry', '0deg');
+        setActive(null);
+    };
 
     return (
         <section className="featured-section" ref={scopeRef}>
@@ -110,27 +164,36 @@ export function Featured() {
                             setActive(i);
                             playTick();
                         }}
-                        onMouseLeave={() => setActive(null)}
+                        onPointerMove={tilt}
+                        onPointerLeave={untilt}
                     >
-                        <div className="proj-header">
-                            <div>
-                                <a href={p.href} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
-                                    <h3 className="proj-name">{p.name}</h3>
-                                </a>
-                                <p className="proj-desc">{p.desc}</p>
+                        <div className="proj-card-3d">
+                          <div className="proj-card-face">
+                            <div className="proj-header">
+                                <div>
+                                    <a href={p.href} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
+                                        <h3 className="proj-name">{p.name}</h3>
+                                    </a>
+                                    <p className="proj-desc">{p.desc}</p>
+                                </div>
+                                {p.github && (
+                                    <a href={p.github} target="_blank" rel="noopener noreferrer" className="proj-gh" title="View on GitHub">
+                                        <svg height="26" width="26" viewBox="0 0 16 16" fill="currentColor" aria-hidden>
+                                            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+                                        </svg>
+                                    </a>
+                                )}
                             </div>
-                            {p.github && (
-                                <a href={p.github} target="_blank" rel="noopener noreferrer" className="proj-gh" title="View on GitHub">
-                                    <svg height="26" width="26" viewBox="0 0 16 16" fill="currentColor" aria-hidden>
-                                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
-                                    </svg>
-                                </a>
-                            )}
+                            <a href={p.href} target="_blank" rel="noopener noreferrer" className="proj-img-box" style={{ textDecoration: 'none' }}>
+                                <img src={p.img} alt={p.alt} loading="lazy" decoding="async" width={640} height={440} />
+                                <span className="proj-sheen" aria-hidden />
+                                <span className="proj-view mono-label">View ↗</span>
+                                <span className="proj-index mono-label" aria-hidden>
+                                    {String(i + 1).padStart(2, '0')}
+                                </span>
+                            </a>
+                          </div>
                         </div>
-                        <a href={p.href} target="_blank" rel="noopener noreferrer" className="proj-img-box" style={{ textDecoration: 'none' }}>
-                            <img src={p.img} alt={p.alt} loading="lazy" decoding="async" width={640} height={440} />
-                            <span className="proj-view mono-label">View ↗</span>
-                        </a>
                     </div>
                 ))}
             </div>
