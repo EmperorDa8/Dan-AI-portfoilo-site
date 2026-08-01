@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect } from 'react';
 import { Navigation } from './components/Navigation';
 import { Hero } from './components/Hero';
 import { ProofStrip } from './components/ProofStrip';
+import { TechStack } from './components/TechStack';
 import { Marquee } from './components/Marquee';
 import { MoTwoCase } from './components/MoTwoCase';
 import { VentureScoutCase } from './components/VentureScoutCase';
@@ -56,6 +57,9 @@ function App() {
       <Hero />
       <ProofStrip />
       <Marquee />
+
+      {/* Early: recruiters scan for tooling keywords before they read prose. */}
+      <TechStack />
 
       <MoTwoCase />
       <VentureScoutCase />
