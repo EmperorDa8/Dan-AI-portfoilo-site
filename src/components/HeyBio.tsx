@@ -76,7 +76,8 @@ export function HeyBio() {
                         a remote contract as <strong>AI Prompt Engineer</strong> for <strong>AZer-t</strong>, a French mobile
                         game studio. I'm a <strong>certified AI Prompt Engineer</strong> (Google Prompting Essentials) and{' '}
                         <strong>certified AI Builder</strong> (CodePath × Anthropic). Based in <strong>Lagos, Nigeria</strong>,
-                        working <strong>remote worldwide</strong>, and <strong>open to relocation</strong>.
+                        working <strong>remote worldwide</strong>, and <strong>open to relocation anywhere in the
+                        world</strong>.
                     </p>
                     <div className="hey-quote">
                         "PRD-first specs, CLAUDE.md context files, ruthless scoping — the workflow discipline that makes

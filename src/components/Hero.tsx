@@ -37,7 +37,7 @@ export function Hero() {
                         <span className="hero-id-text">
                             <span className="hero-id-name">Dan Usman</span>
                             <span className="hero-id-role mono-label">
-                                AI Product Engineer · Lagos · Remote worldwide
+                                AI Product Engineer &amp; AI Builder · Lagos · Remote worldwide
                             </span>
                         </span>
                     </motion.div>
@@ -77,7 +77,7 @@ export function Hero() {
                     </motion.div>
 
                     <motion.p {...rise(0.54)} className="hero-avail mono-label">
-                        <span className="pulse-dot" /> Available from Feb 2026 · open to relocation
+                        <span className="pulse-dot" /> Available from Feb 2026 · open to relocation anywhere in the world
                     </motion.p>
                 </div>
 
