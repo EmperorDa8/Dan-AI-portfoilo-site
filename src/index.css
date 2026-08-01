@@ -43,6 +43,20 @@
     --r-flat: 0px;
     --r-pill: 999px;
     --r-card: 8px;
+    /* Motion: four durations and two curves, not ten and the browser default.
+       `ease` was in use 265 times — the least considered curve available. */
+    /* Section rhythm: three steps, not seven arbitrary values. */
+    --space-section: 7rem;
+    --space-section-lg: 8.5rem;
+    --space-gutter: 4vw;
+
+    --dur-fast: 180ms;
+    --dur-base: 300ms;
+    --dur-slow: 480ms;
+    --dur-deliberate: 900ms;
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
     --shadow-soft: 0 24px 60px -28px rgba(43, 43, 41, 0.26);
     --shadow-lift: 0 36px 80px -30px rgba(43, 43, 41, 0.34);
   }
@@ -229,7 +243,7 @@
 
 .nav-name {
   font-family: var(--font-mono);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   color: var(--ink);
@@ -267,7 +281,7 @@
   text-decoration: none;
   padding: 0.55rem 1.1rem;
   border-radius: var(--r-pill);
-  transition: background 0.25s ease, color 0.25s ease;
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
   white-space: nowrap;
 }
 
@@ -292,7 +306,7 @@
   padding: 0.65rem 1.4rem;
   text-decoration: none;
   white-space: nowrap;
-  transition: transform 0.25s ease;
+  transition: transform var(--dur-fast) var(--ease-out);
 }
 
 .nav-cta:hover {
@@ -324,7 +338,7 @@
   color: var(--ink);
   text-decoration: underline;
   text-underline-offset: 3px;
-  transition: color 0.2s;
+  transition: color var(--dur-fast) var(--ease-out);
 }
 
 .nav-meta a:hover {
@@ -333,7 +347,7 @@
 
 .sound-toggle {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   border: 1px solid var(--line-strong);
@@ -342,7 +356,7 @@
   border-radius: var(--r-pill);
   padding: 0.35rem 0.8rem;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all var(--dur-fast) var(--ease-out);
 }
 
 .sound-toggle:hover {
@@ -412,7 +426,7 @@
   gap: 1.2rem;
   flex-wrap: wrap;
   font-family: var(--font-mono);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   letter-spacing: 0.02em;
   color: var(--ink-soft);
   padding: 1rem 0;
@@ -448,7 +462,7 @@
   align-items: center;
   gap: 0.6rem;
   font-family: var(--font-mono);
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -457,7 +471,7 @@
   text-decoration: none;
   cursor: pointer;
   border: 1px solid transparent;
-  transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+  transition: transform var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
   min-height: 46px;
 }
 
@@ -526,7 +540,7 @@
 }
 
 .hero-portrait-color {
-  transition: opacity 0.8s ease;
+  transition: opacity var(--dur-deliberate) var(--ease-out);
 }
 
 /* ============ PROOF STRIP ============ */
@@ -551,7 +565,7 @@
 .proof-cell {
   background: var(--bg);
   padding: 1.8rem 1.5rem;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out);
 }
 
 .proof-cell:hover {
@@ -582,7 +596,7 @@
 }
 
 .proof-sub {
-  font-size: 0.86rem;
+  font-size: 0.9rem;
   color: var(--muted);
   line-height: 1.5;
 }
@@ -620,7 +634,7 @@
   right: 0;
   transform: translateX(50%);
   opacity: 0.3;
-  font-size: 0.6rem;
+  font-size: 0.72rem;
 }
 
 @keyframes marquee-scroll {
@@ -654,7 +668,7 @@
 
 /* ============ WORKS ============ */
 .work-section {
-  padding: 8rem 4vw 6rem;
+  padding: var(--space-section-lg) var(--space-gutter) var(--space-section);
   max-width: 1560px;
   margin-inline: auto;
 }
@@ -697,7 +711,7 @@
   cursor: pointer;
   text-decoration: none;
   color: var(--ink);
-  transition: background 0.3s ease, transform 0.3s ease;
+  transition: background var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
   border-radius: var(--r-card);
 }
 
@@ -719,7 +733,7 @@
   font-size: 0.9rem;
   line-height: 1.55;
   color: var(--muted);
-  transition: color 0.3s;
+  transition: color var(--dur-base) var(--ease-out);
 }
 
 .w-col-type {
@@ -739,7 +753,7 @@
   padding: 0.4rem 0.9rem;
   color: var(--ink-soft);
   background: rgba(255, 255, 255, 0.5);
-  transition: all 0.3s;
+  transition: all var(--dur-base) var(--ease-out);
 }
 
 .work-row:hover .w-col-tags {
@@ -764,7 +778,7 @@
   opacity: 0;
   object-fit: cover;
   transform: translateY(24px) scale(0.94) rotate(0deg);
-  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all var(--dur-base) cubic-bezier(0.22, 1 var(--ease-out), 0.36 var(--ease-out), 1) var(--ease-out);
   z-index: 10;
 }
 
@@ -784,7 +798,7 @@
   background: rgba(255, 255, 255, 0.6);
   text-decoration: none;
   color: var(--ink-soft);
-  transition: all 0.25s;
+  transition: all var(--dur-fast) var(--ease-out);
 }
 
 .sim-chip:hover {
@@ -796,7 +810,7 @@
 
 /* ============ FEATURED ============ */
 .featured-section {
-  padding: 7rem 4vw;
+  padding: var(--space-section) var(--space-gutter);
   border-top: 1px solid var(--line);
 }
 
@@ -812,7 +826,7 @@
   display: flex;
   flex-direction: column;
   transform-style: preserve-3d;
-  transition: opacity 0.45s ease;
+  transition: opacity var(--dur-slow) var(--ease-out);
   --rx: 0deg;
   --ry: 0deg;
   --mx: 50%;
@@ -841,7 +855,7 @@
   font-size: clamp(1.6rem, 2.4vw, 2.3rem);
   font-weight: 600;
   letter-spacing: -0.03em;
-  transition: color 0.3s;
+  transition: color var(--dur-base) var(--ease-out);
 }
 
 .proj-card:hover .proj-name {
@@ -851,7 +865,7 @@
 .proj-desc {
   font-family: var(--font-mono);
   color: var(--muted);
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   font-weight: 500;
   text-transform: none;
   letter-spacing: 0.08em;
@@ -861,7 +875,7 @@
 
 .proj-gh {
   color: var(--ink);
-  transition: color 0.2s, transform 0.2s;
+  transition: color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
   flex-shrink: 0;
 }
 
@@ -881,7 +895,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s;
+  transition: transform var(--dur-slow) cubic-bezier(0.22, 1 var(--ease-out), 0.36 var(--ease-out), 1) var(--ease-out), box-shadow var(--dur-slow) var(--ease-out);
 }
 
 .proj-card:hover .proj-img-box {
@@ -893,7 +907,7 @@
   width: 100%;
   height: 112%;
   object-fit: cover;
-  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform var(--dur-deliberate) cubic-bezier(0.22, 1 var(--ease-out), 0.36 var(--ease-out), 1) var(--ease-out);
 }
 
 .proj-card:hover .proj-img-box img {
@@ -910,7 +924,7 @@
   border-radius: var(--r-pill);
   padding: 0.6rem 1.3rem;
   opacity: 0;
-  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity var(--dur-base) var(--ease-out), transform var(--dur-base) cubic-bezier(0.22, 1 var(--ease-out), 0.36 var(--ease-out), 1) var(--ease-out);
   z-index: 2;
 }
 
@@ -921,7 +935,7 @@
 
 /* ============ BIO ============ */
 .hey-section {
-  padding: 7rem 4vw;
+  padding: var(--space-section) var(--space-gutter);
   border-top: 1px solid var(--line);
 }
 
@@ -973,7 +987,7 @@
 
 .tool-cell {
   font-family: var(--font-mono);
-  font-size: 0.66rem;
+  font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -983,7 +997,7 @@
   text-align: center;
   border-right: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  transition: background 0.25s, color 0.25s;
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
   cursor: default;
 }
 
@@ -1007,7 +1021,7 @@
   box-shadow: var(--shadow-soft);
   overflow: hidden;
   aspect-ratio: 4 / 5;
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform var(--dur-slow) cubic-bezier(0.22, 1 var(--ease-out), 0.36 var(--ease-out), 1) var(--ease-out);
 }
 
 .hey-col-2:hover {
@@ -1035,7 +1049,7 @@
 .hey-col-3 {
   display: flex;
   flex-direction: column;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   line-height: 1.75;
   color: var(--ink-soft);
 }
@@ -1043,7 +1057,7 @@
 .hey-num {
   margin-bottom: 1.8rem;
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   color: var(--white);
@@ -1097,18 +1111,18 @@
   padding: 2.4rem 0.6rem;
   background: var(--surface);
   font-family: var(--font-mono);
-  font-size: 0.66rem;
+  font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--ink-soft);
-  transition: background 0.28s ease, color 0.28s ease;
+  transition: background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out);
   cursor: default;
 }
 
 .tool-wall-cell img {
   opacity: 0.82;
-  transition: filter 0.28s ease, opacity 0.28s ease;
+  transition: filter var(--dur-base) var(--ease-out), opacity var(--dur-base) var(--ease-out);
 }
 
 .tool-wall-cell:hover {
@@ -1123,7 +1137,7 @@
 
 /* ============ CASE STUDIES ============ */
 .case-section {
-  padding: 7rem 4vw;
+  padding: var(--space-section) var(--space-gutter);
   border-top: 1px solid var(--line);
   max-width: 1500px;
   margin: 0 auto;
@@ -1196,7 +1210,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform var(--dur-deliberate) cubic-bezier(0.22, 1 var(--ease-out), 0.36 var(--ease-out), 1) var(--ease-out);
 }
 
 .case-hero:hover img {
@@ -1216,7 +1230,7 @@
   border-radius: var(--r-card);
   box-shadow: var(--shadow-soft);
   padding: 2rem;
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform var(--dur-slow) cubic-bezier(0.22, 1 var(--ease-out), 0.36 var(--ease-out), 1) var(--ease-out);
 }
 
 .case-phase:hover {
@@ -1279,13 +1293,13 @@
   align-items: center;
   gap: 0.55rem;
   font-family: var(--font-mono);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   color: var(--ink);
   border: 1px solid var(--line-strong);
   border-radius: var(--r-pill);
   padding: 0.5rem 1rem;
   background: rgba(255, 255, 255, 0.5);
-  transition: border-color 0.25s, transform 0.25s;
+  transition: border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
 }
 
 .case-tag.logo:hover {
@@ -1326,7 +1340,7 @@
 
 /* ============ CREDENTIALS ============ */
 .cred-section {
-  padding: 7rem 4vw;
+  padding: var(--space-section) var(--space-gutter);
   border-top: 1px solid var(--line);
 }
 
@@ -1352,7 +1366,7 @@
   padding: 2rem 2.2rem 1.8rem;
   text-decoration: none;
   color: var(--ink);
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s;
+  transition: transform var(--dur-slow) cubic-bezier(0.22, 1 var(--ease-out), 0.36 var(--ease-out), 1) var(--ease-out), box-shadow var(--dur-slow) var(--ease-out);
   position: relative;
   overflow: hidden;
 }
@@ -1379,7 +1393,7 @@
   align-items: center;
   gap: 0.5rem;
   font-family: var(--font-mono);
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1400,7 +1414,7 @@
   border-radius: 50%;
   background: #29c46f;
   color: #fff;
-  font-size: 0.6rem;
+  font-size: 0.72rem;
 }
 
 .cert-name {
@@ -1413,7 +1427,7 @@
 
 .cert-meta {
   font-family: var(--font-mono);
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   color: var(--muted);
   letter-spacing: 0.04em;
   margin-bottom: 1.2rem;
@@ -1479,7 +1493,7 @@
 
 .tl-org {
   font-family: var(--font-mono);
-  font-size: 0.74rem;
+  font-size: 0.78rem;
   color: var(--ink-soft);
   letter-spacing: 0.04em;
   margin: 0.3rem 0 0.6rem;
@@ -1555,7 +1569,7 @@
   border-radius: var(--r-pill);
   padding: 0.65rem 1.5rem;
   text-decoration: none;
-  transition: all 0.25s;
+  transition: all var(--dur-fast) var(--ease-out);
 }
 
 .cta-social-pill:hover {
@@ -1574,7 +1588,7 @@
 
 .form-label {
   font-family: var(--font-mono);
-  font-size: 0.64rem;
+  font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -1600,7 +1614,7 @@
   border-radius: var(--r-pill);
   padding: 0.85rem 1.7rem;
   cursor: pointer;
-  transition: all 0.25s;
+  transition: all var(--dur-fast) var(--ease-out);
 }
 
 .form-chip:hover {
@@ -1659,7 +1673,7 @@
   display: flex;
   justify-content: space-between;
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--dark-muted);
@@ -1678,7 +1692,7 @@
   resize: vertical;
   min-height: 90px;
   margin-bottom: 2.4rem;
-  transition: border-color 0.3s;
+  transition: border-color var(--dur-base) var(--ease-out);
 }
 
 .form-message::placeholder {
@@ -1702,7 +1716,7 @@
   border-radius: var(--r-pill);
   padding: 1.05rem 2.4rem;
   cursor: pointer;
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s;
+  transition: transform var(--dur-fast) cubic-bezier(0.34, 1.56 var(--ease-out), 0.64 var(--ease-out), 1) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
 }
 
 .send-btn:hover {
@@ -1733,7 +1747,7 @@
 .site-footer a {
   text-decoration: none;
   color: var(--dark-muted);
-  transition: color 0.2s;
+  transition: color var(--dur-fast) var(--ease-out);
 }
 
 .site-footer a:hover {
@@ -1926,7 +1940,7 @@
   }
 
   .hero-strap {
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     letter-spacing: 0.14em;
   }
 }
@@ -1942,7 +1956,7 @@
   font-size: 1.1rem;
   padding: 0.6rem 0 0.9rem;
   margin-bottom: 2.4rem;
-  transition: border-color 0.3s;
+  transition: border-color var(--dur-base) var(--ease-out);
 }
 
 .form-input::placeholder {
@@ -1973,7 +1987,7 @@
 .form-status {
   margin-top: 1.2rem;
   min-height: 1.4em;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   color: var(--mint);
 }
 
@@ -1988,7 +2002,7 @@
   align-items: center;
   align-self: flex-start;
   font-family: var(--font-mono);
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.06em;
   color: var(--accent);
@@ -2010,7 +2024,7 @@
   z-index: 1;
   background: var(--mint);
   border-radius: var(--r-flat);
-  padding: 6rem 4vw;
+  padding: var(--space-section) var(--space-gutter);
   margin: 5rem 0;
 }
 
@@ -2044,7 +2058,7 @@
 }
 
 @media (max-width: 900px) {
-  .band { padding: 4rem 4vw; margin: 3rem 0; }
+  .band { padding: var(--space-section) var(--space-gutter); margin: 3rem 0; }
   .band-inner { grid-template-columns: 1fr; gap: 1.6rem; }
 }
 
@@ -2075,6 +2089,15 @@
   overflow: hidden;
   pointer-events: none;
   border-radius: var(--r-card) 0 0 var(--r-card);
+  /* Feather the footage's own alpha at the inner edge. The scrim alone left
+     ~8% of the video showing at its first stop, which read as a faint vertical
+     seam against the flat background. */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 20%),
+    linear-gradient(180deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 20%),
+    linear-gradient(180deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
 }
 
 .hero-backdrop-media {
@@ -2085,7 +2108,7 @@
   display: block;
   opacity: 0;
   transform-origin: center;
-  transition: opacity 1.2s ease;
+  transition: opacity 1.2s var(--ease-out);
   filter: saturate(0.92) contrast(1.02);
   scale: 1.12; /* headroom for the parallax drift */
 }
@@ -2099,7 +2122,7 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, var(--bg) 0%, rgba(250, 248, 243, 0.92) 22%, rgba(250, 248, 243, 0.34) 55%, rgba(250, 248, 243, 0.12) 100%),
+    linear-gradient(90deg, var(--bg) 0%, rgba(250, 248, 243, 0.86) 26%, rgba(250, 248, 243, 0.26) 58%, rgba(250, 248, 243, 0.08) 100%),
     linear-gradient(180deg, var(--bg) 0%, transparent 18%, transparent 82%, var(--bg) 100%);
 }
 
@@ -2162,7 +2185,7 @@
 }
 
 .hero-id-role {
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   letter-spacing: 0.1em;
 }
 
@@ -2251,7 +2274,7 @@
   --rx: 0deg;
   --ry: 0deg;
   transform: rotateX(var(--rx)) rotateY(var(--ry));
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform var(--dur-slow) cubic-bezier(0.22, 1 var(--ease-out), 0.36 var(--ease-out), 1) var(--ease-out);
 }
 
 .proj-card:hover .proj-card-face {
@@ -2305,7 +2328,7 @@
   z-index: 1;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity var(--dur-slow) var(--ease-out);
   background: radial-gradient(
     420px circle at var(--mx) var(--my),
     rgba(255, 255, 255, 0.42),
@@ -2336,7 +2359,7 @@
 
 /* ============ TECH STACK ============ */
 .stack-section {
-  padding: 6.5rem 4vw;
+  padding: var(--space-section) var(--space-gutter);
   max-width: 1560px;
   margin-inline: auto;
   position: relative;
@@ -2366,7 +2389,7 @@
   align-items: center;
   gap: 0.55rem;
   font-family: var(--font-mono);
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -2376,7 +2399,7 @@
   border-radius: var(--r-pill);
   padding: 0.6rem 1.15rem;
   cursor: pointer;
-  transition: background 0.28s ease, color 0.28s ease, border-color 0.28s ease, transform 0.28s ease;
+  transition: background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
 }
 
 .stack-filter:hover {
@@ -2391,7 +2414,7 @@
 }
 
 .stack-filter-n {
-  font-size: 0.66rem;
+  font-size: 0.72rem;
   opacity: 0.6;
   font-variant-numeric: tabular-nums;
 }
@@ -2417,7 +2440,7 @@
   background: var(--surface);
   min-height: 132px;
   display: flex;
-  transition: background 0.3s ease;
+  transition: background var(--dur-base) var(--ease-out);
 }
 
 /* Filtered-out tiles leave the flow; FLIP glides the survivors into place. */
@@ -2435,7 +2458,7 @@
   padding: 1.4rem 0.7rem;
   transform-style: preserve-3d;
   transform: translate3d(var(--tx), var(--ty), 0) rotateX(var(--rx)) rotateY(var(--ry));
-  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform var(--dur-slow) cubic-bezier(0.22, 1 var(--ease-out), 0.36 var(--ease-out), 1) var(--ease-out);
 }
 
 .stack-tile:hover .stack-tile-in {
@@ -2453,7 +2476,7 @@
   height: 30px;
   object-fit: contain;
   filter: grayscale(1) opacity(0.5);
-  transition: filter 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: filter var(--dur-base) var(--ease-out), transform var(--dur-base) cubic-bezier(0.34, 1.56 var(--ease-out), 0.64 var(--ease-out), 1) var(--ease-out);
   transform: translateZ(18px);
 }
 
@@ -2471,12 +2494,12 @@
   border: 1px solid var(--line-strong);
   border-radius: var(--r-card);
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   color: var(--ink-soft);
   transform: translateZ(18px);
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.35s ease, color 0.35s ease;
+  transition: transform var(--dur-base) cubic-bezier(0.34, 1.56 var(--ease-out), 0.64 var(--ease-out), 1) var(--ease-out), background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out);
 }
 
 .stack-tile:hover .stack-monogram {
@@ -2487,7 +2510,7 @@
 
 .stack-name {
   font-family: var(--font-sans);
-  font-size: 0.86rem;
+  font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: -0.01em;
   color: var(--ink);
@@ -2496,11 +2519,11 @@
 }
 
 .stack-tag {
-  font-size: 0.6rem;
+  font-size: 0.72rem;
   letter-spacing: 0.12em;
   opacity: 0;
   transform: translateZ(8px) translateY(4px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: opacity var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
 }
 
 .stack-tile:hover .stack-tag {
@@ -2538,4 +2561,59 @@
 @media (prefers-reduced-motion: reduce) {
   .stack-tile-in { transform: none !important; }
   .stack-logo, .stack-monogram { transform: none !important; }
+}
+
+/* ============ FINISHING DETAIL ============ */
+/* Numerals that change in place must not reflow. The clock re-rendered every
+   30s and the stat counters animate 0→N; proportional figures made both jitter. */
+.nav-clock,
+.proof-value,
+.metric-value,
+.stack-meta span,
+.case-metric-value,
+[data-countto] {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+/* Let the browser break display type sensibly instead of leaving one-word
+   final lines. `balance` is capped at ~6 lines, so body copy uses `pretty`. */
+h1, h2, h3,
+.hero-h1, .section-title, .band-title, .case-title,
+.story-title, .cine-line, .stat-line, .craft-title, .cta-title {
+  text-wrap: balance;
+}
+
+p, .hero-sub, .case-lead, .case-phase-body, .story-body, .tl-note {
+  text-wrap: pretty;
+}
+
+/* A default blue-grey scrollbar on a warm cream page is a visible seam. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: var(--r-pill);
+  border: 3px solid var(--bg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-soft);
+}
+
+/* Media should never announce itself before it has loaded. */
+img, video {
+  background-color: var(--bg-deep);
 }
