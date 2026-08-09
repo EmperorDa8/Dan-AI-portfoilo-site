@@ -4,6 +4,14 @@ import { playTick } from '../sound';
 
 const PROJECTS = [
     {
+        name: '/Tasker',
+        desc: 'Chrome extension — local-first activity tracking with Google Drive sync. Built and shipped to the Web Store in one day.',
+        href: 'https://emperorda8.github.io/tasker-extension/',
+        img: '/tasker_thumbnail.webp',
+        alt: 'Tasker Chrome extension popup showing focus time and logged accomplishments',
+        github: 'https://github.com/EmperorDa8/tasker-extension',
+    },
+    {
         name: '/PricePal',
         desc: 'Live Prototype - AI Grocery Basket & Price Comparison (UK & Nigeria)',
         href: 'https://savvy-shelf-scout.lovable.app/',

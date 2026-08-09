@@ -3,11 +3,15 @@ import { playTick } from '../sound';
 
 /** Hard numbers immediately after the hero — previously the first quantitative
  *  claim on the page didn't appear until screen 9.5. */
+/* Ordered fastest-first: the shipping speed is the argument, and Tasker is the
+   only one that cleared an external review process. The old "8+ live
+   prototypes" cell was cut — the grid below evidences that rather than
+   asserting it. */
 const PROOF = [
+    { value: '1 day', label: 'Chrome extension shipped', sub: 'Built solo, live on the Web Store' },
     { value: '1 week', label: 'UK e-commerce MVP', sub: 'Scoped, built and shipped' },
     { value: '9 days', label: 'LLM risk-scoring MVP', sub: 'Idea to live VentureScout' },
     { value: '2', label: 'Verified certifications', sub: 'Google · CodePath × Anthropic' },
-    { value: '8+', label: 'Live prototypes', sub: 'Deployed, shareable, linked below' },
 ];
 
 export function ProofStrip() {

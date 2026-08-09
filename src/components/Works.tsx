@@ -43,6 +43,13 @@ export function Works() {
             </div>
 
             <div className="work-list">
+                <a href="https://emperorda8.github.io/tasker-extension/" target="_blank" rel="noopener noreferrer" className="work-row" onMouseEnter={playTick}>
+                    <div className="w-col-name">Tasker</div>
+                    <div className="w-col-tags">Chrome MV3 / Google Drive API + OAuth / Node proxy / Gemini summaries</div>
+                    <div className="w-col-type"><span>Web Store</span></div>
+                    <img src="/tasker_thumbnail.webp" alt="Tasker extension" className="preview-flyout" loading="lazy" decoding="async" width={340} height={255} />
+                </a>
+
                 <a href="https://github.com/EmperorDa8/generativeAI" target="_blank" rel="noopener noreferrer" className="work-row" onMouseEnter={playTick}>
                     <div className="w-col-name">Gen-AI Repo</div>
                     <div className="w-col-tags">Prompt Engineering / Text, Image &amp; Video Generative Models</div>
