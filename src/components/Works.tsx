@@ -43,7 +43,7 @@ export function Works() {
             </div>
 
             <div className="work-list">
-                <a href="https://emperorda8.github.io/tasker-extension/" target="_blank" rel="noopener noreferrer" className="work-row" onMouseEnter={playTick}>
+                <a href="https://chromewebstore.google.com/detail/tasker-activity-tracker-g/nfdjclnanladapnhofbmnhclkhlndeak" target="_blank" rel="noopener noreferrer" className="work-row" onMouseEnter={playTick}>
                     <div className="w-col-name">Tasker</div>
                     <div className="w-col-tags">Chrome MV3 / Google Drive API + OAuth / Node proxy / Gemini summaries</div>
                     <div className="w-col-type"><span>Web Store</span></div>

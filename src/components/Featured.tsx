@@ -6,7 +6,7 @@ const PROJECTS = [
     {
         name: '/Tasker',
         desc: 'Chrome extension — local-first activity tracking with Google Drive sync. Built and shipped to the Web Store in one day.',
-        href: 'https://emperorda8.github.io/tasker-extension/',
+        href: 'https://chromewebstore.google.com/detail/tasker-activity-tracker-g/nfdjclnanladapnhofbmnhclkhlndeak',
         img: '/tasker_thumbnail.webp',
         alt: 'Tasker Chrome extension popup showing focus time and logged accomplishments',
         github: 'https://github.com/EmperorDa8/tasker-extension',
