@@ -21,7 +21,7 @@ function useClock() {
 }
 
 export function Navigation() {
-    const [activeSection, setActiveSection] = useState<string>('work');
+    const [activeSection, setActiveSection] = useState<string | null>(null);
     const [scrolled, setScrolled] = useState(false);
     const [sound, setSound] = useState(isSoundEnabled());
     const time = useClock();
@@ -33,22 +33,33 @@ export function Navigation() {
         return () => window.removeEventListener('scroll', onScroll);
     }, []);
 
+    /* One observer over all three sections, tracking which are on screen. The
+       previous version only ever set the active id and never cleared it, so the
+       pill kept highlighting a section the reader had already scrolled away
+       from — including while the hero, above all of them, was in view. */
     useEffect(() => {
         const sections = ['work', 'bio', 'contact'];
-        const observers: IntersectionObserver[] = [];
+        const onScreen = new Set<string>();
+
+        const obs = new IntersectionObserver(
+            entries => {
+                entries.forEach(entry => {
+                    const id = entry.target.id;
+                    if (entry.isIntersecting) onScreen.add(id);
+                    else onScreen.delete(id);
+                });
+                // Furthest-down wins, so the deepest visible section is named.
+                const active = [...sections].reverse().find(id => onScreen.has(id)) ?? null;
+                setActiveSection(active);
+            },
+            { threshold: 0.25 }
+        );
+
         sections.forEach(id => {
             const el = document.getElementById(id);
-            if (!el) return;
-            const obs = new IntersectionObserver(
-                ([entry]) => {
-                    if (entry.isIntersecting) setActiveSection(id);
-                },
-                { threshold: 0.25 }
-            );
-            obs.observe(el);
-            observers.push(obs);
+            if (el) obs.observe(el);
         });
-        return () => observers.forEach(o => o.disconnect());
+        return () => obs.disconnect();
     }, []);
 
     const toggleSound = () => {
@@ -58,7 +69,7 @@ export function Navigation() {
     };
 
     return (
-        <nav className="site-nav">
+        <nav className="site-nav" aria-label="Primary">
             <a href="#top" className="nav-name" onMouseEnter={playTick}>
                 DAN USMAN
             </a>
@@ -96,13 +107,31 @@ export function Navigation() {
                             exit={{ opacity: 0, y: -12 }}
                             transition={{ duration: 0.28, ease: 'easeOut' }}
                         >
-                            <a href="#work" className={activeSection === 'work' ? 'active' : ''} onMouseEnter={playTick} onClick={playClick}>
+                            <a
+                                href="#work"
+                                className={activeSection === 'work' ? 'active' : ''}
+                                aria-current={activeSection === 'work' ? 'true' : undefined}
+                                onMouseEnter={playTick}
+                                onClick={playClick}
+                            >
                                 Work
                             </a>
-                            <a href="#bio" className={activeSection === 'bio' ? 'active' : ''} onMouseEnter={playTick} onClick={playClick}>
+                            <a
+                                href="#bio"
+                                className={activeSection === 'bio' ? 'active' : ''}
+                                aria-current={activeSection === 'bio' ? 'true' : undefined}
+                                onMouseEnter={playTick}
+                                onClick={playClick}
+                            >
                                 About
                             </a>
-                            <a href="#contact" className={activeSection === 'contact' ? 'active' : ''} onMouseEnter={playTick} onClick={playClick}>
+                            <a
+                                href="#contact"
+                                className={activeSection === 'contact' ? 'active' : ''}
+                                aria-current={activeSection === 'contact' ? 'true' : undefined}
+                                onMouseEnter={playTick}
+                                onClick={playClick}
+                            >
                                 Contact
                             </a>
                         </motion.div>

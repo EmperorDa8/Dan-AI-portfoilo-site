@@ -22,7 +22,7 @@ export function VentureScoutCase() {
             <div className="section-head">
                 <div>
                     <div className="case-badge live">
-                        <span className="pulse-dot" /> Case Study / 01 — Live
+                        <span className="pulse-dot" /> Case Study / 02 — Live
                     </div>
                     <h2 className="section-title">
                         Venture<em>Scout</em>

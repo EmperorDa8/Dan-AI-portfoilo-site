@@ -130,8 +130,12 @@ export function FooterCTA() {
                     className="form-input"
                     placeholder="you@company.com"
                     value={email}
-                    onChange={e => setEmail(e.target.value)}
+                    onChange={e => {
+                        setEmail(e.target.value);
+                        if (status !== 'idle') setStatus('idle');
+                    }}
                     autoComplete="email"
+                    required
                 />
 
                 <label className="form-label" htmlFor="message">
@@ -142,7 +146,11 @@ export function FooterCTA() {
                     className="form-message"
                     placeholder="Tell me a little about it..."
                     value={message}
-                    onChange={e => setMessage(e.target.value)}
+                    onChange={e => {
+                        setMessage(e.target.value);
+                        if (status !== 'idle') setStatus('idle');
+                    }}
+                    required
                 />
 
                 <div className="form-actions">
@@ -161,7 +169,12 @@ export function FooterCTA() {
                 <p className="form-status" role="status" aria-live="polite">
                     {status === 'sent' && !ENDPOINT && 'Opened a draft in your mail app — if nothing happened, use the address above.'}
                     {status === 'sent' && ENDPOINT && "Thanks — that's with me. I'll reply within a day."}
-                    {status === 'error' && 'That didn’t send. Please use the email address above.'}
+                    {status === 'error' && (
+                        <>
+                            That didn’t send.{' '}
+                            <a href={mailtoHref()}>Open it as an email draft instead</a> — your message is kept.
+                        </>
+                    )}
                 </p>
             </form>
         </section>

@@ -1,10 +1,35 @@
+const TOOLS = [
+    'Claude Code',
+    'Lovable',
+    'Rocket AI',
+    'Cursor',
+    'GPT-4o',
+    'Midjourney',
+    'Sora & VEO 3',
+    'ElevenLabs',
+    'n8n',
+    'Generative AI',
+] as const;
+
+/**
+ * The track is rendered twice so the -50% translate loops seamlessly. The second
+ * pass is aria-hidden — otherwise screen readers announce the whole tool list
+ * twice. Kept as flat sibling spans because `.marquee-content span` styles every
+ * descendant span; a wrapper element would pick up its padding and ✦ separator
+ * and break the loop's symmetry.
+ */
 export function Marquee() {
     return (
         <div className="marquee-container reveal">
             <div className="marquee-content">
-                {/* Duplicated for seamless scrolling */}
-                <span>Claude Code</span><span>Lovable</span><span>Rocket AI</span><span>Cursor</span><span>GPT-4o</span><span>Midjourney</span><span>Sora &amp; VEO 3</span><span>ElevenLabs</span><span>n8n</span><span>Generative AI</span>
-                <span>Claude Code</span><span>Lovable</span><span>Rocket AI</span><span>Cursor</span><span>GPT-4o</span><span>Midjourney</span><span>Sora &amp; VEO 3</span><span>ElevenLabs</span><span>n8n</span><span>Generative AI</span>
+                {TOOLS.map(t => (
+                    <span key={t}>{t}</span>
+                ))}
+                {TOOLS.map(t => (
+                    <span key={`dupe-${t}`} aria-hidden>
+                        {t}
+                    </span>
+                ))}
             </div>
         </div>
     );

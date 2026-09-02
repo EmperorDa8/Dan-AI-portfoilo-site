@@ -19,7 +19,7 @@ const rise = (delay: number) => ({
  */
 export function Hero() {
     return (
-        <section className="hero-section">
+        <section className="hero-section" id="top">
             <HeroBackdrop />
 
             <div className="hero-grid">
@@ -106,6 +106,7 @@ export function HeroBackdrop() {
 
     const { scrollYProgress } = useScroll({ target: wrapRef, offset: ['start start', 'end start'] });
     const scrollY = useTransform(scrollYProgress, [0, 1], [0, 90]);
+    const driftAndScrollY = useTransform([driftY, scrollY], ([a, b]: number[]) => a + b);
     const scrimFade = useTransform(scrollYProgress, [0, 0.7], [1, 0.55]);
 
     useEffect(() => {
@@ -142,7 +143,7 @@ export function HeroBackdrop() {
     return (
         <div className="hero-backdrop" aria-hidden ref={wrapRef}>
             <motion.video
-                style={{ x: driftX, y: useTransform([driftY, scrollY], ([a, b]: number[]) => a + b) }}
+                style={{ x: driftX, y: driftAndScrollY }}
                 ref={videoRef}
                 className={`hero-backdrop-media${ready ? ' is-ready' : ''}`}
                 muted

@@ -7,6 +7,35 @@ const COUNT = 90;
 const PALETTE = ['#387478', '#a5bcba', '#c8e1dd', '#494444'];
 
 /**
+ * Deterministic field generator.
+ *
+ * `Math.random()` during render is impure — React may re-run a `useMemo` body at
+ * any time, which would silently re-scatter the whole field mid-scroll. A seeded
+ * generator makes the layout a pure function of the seed: stable across renders,
+ * and reproducible when something looks wrong.
+ */
+function mulberry32(seed: number) {
+    return () => {
+        seed = (seed + 0x6d2b79f5) | 0;
+        let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+        t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+}
+
+function buildShards() {
+    const rand = mulberry32(0x5ea4d5);
+    return Array.from({ length: COUNT }, (_, i) => ({
+        position: [(rand() - 0.5) * 26, (rand() - 0.5) * 34, (rand() - 0.5) * 22] as [number, number, number],
+        rotation: [rand() * Math.PI, rand() * Math.PI, rand() * Math.PI] as [number, number, number],
+        scale: 0.22 + rand() * 0.75,
+        speed: 0.06 + rand() * 0.22,
+        phase: rand() * Math.PI * 2,
+        color: new THREE.Color(PALETTE[i % PALETTE.length]),
+    }));
+}
+
+/**
  * Drifting shard field. Scroll dollies the whole cluster through the camera and
  * spins it slowly; the pointer adds a gentle lateral sway.
  */
@@ -16,26 +45,7 @@ function Shards() {
     const dummy = useMemo(() => new THREE.Object3D(), []);
     const pointer = useRef({ x: 0, y: 0 });
 
-    const shards = useMemo(
-        () =>
-            Array.from({ length: COUNT }, (_, i) => ({
-                position: [
-                    (Math.random() - 0.5) * 26,
-                    (Math.random() - 0.5) * 34,
-                    (Math.random() - 0.5) * 22,
-                ] as [number, number, number],
-                rotation: [Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI] as [
-                    number,
-                    number,
-                    number,
-                ],
-                scale: 0.22 + Math.random() * 0.75,
-                speed: 0.06 + Math.random() * 0.22,
-                phase: Math.random() * Math.PI * 2,
-                color: new THREE.Color(PALETTE[i % PALETTE.length]),
-            })),
-        []
-    );
+    const shards = useMemo(() => buildShards(), []);
 
     // Bake per-instance colors once.
     useEffect(() => {
@@ -127,14 +137,17 @@ export function Scene3D() {
         return () => window.removeEventListener('scroll', onScroll);
     }, []);
 
-    // Never render while the tab is hidden.
+    /* Never render while the tab is hidden. This is tracked separately from
+       `inRange`: folding it into that flag meant returning to the tab restored
+       the already-false value, so the scene never came back. */
+    const [visible, setVisible] = useState(!document.hidden);
     useEffect(() => {
-        const onVis = () => setInRange(v => (document.hidden ? false : v));
+        const onVis = () => setVisible(!document.hidden);
         document.addEventListener('visibilitychange', onVis);
         return () => document.removeEventListener('visibilitychange', onVis);
     }, []);
 
-    if (!enabled || !inRange) return null;
+    if (!enabled || !inRange || !visible) return null;
 
     return (
         <div className="scene3d" aria-hidden>

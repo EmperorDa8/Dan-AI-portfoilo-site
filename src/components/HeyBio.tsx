@@ -44,8 +44,9 @@ export function HeyBio() {
                         src="/hero_portrait_color.webp" loading="lazy" decoding="async" width={800} height={1000}
                         alt="Dan Usman"
                         onError={e => {
-                            (e.target as HTMLImageElement).src =
-                                'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80';
+                            // Hide, never substitute: the old fallback loaded a stock
+                            // photo of someone else under alt="Dan Usman".
+                            (e.currentTarget as HTMLImageElement).style.display = 'none';
                         }}
                     />
                     <svg className="overlay-icon" viewBox="0 0 100 100" fill="none" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
