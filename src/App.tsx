@@ -5,9 +5,11 @@ import { ProofStrip } from './components/ProofStrip';
 import { TechStack } from './components/TechStack';
 import { Marquee } from './components/Marquee';
 import { MoTwoCase } from './components/MoTwoCase';
-import { VentureScoutCase } from './components/VentureScoutCase';
-import { Featured } from './components/Featured';
-import { Works } from './components/Works';
+import { XamioCase } from './components/XamioCase';
+import { Products } from './components/Products';
+import { SystemsLab } from './components/SystemsLab';
+import { Studio } from './components/Studio';
+import { CommandPalette } from './components/CommandPalette';
 import { HeyBio } from './components/HeyBio';
 import { Credentials } from './components/Credentials';
 import { FooterCTA } from './components/FooterCTA';
@@ -58,11 +60,11 @@ function App() {
       <ProofStrip />
       <Marquee />
 
-      {/* Early: recruiters scan for tooling keywords before they read prose. */}
-      <TechStack />
-
+      {/* Evidence first: everything here is live, launched or in a public repo. */}
+      <Products />
+      <XamioCase />
       <MoTwoCase />
-      <VentureScoutCase />
+      <SystemsLab />
 
       <section className="band">
         <div className="band-inner">
@@ -70,20 +72,21 @@ function App() {
             Unfamiliar domain on Monday, <em>deployed by Friday.</em>
           </h2>
           <p className="band-note">
-            Fintech trade finance, cybersecurity tooling, game asset pipelines — the pattern is the same: learn the
-            domain fast enough to make the right architectural calls, then ship.
+            Trade finance, contract review, e-commerce, exam scheduling, game asset pipelines — the pattern is the
+            same: learn the domain fast enough to make the right architectural calls, then ship.
           </p>
         </div>
       </section>
 
-      <Featured />
-      <Works />
+      <Studio />
+      <TechStack />
 
       <HeyBio />
       <Credentials />
 
       <FooterCTA />
       <Footer />
+      <CommandPalette />
     </>
   );
 }

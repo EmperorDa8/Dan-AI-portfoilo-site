@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { gsap, prefersReducedMotion, revealElement, useGsapScope } from '../lib/scroll';
+import { gsap, ScrollTrigger, prefersReducedMotion, revealElement, useGsapScope } from '../lib/scroll';
 import { playClick, playTick } from '../sound';
 
 type Cat = 'AI-native' | 'Frontend' | 'Backend & data' | 'Ship';
@@ -16,13 +16,14 @@ type Tool = {
 /* Verified against cdn.simpleicons.org: `openai` and `lovable` 404, so those
    two carry no slug and fall back to a monogram rather than a broken image. */
 const TOOLS: Tool[] = [
+    { name: 'Claude API', cat: 'AI-native', slug: 'anthropic', daily: true },
     { name: 'Claude Code', cat: 'AI-native', slug: 'claude', daily: true },
     { name: 'Cursor', cat: 'AI-native', slug: 'cursor', daily: true },
     { name: 'OpenAI', cat: 'AI-native' },
     { name: 'Gemini', cat: 'AI-native', slug: 'googlegemini' },
     { name: 'ElevenLabs', cat: 'AI-native', slug: 'elevenlabs' },
     { name: 'Lovable', cat: 'AI-native' },
-    { name: 'n8n', cat: 'AI-native', slug: 'n8n', daily: true },
+    { name: 'n8n', cat: 'AI-native', slug: 'n8n' },
 
     { name: 'React', cat: 'Frontend', slug: 'react', daily: true },
     { name: 'Next.js', cat: 'Frontend', slug: 'nextdotjs', daily: true },
@@ -36,12 +37,14 @@ const TOOLS: Tool[] = [
     { name: 'FastAPI', cat: 'Backend & data', slug: 'fastapi' },
     { name: 'PostgreSQL', cat: 'Backend & data', slug: 'postgresql' },
     { name: 'Supabase', cat: 'Backend & data', slug: 'supabase', daily: true },
+    { name: 'Stripe', cat: 'Backend & data', slug: 'stripe' },
 
     { name: 'Git', cat: 'Ship', slug: 'git', daily: true },
     { name: 'GitHub', cat: 'Ship', slug: 'github', daily: true },
     { name: 'Vercel', cat: 'Ship', slug: 'vercel', daily: true },
     { name: 'Netlify', cat: 'Ship', slug: 'netlify' },
     { name: 'Docker', cat: 'Ship', slug: 'docker' },
+    { name: 'Google Cloud', cat: 'Ship', slug: 'googlecloud' },
 ];
 
 const CATS: Cat[] = ['AI-native', 'Frontend', 'Backend & data', 'Ship'];
@@ -100,14 +103,22 @@ export function TechStack() {
         // Count the totals up as the section arrives.
         scope.querySelectorAll<HTMLElement>('[data-countto]').forEach(el => {
             const to = Number(el.dataset.countto ?? 0);
-            const obj = { v: 0 };
-            gsap.to(obj, {
-                v: to,
-                duration: 1.1,
-                ease: 'power2.out',
-                scrollTrigger: { trigger: el, start: 'top 92%', once: true },
-                onUpdate: () => {
-                    el.textContent = String(Math.round(obj.v));
+            // The real number is in the markup; only replay it from 0 once the
+            // section is actually reached, so nothing ever reads "0 tools".
+            ScrollTrigger.create({
+                trigger: el,
+                start: 'top 92%',
+                once: true,
+                onEnter: () => {
+                    const obj = { v: 0 };
+                    gsap.to(obj, {
+                        v: to,
+                        duration: 1.1,
+                        ease: 'power2.out',
+                        onUpdate: () => {
+                            el.textContent = String(Math.round(obj.v));
+                        },
+                    });
                 },
             });
         });
@@ -182,8 +193,8 @@ export function TechStack() {
                     The <em>stack.</em>
                 </h2>
                 <p className="stack-meta mono-label">
-                    <span data-countto={TOOLS.length}>0</span> tools ·{' '}
-                    <span data-countto={dailyCount}>0</span> used daily · {CATS.length} disciplines
+                    <span data-countto={TOOLS.length}>{TOOLS.length}</span> tools ·{' '}
+                    <span data-countto={dailyCount}>{dailyCount}</span> used daily · {CATS.length} disciplines
                 </p>
             </div>
 

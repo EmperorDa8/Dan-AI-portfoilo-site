@@ -1,14 +1,15 @@
 const TOOLS = [
+    'Claude API',
     'Claude Code',
-    'Lovable',
-    'Rocket AI',
-    'Cursor',
-    'GPT-4o',
-    'Midjourney',
-    'Sora & VEO 3',
+    'OpenAI',
+    'Gemini',
+    'MCP',
+    'RAG',
+    'Multi-agent',
+    'Veo 3',
+    'Kling',
+    'Nano Banana',
     'ElevenLabs',
-    'n8n',
-    'Generative AI',
 ] as const;
 
 /**

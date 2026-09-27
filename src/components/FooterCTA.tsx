@@ -85,7 +85,7 @@ export function FooterCTA() {
             </div>
 
             <div className="cta-socials">
-                <a href="https://www.linkedin.com/in/dan-usman/" target="_blank" rel="noopener noreferrer" className="cta-social-pill" onMouseEnter={playTick}>
+                <a href="https://www.linkedin.com/in/dan-usman-b87282134" target="_blank" rel="noopener noreferrer" className="cta-social-pill" onMouseEnter={playTick}>
                     LinkedIn
                 </a>
                 <a href="https://github.com/EmperorDa8" target="_blank" rel="noopener noreferrer" className="cta-social-pill" onMouseEnter={playTick}>
@@ -94,7 +94,7 @@ export function FooterCTA() {
                 <a href={`mailto:${EMAIL}`} className="cta-social-pill" onMouseEnter={playTick}>
                     Email
                 </a>
-                <a href="/Dan_Usman_CV_AI_Builder_2026.pdf" download className="cta-social-pill" onMouseEnter={playTick}>
+                <a href="/Dan_Usman_CV_AI_Product_Engineer_2026-09.pdf" download className="cta-social-pill" onMouseEnter={playTick}>
                     Resume ↓
                 </a>
             </div>

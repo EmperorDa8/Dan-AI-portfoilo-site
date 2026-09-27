@@ -8,10 +8,10 @@ import { playTick } from '../sound';
    prototypes" cell was cut — the grid below evidences that rather than
    asserting it. */
 const PROOF = [
-    { value: '1 day', label: 'Chrome extension shipped', sub: 'Built solo, live on the Web Store' },
-    { value: '1 week', label: 'UK e-commerce MVP', sub: 'Scoped, built and shipped' },
-    { value: '9 days', label: 'LLM risk-scoring MVP', sub: 'Idea to live VentureScout' },
-    { value: '2', label: 'Verified certifications', sub: 'Google · CodePath × Anthropic' },
+    { value: '5', label: 'Live products', sub: 'Xamio · Tasker · aitrainingplan · VentureScout · X Bot' },
+    { value: '< 2 wks', label: 'UK e-commerce platform', sub: 'Solo build, live in production' },
+    { value: '9', label: 'Agent system designed', sub: 'Schema-validated, human approval gates' },
+    { value: '3', label: 'Client countries', sub: 'UK · US · Nigeria' },
 ];
 
 export function ProofStrip() {

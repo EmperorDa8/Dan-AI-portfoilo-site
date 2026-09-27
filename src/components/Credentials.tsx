@@ -12,21 +12,27 @@ const reveal = (delay = 0) => ({
 const EXPERIENCE = [
     {
         period: 'Feb 2026 — Present',
-        role: 'AI Product Engineer / AI Builder',
-        org: 'Freelance / Self-Directed · Remote',
-        note: 'Business problem → deployed product. Mo2 (UK) e-commerce MVP shipped in one week; LLM risk-scoring MVP in nine days.',
+        role: 'Freelance AI Product Engineer',
+        org: 'Remote · clients in the UK, US and Nigeria',
+        note: 'Mo2Production e-commerce platform live in under two weeks; Claude-API RAG contract triage with human review; 9-agent trade finance prototype. Documented repos and handover notes on milestone agreements.',
+    },
+    {
+        period: 'Launched 2026',
+        role: 'Founder · Xamio',
+        org: 'Product Hunt launch · xamio.app',
+        note: 'Solo-built AI exam-timetable extraction and Google Calendar sync. Owned UX, pipeline, OAuth, launch and user support.',
     },
     {
         period: 'Sep 2025 — Jan 2026',
-        role: 'AI Prompt Engineer',
-        org: 'AZer-t — French mobile game studio · Remote contract',
-        note: 'Multi-modal AI pipelines for production game assets; ElevenLabs voice agents for in-game NPCs; UE5-grade prompt-driven 3D workflows.',
+        role: 'AI Prompt Engineer Intern',
+        org: 'AZER-T — game studio, France · Remote',
+        note: 'Prompt-driven pipelines for game art, marketing assets and 3D models: ~30% lower per-asset outsourcing cost, ~40% faster iteration. ElevenLabs voices for 3 NPCs; 10+ marketing assets on deadline.',
     },
     {
         period: '2021 — 2024',
         role: 'B.Sc. Computer Science',
         org: 'National Open University of Nigeria (NOUN)',
-        note: 'Plus Google Generative AI Studio and Google IT Automation with Python certifications.',
+        note: 'Plus Google IT Automation with Python and Google Generative AI Studio.',
     },
 ];
 

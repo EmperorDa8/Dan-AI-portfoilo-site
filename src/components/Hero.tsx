@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion';
 import { playClick, playTick } from '../sound';
 import { prefersReducedMotion } from '../lib/scroll';
+import { CV_URL } from '../data/profile';
+import { openPalette } from '../lib/palette';
 
 const rise = (delay: number) => ({
     initial: { opacity: 0, y: 28 },
@@ -37,27 +39,27 @@ export function Hero() {
                         <span className="hero-id-text">
                             <span className="hero-id-name">Dan Usman</span>
                             <span className="hero-id-role mono-label">
-                                AI Product Engineer &amp; AI Builder · Lagos · Remote worldwide
+                                AI Product Engineer · Lagos (UTC+1) · Remote worldwide
                             </span>
                         </span>
                     </motion.div>
 
                     <motion.h1 {...rise(0.14)} className="hero-h1">
-                        I turn vague business problems into <em>deployed software.</em>
+                        I take AI products from idea to <em>live release — usually in days.</em>
                     </motion.h1>
 
                     <motion.p {...rise(0.24)} className="hero-sub">
-                        End-to-end ownership — I scope it, direct Claude Code as the engineering team, own the database,
-                        framework and deployment calls, then validate and correct until it runs in production.
+                        I build on the Claude, OpenAI and Gemini APIs with Claude Code as my core workflow — and I care about
+                        the parts demos skip: reliability, cost, security, and what happens when the model is wrong.
                     </motion.p>
 
                     <motion.div {...rise(0.34)} className="hero-proof">
                         <span>
-                            <strong>1 week</strong> UK e-commerce MVP
+                            <strong>Xamio</strong> launched on Product Hunt
                         </span>
                         <span className="hero-proof-sep" aria-hidden />
                         <span>
-                            <strong>9 days</strong> LLM risk-scoring MVP
+                            <strong>&lt; 2 wks</strong> UK e-commerce, live
                         </span>
                     </motion.div>
 
@@ -66,7 +68,7 @@ export function Hero() {
                             See the work <span aria-hidden>↓</span>
                         </a>
                         <a
-                            href="/Dan_Usman_CV_AI_Builder_2026.pdf"
+                            href={CV_URL}
                             download
                             className="btn btn-ghost"
                             onMouseEnter={playTick}
@@ -74,10 +76,13 @@ export function Hero() {
                         >
                             Download CV
                         </a>
+                        <button type="button" className="btn btn-ghost kbd-btn" onClick={openPalette} onMouseEnter={playTick}>
+                            <kbd>⌘K</kbd> Quick jump
+                        </button>
                     </motion.div>
 
                     <motion.p {...rise(0.54)} className="hero-avail mono-label">
-                        <span className="pulse-dot" /> Available from Feb 2026 · open to relocation anywhere in the world
+                        <span className="pulse-dot" /> Open to work · fully remote, hybrid, onsite or relocation
                     </motion.p>
                 </div>
 

@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { isSoundEnabled, playClick, playTick, setSoundEnabled } from '../sound';
+import { CV_URL } from '../data/profile';
+import { openPalette } from '../lib/palette';
 
 function useClock() {
     const [time, setTime] = useState('');
@@ -38,7 +40,7 @@ export function Navigation() {
        pill kept highlighting a section the reader had already scrolled away
        from — including while the hero, above all of them, was in view. */
     useEffect(() => {
-        const sections = ['work', 'bio', 'contact'];
+        const sections = ['work', 'studio', 'bio', 'contact'];
         const onScreen = new Set<string>();
 
         const obs = new IntersectionObserver(
@@ -117,6 +119,15 @@ export function Navigation() {
                                 Work
                             </a>
                             <a
+                                href="#studio"
+                                className={activeSection === 'studio' ? 'active' : ''}
+                                aria-current={activeSection === 'studio' ? 'true' : undefined}
+                                onMouseEnter={playTick}
+                                onClick={playClick}
+                            >
+                                Studio
+                            </a>
+                            <a
                                 href="#bio"
                                 className={activeSection === 'bio' ? 'active' : ''}
                                 aria-current={activeSection === 'bio' ? 'true' : undefined}
@@ -142,7 +153,10 @@ export function Navigation() {
             <div className="nav-meta">
                 <span className="nav-loc">Lagos, NG · Remote</span>
                 <span className="nav-clock">{time}</span>
-                <a href="/Dan_Usman_CV_AI_Builder_2026.pdf" download onMouseEnter={playTick} onClick={playClick}>
+                <button type="button" className="sound-toggle" onClick={openPalette} onMouseEnter={playTick} aria-label="Open command menu">
+                    ⌘K
+                </button>
+                <a href={CV_URL} download onMouseEnter={playTick} onClick={playClick}>
                     ↓ Resume
                 </a>
                 <button

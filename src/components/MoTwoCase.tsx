@@ -11,8 +11,8 @@ const reveal = (delay = 0) => ({
 const PHASES = [
     {
         tag: '01 / Problem',
-        title: 'A storefront, and one week to have it.',
-        body: 'A UK photo & print business needed a working e-commerce MVP — catalogue, configurable print options, checkout — on a fixed timeline with no engineering team behind it.',
+        title: 'A real print business, no engineering team.',
+        body: 'A UK photo & print business needed a working e-commerce platform — configurable products, correct pricing, passport photos that pass official rules, checkout and an admin side — on a fixed timeline.',
     },
     {
         tag: '02 / Approach',
@@ -21,12 +21,12 @@ const PHASES = [
     },
     {
         tag: '03 / Impact',
-        title: 'Live and taking orders in seven days.',
-        body: 'Shipped end-to-end inside the week — catalogue through checkout, deployed and handed over. The constraint held because the scope was cut deliberately, not because the work was rushed.',
+        title: 'Live in production in under two weeks.',
+        body: 'Five product configurators, a server-side pricing engine, an AI passport-photo compliance checker, Stripe checkout and an admin back office — shipped solo, documented, and handed over with notes.',
     },
 ];
 
-const STACK = ['Claude Code', 'TypeScript', 'React', 'Node.js', 'Stripe', 'Tailwind CSS', 'PRD-first scoping'];
+const STACK = ['Next.js', 'TypeScript', 'Supabase', 'Stripe', 'AI vision check', 'Claude Code', 'PRD-first scoping'];
 
 export function MoTwoCase() {
     return (
@@ -34,13 +34,13 @@ export function MoTwoCase() {
             <div className="section-head">
                 <div>
                     <div className="case-badge live">
-                        <span className="pulse-dot" /> Case Study / 01 — Delivered
+                        <span className="pulse-dot" /> Case Study / 02 — Client · live
                     </div>
                     <h2 className="section-title">
-                        UK e-commerce <em>in one week</em>
+                        Mo2Production — <em>UK e-commerce</em>
                     </h2>
                     <p className="case-lead">
-                        A photo &amp; print storefront taken from brief to live checkout in seven days — the clearest test
+                        A photo &amp; print platform taken from brief to production in under two weeks — the clearest test
                         of scoping under a hard deadline.
                     </p>
                 </div>
@@ -48,7 +48,13 @@ export function MoTwoCase() {
                     <span>Engagement</span>
                     <strong>Freelance · fixed scope</strong>
                     <span>Timeline</span>
-                    <strong>7 days, brief to live</strong>
+                    <strong>&lt; 2 weeks, brief to live</strong>
+                    <span>Code</span>
+                    <strong>
+                        <a href="https://github.com/EmperorDa8/mo2production" target="_blank" rel="noopener noreferrer">
+                            GitHub ↗
+                        </a>
+                    </strong>
                 </div>
             </div>
 

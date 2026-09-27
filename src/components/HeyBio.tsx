@@ -24,8 +24,8 @@ export function HeyBio() {
                     className="hey-col-1"
                 >
                     <p>
-                        <em>Dan Usman</em> — <strong>AI Product Engineer, AI Builder &amp; Full-Stack AI Delivery</strong>. Business problem → deployed product, end-to-end ownership, directing Claude Code as
-                        the engineering team.
+                        <em>Dan Usman</em> — <strong>AI Product Engineer</strong>. Idea → live release, end-to-end ownership, with Claude Code and
+                        Cursor as my core development workflow.
                     </p>
                     <p style={{ marginTop: '1.4rem' }}>
                         I scope ruthlessly to what's good enough now versus what must be robust on day one, and validate, test,
@@ -66,19 +66,17 @@ export function HeyBio() {
                 >
                     <div className="hey-num">(AI)</div>
                     <p>
-                        I turn loosely defined business problems — "we need an ERP," a client portal, an internal dashboard —
-                        into <strong>working, deployed applications end-to-end</strong>, directing AI coding tools (primarily{' '}
-                        <strong>Claude Code</strong>) as the engineering team. I own the database, framework, and deployment
-                        calls, and validate, test, and correct AI output until the software runs in production.
+                        I build on the <strong>Claude, OpenAI and Gemini APIs</strong> — tool calling, multi-agent
+                        orchestration, MCP, RAG, structured JSON outputs with guardrails and human review. A background in{' '}
+                        <strong>IT automation and Linux</strong> means I care about reliability, cost, security and what
+                        happens when the model is wrong.
                     </p>
                     <p>
-                        Currently a <strong>freelance / self-directed AI Product Engineer</strong> (Feb 2026 – present): shipped
-                        a UK photo &amp; print e-commerce MVP in one week and an LLM risk-scoring MVP in nine days. Before that,
-                        a remote contract as <strong>AI Prompt Engineer</strong> for <strong>AZer-t</strong>, a French mobile
-                        game studio. I'm a <strong>certified AI Prompt Engineer</strong> (Google Prompting Essentials) and{' '}
-                        <strong>certified AI Builder</strong> (CodePath × Anthropic). Based in <strong>Lagos, Nigeria</strong>,
-                        working <strong>remote worldwide</strong>, and <strong>open to relocation anywhere in the
-                        world</strong>.
+                        Currently a <strong>freelance AI Product Engineer</strong> (Feb 2026 – present) for clients in the
+                        UK, US and Nigeria, and founder of <strong>Xamio</strong>, launched on Product Hunt. Before that,{' '}
+                        <strong>AI Prompt Engineer Intern at AZER-T</strong>, a French game studio. Based in{' '}
+                        <strong>Lagos, Nigeria</strong> and open to <strong>fully remote, hybrid, onsite or
+                        relocation</strong>.
                     </p>
                     <div className="hey-quote">
                         "PRD-first specs, CLAUDE.md context files, ruthless scoping — the workflow discipline that makes
