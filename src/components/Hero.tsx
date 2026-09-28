@@ -39,7 +39,7 @@ export function Hero() {
                         <span className="hero-id-text">
                             <span className="hero-id-name">Dan Usman</span>
                             <span className="hero-id-role mono-label">
-                                AI Product Engineer · Lagos (UTC+1) · Remote worldwide
+                                AI Product Engineer · AI Video &amp; Content Creator · AI Creative · Lagos (UTC+1) · Remote worldwide
                             </span>
                         </span>
                     </motion.div>

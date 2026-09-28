@@ -31,7 +31,7 @@ export function Studio() {
             <div className="section-head">
                 <div>
                     <h2 className="section-title">
-                        AI Studio — <em>images &amp; video.</em>
+                        AI Video Creator — <em>images &amp; video.</em>
                     </h2>
                     <p className="case-lead">
                         {videoCount} generated videos and a set of image work: spec ads, cinematic shots and consistent

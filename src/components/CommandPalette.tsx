@@ -31,7 +31,7 @@ export function CommandPalette() {
         () => [
             { id: 's-work', group: 'Go to', label: 'Shipped products', run: () => jump('work') },
             { id: 's-systems', group: 'Go to', label: 'Client AI systems — try the demos', run: () => jump('systems') },
-            { id: 's-studio', group: 'Go to', label: 'AI Studio — images & video', run: () => jump('studio') },
+            { id: 's-studio', group: 'Go to', label: 'AI Video Creator — images & video', run: () => jump('studio') },
             { id: 's-stack', group: 'Go to', label: 'Tech stack', run: () => jump('stack') },
             { id: 's-exp', group: 'Go to', label: 'Experience & credentials', run: () => jump('credentials') },
             { id: 's-contact', group: 'Go to', label: 'Contact / hire me', run: () => jump('contact') },
