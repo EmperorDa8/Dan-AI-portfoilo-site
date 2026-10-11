@@ -9,6 +9,7 @@ import { XamioCase } from './components/XamioCase';
 import { Products } from './components/Products';
 import { SystemsLab } from './components/SystemsLab';
 import { Studio } from './components/Studio';
+import { Music } from './components/Music';
 import { CommandPalette } from './components/CommandPalette';
 import { HeyBio } from './components/HeyBio';
 import { Credentials } from './components/Credentials';
@@ -79,6 +80,7 @@ function App() {
       </section>
 
       <Studio />
+      <Music />
       <TechStack />
 
       <HeyBio />

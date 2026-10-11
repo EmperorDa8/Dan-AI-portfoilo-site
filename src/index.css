@@ -166,6 +166,7 @@
 .case-section,
 .featured-section,
 .studio-section,
+.music-section,
 .hey-section,
 .tool-wall-section,
 .cred-section,
@@ -1766,6 +1767,7 @@
 .work-section,
 .featured-section,
 .studio-section,
+.music-section,
 .hey-section,
 .cred-section,
 .case-section,
@@ -3774,5 +3776,466 @@ img, video {
     padding-inline: 0.6rem;
     font-size: 0.68rem;
     letter-spacing: 0.06em;
+  }
+}
+
+/* ============ MUSIC — written by Dan, performed by a model ============ */
+
+.music-section {
+  padding: var(--space-section) var(--space-gutter);
+  margin-inline: auto;
+  border-top: 1px solid var(--line);
+}
+
+.mus-cue-inline,
+.mus-cue {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 0.86em;
+  color: var(--accent);
+  letter-spacing: -0.01em;
+}
+
+/* ---- Deck ---- */
+.mus-deck {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: clamp(1.2rem, 3vw, 2.4rem);
+  align-items: center;
+  padding: clamp(1.4rem, 3vw, 2.2rem);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-soft);
+  transition: box-shadow var(--dur-base) var(--ease-out);
+}
+
+.mus-deck.is-playing {
+  box-shadow: var(--shadow-lift);
+}
+
+.mus-play {
+  position: relative;
+  width: clamp(62px, 8vw, 82px);
+  height: clamp(62px, 8vw, 82px);
+  border-radius: var(--r-pill);
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: var(--white);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform var(--dur-base) var(--ease-spring), background var(--dur-fast) var(--ease-out);
+}
+
+.mus-play:hover {
+  transform: scale(1.06);
+}
+
+.mus-play:active {
+  transform: scale(0.97);
+}
+
+/* The one control this whole section exists to invite — give it a pulse at
+   rest so it reads as "press me" rather than as decoration. */
+.mus-deck:not(.is-playing) .mus-play::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--accent);
+  animation: mus-ring 2.4s var(--ease-out) infinite;
+  pointer-events: none;
+}
+
+@keyframes mus-ring {
+  0% { transform: scale(1); opacity: 0.5; }
+  70% { transform: scale(1.35); opacity: 0; }
+  100% { transform: scale(1.35); opacity: 0; }
+}
+
+.mus-spinner {
+  width: 22px;
+  height: 22px;
+  border-radius: var(--r-pill);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: var(--white);
+  animation: mus-spin 0.8s linear infinite;
+}
+
+@keyframes mus-spin {
+  to { transform: rotate(360deg); }
+}
+
+.mus-deck-main {
+  min-width: 0;
+}
+
+.mus-deck-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.7rem;
+}
+
+.mus-deck-title {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: clamp(1.25rem, 2.4vw, 1.9rem);
+  letter-spacing: -0.02em;
+}
+
+.mus-deck-meta {
+  color: var(--muted);
+}
+
+.mus-wave {
+  display: block;
+  width: 100%;
+  height: clamp(56px, 8vw, 84px);
+  cursor: pointer;
+}
+
+.mus-transport {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.mus-time {
+  color: var(--muted);
+  font-size: 0.72rem;
+  flex: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.mus-range {
+  flex: 1;
+  height: 3px;
+  appearance: none;
+  -webkit-appearance: none;
+  background: var(--line);
+  border-radius: var(--r-pill);
+  cursor: pointer;
+}
+
+.mus-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: var(--r-pill);
+  background: var(--accent);
+  border: 2px solid var(--surface);
+  cursor: pointer;
+}
+
+.mus-range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--surface);
+  border-radius: var(--r-pill);
+  background: var(--accent);
+  cursor: pointer;
+}
+
+.mus-range:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.mus-status {
+  margin-top: 0.7rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+  min-height: 1.3em;
+}
+
+/* ---- Body: track list + lyric sheet ---- */
+.mus-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(1.2rem, 3vw, 2.4rem);
+  margin-top: clamp(1.4rem, 3vw, 2.2rem);
+}
+
+.mus-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mus-row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2.4rem minmax(0, 1fr) auto auto;
+  gap: 1rem;
+  align-items: center;
+  text-align: left;
+  padding: 0.95rem 1.1rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+
+.mus-row:hover {
+  border-color: var(--line-strong);
+  transform: translateX(3px);
+}
+
+.mus-row.is-selected {
+  border-color: var(--accent);
+}
+
+.mus-row.is-playing {
+  background: var(--mint);
+  border-color: var(--accent);
+}
+
+.mus-row-n {
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.mus-row-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.mus-row-title {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 1.02rem;
+  letter-spacing: -0.01em;
+}
+
+.mus-row-note {
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.mus-row-tags {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.mus-tag {
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--r-pill);
+  background: var(--bg-deep);
+  font-size: 0.64rem;
+  white-space: nowrap;
+}
+
+.mus-tag.ghost {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.mus-row-dur {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Playing equaliser, in place of the track number */
+.mus-eq {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 13px;
+}
+
+.mus-eq i {
+  width: 3px;
+  background: var(--accent);
+  border-radius: var(--r-pill);
+  animation: mus-eq 0.9s var(--ease-out) infinite;
+}
+
+.mus-eq i:nth-child(1) { height: 60%; animation-delay: -0.2s; }
+.mus-eq i:nth-child(2) { height: 100%; animation-delay: -0.5s; }
+.mus-eq i:nth-child(3) { height: 40%; }
+
+@keyframes mus-eq {
+  0%, 100% { transform: scaleY(0.4); }
+  50% { transform: scaleY(1); }
+}
+
+/* ---- Lyric sheet ---- */
+.mus-sheet-wrap {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  padding: clamp(1.1rem, 2.4vw, 1.6rem);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.mus-sheet-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.9rem;
+}
+
+.mus-sheet-title {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  margin-top: 0.15rem;
+}
+
+.mus-sheet-play {
+  flex: none;
+  padding: 0.45rem 0.95rem;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.mus-sheet-play:hover {
+  background: var(--accent);
+  color: var(--white);
+}
+
+.mus-struct {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  padding-bottom: 0.9rem;
+  margin-bottom: 0.4rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.mus-struct-chip {
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--line);
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  color: var(--ink-soft);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.mus-struct-chip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.mus-sheet {
+  overflow-y: auto;
+  max-height: 30rem;
+  padding-right: 0.5rem;
+  scrollbar-width: thin;
+}
+
+.mus-sec {
+  padding: 0.9rem 0;
+  border-bottom: 1px dashed var(--line);
+}
+
+.mus-sec:last-child {
+  border-bottom: 0;
+}
+
+.mus-sec-label {
+  color: var(--accent);
+  font-size: 0.66rem;
+  margin-bottom: 0.4rem;
+}
+
+/* The direction lines are the argument of this whole section — Dan's brief to
+   the model — so they read as a distinct voice from the sung words. */
+.mus-direction {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  line-height: 1.6;
+  color: var(--muted);
+  background: var(--bg-deep);
+  border-left: 2px solid var(--sage);
+  padding: 0.5rem 0.7rem;
+  margin-bottom: 0.6rem;
+  border-radius: 0 var(--r-card) var(--r-card) 0;
+}
+
+.mus-line {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  line-height: 1.72;
+  color: var(--ink);
+}
+
+.mus-backing {
+  color: var(--muted);
+  font-style: italic;
+}
+
+@media (max-width: 1000px) {
+  .mus-body {
+    grid-template-columns: 1fr;
+  }
+
+  .mus-sheet {
+    max-height: 24rem;
+  }
+}
+
+@media (max-width: 620px) {
+  .mus-deck {
+    grid-template-columns: 1fr;
+    justify-items: start;
+  }
+
+  .mus-row {
+    grid-template-columns: 1.8rem minmax(0, 1fr) auto;
+    row-gap: 0.5rem;
+  }
+
+  /* Duration rides level with the title instead of orphaning onto its own row. */
+  .mus-row-dur {
+    grid-column: 3;
+    grid-row: 1;
+    align-self: start;
+  }
+
+  .mus-row-tags {
+    grid-column: 2 / -1;
+    justify-content: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mus-deck:not(.is-playing) .mus-play::after,
+  .mus-eq i,
+  .mus-spinner {
+    animation: none;
+  }
+
+  .mus-row:hover {
+    transform: none;
   }
 }

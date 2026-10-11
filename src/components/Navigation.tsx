@@ -40,7 +40,7 @@ export function Navigation() {
        pill kept highlighting a section the reader had already scrolled away
        from — including while the hero, above all of them, was in view. */
     useEffect(() => {
-        const sections = ['work', 'studio', 'bio', 'contact'];
+        const sections = ['work', 'studio', 'music', 'bio', 'contact'];
         const onScreen = new Set<string>();
 
         const obs = new IntersectionObserver(
