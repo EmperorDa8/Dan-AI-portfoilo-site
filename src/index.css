@@ -414,6 +414,18 @@
   color: var(--accent);
 }
 
+/* Sits between the h1 and the supporting paragraph: heavier than the sub so it
+   reads as part of the claim, lighter than the h1 so it does not compete. */
+.hero-thesis {
+  font-size: clamp(1.08rem, 1.7vw, 1.3rem);
+  line-height: 1.5;
+  color: var(--ink);
+  max-width: 48ch;
+  margin-bottom: 1.1rem;
+  font-weight: 500;
+  letter-spacing: -0.012em;
+}
+
 .hero-sub {
   font-size: 1.05rem;
   line-height: 1.65;
@@ -3966,6 +3978,28 @@ img, video {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  container-type: inline-size;
+  container-name: muslist;
+}
+
+/* Below this the tags and the duration together leave the note barely
+   60px — it wrapped to eight lines. Give them their own row instead. */
+@container muslist (max-width: 560px) {
+  .mus-row {
+    grid-template-columns: 2.2rem minmax(0, 1fr) auto;
+    row-gap: 0.45rem;
+  }
+
+  .mus-row-dur {
+    grid-column: 3;
+    grid-row: 1;
+    align-self: start;
+  }
+
+  .mus-row-tags {
+    grid-column: 2 / -1;
+    justify-content: flex-start;
+  }
 }
 
 .mus-row {
@@ -4210,22 +4244,6 @@ img, video {
     justify-items: start;
   }
 
-  .mus-row {
-    grid-template-columns: 1.8rem minmax(0, 1fr) auto;
-    row-gap: 0.5rem;
-  }
-
-  /* Duration rides level with the title instead of orphaning onto its own row. */
-  .mus-row-dur {
-    grid-column: 3;
-    grid-row: 1;
-    align-self: start;
-  }
-
-  .mus-row-tags {
-    grid-column: 2 / -1;
-    justify-content: flex-start;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -4238,4 +4256,185 @@ img, video {
   .mus-row:hover {
     transform: none;
   }
+}
+
+/* Standfirst for the code-rendered work, shown when that filter is on */
+.studio-note {
+  overflow: hidden;
+}
+
+.studio-note-title {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.studio-note-body {
+  max-width: 62ch;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+
+.studio-note-tools {
+  margin-top: 0.7rem;
+  font-size: 0.68rem;
+  color: var(--muted);
+}
+
+.studio-note > * {
+  margin-bottom: 0;
+}
+
+.studio-note {
+  padding: 1.2rem 1.3rem;
+  margin-bottom: 1.4rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+}
+
+/* Companion video inside the lyric sheet */
+.mus-video {
+  overflow: hidden;
+  margin-bottom: 0.9rem;
+}
+
+.mus-video video {
+  width: 100%;
+  max-height: 22rem;
+  border-radius: var(--r-card);
+  background: var(--ink);
+  display: block;
+  object-fit: contain;
+}
+
+.mus-video-note {
+  margin-top: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.mus-sheet-play.is-video {
+  border-color: var(--line-strong);
+  color: var(--ink-soft);
+}
+
+.mus-sheet-play.is-video:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--white);
+}
+
+.mus-sheet-head {
+  flex-wrap: wrap;
+}
+
+/* ============================================================
+   SCROLL ATMOSPHERE
+
+   Driven by three custom properties published on :root once per
+   frame by src/lib/scrollFx.ts — --vel (signed, -1…1), --vel-abs
+   and --skew. Every rule below falls back to a neutral value, so
+   when the publisher is off (reduced motion, or before first
+   paint) the page renders completely static.
+   ============================================================ */
+
+:root {
+  --vel: 0;
+  --vel-abs: 0;
+  --skew: 0deg;
+}
+
+/* ---- Grids carry weight ----
+   A fraction of a degree of shear while the page is moving. You do not
+   see it; you feel the grid lag a beat behind the scroll. */
+.studio-grid,
+.projects-grid,
+.mus-list {
+  transform: skewY(var(--skew));
+  transform-origin: center top;
+  will-change: transform;
+}
+
+/* ---- Column parallax ----
+   `translate`, deliberately not `transform`: framer-motion's `layout` owns
+   the transform on these tiles for the filter re-flow. The two properties
+   compose, so the parallax and the re-flow never overwrite each other. */
+.studio-tile {
+  translate: 0 calc(var(--col-depth, 0px) * (1 + var(--vel-abs) * 0.5));
+  transition: translate var(--dur-slow) var(--ease-out);
+}
+
+/* ---- Media drifts inside its frame ----
+   Opposes the column travel slightly, which is what sells the depth. */
+.studio-tile img,
+.studio-tile video {
+  /* Overscaled so the ±7px drift never exposes an edge of the frame. */
+  scale: 1.09;
+  translate: 0 calc(var(--vel) * -7px);
+}
+
+/* ---- The marquee surges with the scroll ----
+   It already loops on its own; velocity just leans on it, so flicking the
+   page makes the tool list lurch and settle. */
+.marquee-content {
+  translate: calc(var(--vel) * -70px) 0;
+  transition: translate 420ms var(--ease-out);
+}
+
+/* ---- Grain breathes ----
+   Film grain lifts a touch while moving, so fast scrolling feels textured
+   rather than slick. */
+.grain-overlay {
+  opacity: calc(0.2 + var(--vel-abs) * 0.14);
+}
+
+/* ---- Word-by-word heading reveal ---- */
+.section-title .word-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  /* Masks would otherwise clip descenders and the italic overhang on the
+     serif <em>; the padding gives them room and the negative margin takes
+     the space back out of the line box. */
+  padding: 0.06em 0.08em 0.16em;
+  margin: -0.06em -0.08em -0.16em;
+}
+
+.section-title .word {
+  display: inline-block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .studio-grid,
+  .projects-grid,
+  .mus-list {
+    transform: none;
+    will-change: auto;
+  }
+
+  .studio-tile {
+    translate: none;
+    transition: none;
+  }
+
+  .studio-tile img,
+  .studio-tile video {
+    scale: 1;
+    translate: none;
+  }
+
+  .marquee-content {
+    translate: none;
+  }
+
+  .grain-overlay {
+    opacity: 0.2;
+  }
+
 }

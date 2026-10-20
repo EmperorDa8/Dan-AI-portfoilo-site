@@ -331,6 +331,7 @@ export function Music() {
     const { currentId, playing, time, duration, loading, error, analyserRef, play, toggle, seek } = engine;
 
     const [selectedId, setSelectedId] = useState<string>(TRACKS[0].id);
+    const [videoOpen, setVideoOpen] = useState(false);
     const selected = useMemo(() => TRACKS.find(t => t.id === selectedId) ?? TRACKS[0], [selectedId]);
     const nowPlaying = useMemo(() => TRACKS.find(t => t.id === currentId) ?? null, [currentId]);
 
@@ -353,6 +354,7 @@ export function Music() {
 
     const onPick = (t: Track) => {
         setSelectedId(t.id);
+        setVideoOpen(false);
         if (currentId === t.id) toggle();
         else play(t.id);
     };
@@ -501,6 +503,19 @@ export function Music() {
                             <div className="mono-label">Lyric sheet &amp; direction</div>
                             <h3 className="mus-sheet-title">{selected.title}</h3>
                         </div>
+                        {selected.video && (
+                            <button
+                                type="button"
+                                className="mus-sheet-play is-video"
+                                onClick={() => {
+                                    setVideoOpen(v => !v);
+                                    playClick();
+                                }}
+                                aria-expanded={videoOpen}
+                            >
+                                {videoOpen ? 'Hide video' : 'Watch the video ▸'}
+                            </button>
+                        )}
                         {currentId !== selected.id && (
                             <button
                                 type="button"
@@ -514,6 +529,32 @@ export function Music() {
                             </button>
                         )}
                     </div>
+
+                    <AnimatePresence initial={false}>
+                        {videoOpen && selected.video && (
+                            <motion.figure
+                                className="mus-video"
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: 'auto' }}
+                                exit={{ opacity: 0, height: 0 }}
+                                transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                            >
+                                <video
+                                    src={`/music/${selected.video.id}.mp4`}
+                                    poster={`/music/${selected.video.id}.webp`}
+                                    controls
+                                    playsInline
+                                    preload="none"
+                                    /* Two soundtracks at once is the one thing this
+                                       panel must never do. */
+                                    onPlay={() => {
+                                        if (playing) toggle();
+                                    }}
+                                />
+                                <figcaption className="mus-video-note">{selected.video.note}</figcaption>
+                            </motion.figure>
+                        )}
+                    </AnimatePresence>
 
                     <div className="mus-struct" role="list" aria-label={`Structure of ${selected.title}`}>
                         {selected.sections.map((s, i) => (

@@ -5,6 +5,7 @@ import { ProofStrip } from './components/ProofStrip';
 import { TechStack } from './components/TechStack';
 import { Marquee } from './components/Marquee';
 import { MoTwoCase } from './components/MoTwoCase';
+import { PromptSystemsCase } from './components/PromptSystemsCase';
 import { XamioCase } from './components/XamioCase';
 import { Products } from './components/Products';
 import { SystemsLab } from './components/SystemsLab';
@@ -16,7 +17,8 @@ import { Credentials } from './components/Credentials';
 import { FooterCTA } from './components/FooterCTA';
 import { Footer } from './components/Footer';
 import { ScrollProgress } from './components/ScrollProgress';
-import { getLenis, installRevealSafetyNet, useSmoothScroll } from './lib/scroll';
+import { getLenis, gsap, installRevealSafetyNet, prefersReducedMotion, useSmoothScroll } from './lib/scroll';
+import { splitWords } from './lib/scrollFx';
 import { registerVelocitySource } from './sound';
 
 /* Three.js is heavy — keep it out of the initial bundle. */
@@ -36,10 +38,37 @@ const WHILE_IN_VIEW = [
   '.hey-col-2',
   '.hey-col-3',
   '.cta-title',
+  '.section-title .word',
 ];
 
 function App() {
   useSmoothScroll();
+
+  /* Section titles rise word by word out of a mask. Split is done over text
+     nodes only, so the <em> that carries the serif accent survives. */
+  useEffect(() => {
+    if (prefersReducedMotion()) return;
+    const ctx = gsap.context(() => {
+      document.querySelectorAll<HTMLElement>('.section-title').forEach(title => {
+        splitWords(title);
+        const words = title.querySelectorAll('.word');
+        if (!words.length) return;
+        gsap.fromTo(
+          words,
+          { yPercent: 118, opacity: 0 },
+          {
+            yPercent: 0,
+            opacity: 1,
+            duration: 0.95,
+            ease: 'power3.out',
+            stagger: 0.04,
+            scrollTrigger: { trigger: title, start: 'top 88%', once: true },
+          }
+        );
+      });
+    });
+    return () => ctx.revert();
+  }, []);
 
   useEffect(() => {
     installRevealSafetyNet(WHILE_IN_VIEW);
@@ -65,6 +94,7 @@ function App() {
       <Products />
       <XamioCase />
       <MoTwoCase />
+      <PromptSystemsCase />
       <SystemsLab />
 
       <section className="band">

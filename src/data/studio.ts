@@ -3,7 +3,7 @@
    Model labels come from the generator's own export filenames; where the
    export didn't record a model, the tag says so rather than guessing. */
 
-export type StudioCat = 'Spec ads' | 'Cinematic' | 'Characters' | 'Product' | 'Images';
+export type StudioCat = 'Spec ads' | 'Motion GFX' | 'Cinematic' | 'Characters' | 'Product' | 'Images';
 
 export type StudioItem = {
     id: string;
@@ -16,9 +16,30 @@ export type StudioItem = {
     note: string;
 };
 
+/* Shown above the grid when the Motion GFX filter is on — these pieces are
+   rendered from code rather than prompted as footage, which is the whole point
+   of separating them out. */
+export const MOTION_GFX_INTRO =
+    'I make video two ways. I prompt models for footage, and I build motion graphics in code. This is the second way. Each piece is React or HTML animated frame by frame, rendered with Remotion or HyperFrames, and cut to music I synthesized myself so there is nothing to license.';
+
+export const MOTION_GFX_TOOLS = 'Remotion · HyperFrames · GSAP · Python · ffmpeg';
+
 export const DRIVE_FOLDER = 'https://drive.google.com/drive/folders/1O8acef1kl6LuIFuo7I3l3vauvuBl_4Fu';
 
 export const STUDIO: StudioItem[] = [
+    /* Motion graphics — built in code, not prompted as footage. Durations and
+       aspect ratios were read from the source files, not from the brief. */
+    { id: 'mg-personal-best', title: 'Personal Best — Ziafam', cat: 'Motion GFX', model: 'Remotion', kind: 'video', shape: 'tall', note: 'A fitness-record idea for an IT company. Gradient petals bloom into the logo. 32s, cut for 9:16 and 4:5; the petals also loop seamlessly as a website hero.' },
+    { id: 'mg-ctrl-z', title: "Ctrl+Z doesn't work on a data breach", cat: 'Motion GFX', model: 'HyperFrames · GSAP', kind: 'video', shape: 'tall', note: 'CSS 3D keycaps, synthesized sound design and a "Comment SECURE" call to action. Version 3, after research and review.' },
+    { id: 'mg-exploded-laptop', title: 'Exploded laptop', cat: 'Motion GFX', model: 'Remotion', kind: 'video', shape: 'tall', note: "A laptop that pulls apart to show each layer of the company's services." },
+    { id: 'mg-the-office', title: 'The Office', cat: 'Motion GFX', model: 'Code-built', kind: 'video', shape: 'tall', note: 'A small office diorama where tech problems get fixed one by one. The camera pulls back into the "O" of the company name.' },
+    { id: 'mg-ndpc', title: 'My reaction to NDPC fines', cat: 'Motion GFX', model: 'Code-built', kind: 'video', shape: 'tall', note: 'A cartoon boss reacting to real Nigerian Data Protection Act fine figures, in the reaction format that was trending in 2026.' },
+
+    /* Puffy — spec work. The site-wide disclaimer under the grid covers the
+       brand mark that appears in the ad. */
+    { id: 'puffy-demo', title: 'Puffy mattress — product demo', cat: 'Product', model: 'Flow · Frames to Video', kind: 'video', shape: 'tall', note: 'A hand pressing into the mattress so the foam compresses and recovers. I built a hand-free reference frame first so the mattress matched the source photos.' },
+    { id: 'puffy-ad', title: 'Puffy mattress — 9:16 ad', cat: 'Spec ads', model: 'Flow · Remotion · HyperFrames', kind: 'video', shape: 'tall', note: "A cold-traffic ad with an AI spokesperson: hook, problem, demo, proof, call to action. Proof points were checked against the live product page, and I left out a claim I couldn't verify. Third version." },
+
     { id: 'watch-ad', title: 'Luxury watch — reel', cat: 'Spec ads', model: 'Veo 3 · Flow', kind: 'video', shape: 'tall', note: 'Vertical 9:16 product reel, lit like a studio pack-shot.' },
     { id: 'headphones', title: 'Wireless headphones', cat: 'Spec ads', model: 'AI video', kind: 'video', shape: 'wide', note: 'Macro product ad: touch controls, material close-ups.' },
     { id: 'lipsync', title: 'Podcast host', cat: 'Characters', model: 'Lipsync-2 Pro', kind: 'video', shape: 'wide', note: 'Generated presenter, lip-synced to a separate voice track.' },

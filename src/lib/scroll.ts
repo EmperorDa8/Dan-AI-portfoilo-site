@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef } from 'react';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { startScrollFx, stopScrollFx, tickScrollFx } from './scrollFx';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -44,7 +45,14 @@ export function useSmoothScroll() {
             ScrollTrigger.update();
         });
 
-        const raf = (time: number) => instance.raf(time * 1000);
+        startScrollFx();
+        const raf = (time: number) => {
+            const ms = time * 1000;
+            instance.raf(ms);
+            // Rides the ticker Lenis already runs on; the scroll atmosphere
+            // never schedules a frame of its own.
+            tickScrollFx(ms);
+        };
         gsap.ticker.add(raf);
         gsap.ticker.lagSmoothing(0);
 
@@ -66,6 +74,7 @@ export function useSmoothScroll() {
         return () => {
             document.removeEventListener('click', onClick);
             gsap.ticker.remove(raf);
+            stopScrollFx();
             instance.destroy();
             lenis = null;
         };

@@ -11,10 +11,38 @@ import sys
 from pathlib import Path
 
 SRC = Path(r"C:\Users\Dan\Downloads")
-OUT = Path(r"C:\Users\Dan\Documents\moc\Dan-AI-portfoilo-site\src\data\music.ts")
+REPO = Path(r"C:\Users\Dan\Documents\moc\Dan-AI-portfoilo-site")
+OUT = REPO / "src" / "data" / "music.ts"
+PUBLIC_MUSIC = REPO / "public" / "music"
 
 # slug, source filename, editorial fields that are NOT in the tags
+# The ID3 title carries a version label on one track; the site shows the song
+# name and lets the note explain the take.
+TITLE_OVERRIDES = {"one-more-day": "One More Day"}
+
+# Companion videos, keyed by track slug. The file must already sit in
+# public/music as <slug>-video.mp4, and its duration is read from that file so
+# the page never states a length the file does not have. A slug missing from
+# here, or whose file is absent, simply gets no video — which is what stops a
+# regeneration from silently dropping a video that was added by hand.
+VIDEOS = {
+    "one-more-day": (
+        "The song's story told straight: a son counting money at 3am, a mother praying at a "
+        "candlelit table, the call that never came. Photoreal footage cut with typographic titles."
+    ),
+    "go-well": (
+        "Screenprint panels in red, black and bone — one character carried across the whole cut, "
+        "in a graphic-novel register rather than anything photoreal."
+    ),
+    "empty-glass-of-maybe": (
+        "Lyric video, 9:16. Built only from the cover art, with no generated footage. Lyric timing "
+        "is set from the audio waveform."
+    ),
+}
+
 TRACKS = [
+    ("one-more-day", "One More Day (Raw Emotional Take)", "Soul", "English",
+     "Grief, and the call that never got returned. Kept as the raw take — the unpolished vocal is the point."),
     ("go-well", "Go Well", "Afrobeats", "Nigerian Pidgin",
      "Sub bass, one dry guitar lick, brass stab — and nothing else until the chorus."),
     ("time-no-dey-wait", "Time No Dey Wait", "Afrobeats", "Nigerian Pidgin",
@@ -110,16 +138,33 @@ def main():
             sys.exit(f"no lyrics tag in {path}")
 
         sections = parse(lyrics)
+
+        video = None
+        if slug in VIDEOS:
+            vpath = PUBLIC_MUSIC / f"{slug}-video.mp4"
+            if vpath.exists():
+                video = {
+                    "id": f"{slug}-video",
+                    "duration": round(float(probe(vpath)["duration"])),
+                    "note": VIDEOS[slug],
+                }
+            else:
+                print(f"  ! {slug}: no video at {vpath.name} — emitting the track without one")
+
         rows.append({
             "id": slug,
-            "title": tags.get("title", name),
+            "title": TITLE_OVERRIDES.get(slug, tags.get("title", name)),
             "genre": genre,
             "language": language,
             "duration": round(float(fmt["duration"])),
             "note": note,
+            "video": video,
             "sections": sections,
         })
-        print(f"{slug:24} {len(sections):2} sections  {round(float(fmt['duration']))}s")
+        print(
+            f"{slug:24} {len(sections):2} sections  {round(float(fmt['duration']))}s"
+            f"{'  + video ' + str(video['duration']) + 's' if video else ''}"
+        )
 
     body = ",\n".join(
         "    {\n"
@@ -129,7 +174,16 @@ def main():
         f"        language: {ts(r['language'])},\n"
         f"        duration: {r['duration']},\n"
         f"        note: {ts(r['note'])},\n"
-        "        sections: [\n"
+        + (
+            "        video: {\n"
+            f"            id: {ts(r['video']['id'])},\n"
+            f"            duration: {r['video']['duration']},\n"
+            f"            note: {ts(r['video']['note'])},\n"
+            "        },\n"
+            if r["video"]
+            else ""
+        )
+        + "        sections: [\n"
         + ",\n".join(
             "            { label: %s, direction: %s, lines: [%s] }"
             % (
@@ -166,6 +220,8 @@ def main():
         "    /** Seconds, read from the file so the UI never guesses. */\n"
         "    duration: number;\n"
         "    note: string;\n"
+        "    /** Companion video, when one was finished. Lives at /music/<id>.mp4. */\n"
+        "    video?: { id: string; duration: number; note: string };\n"
         "    sections: MusicSection[];\n"
         "};\n\n"
         "export const ARTIST = 'LastingJuniper';\n"

@@ -48,12 +48,20 @@ export function Hero() {
                         I take AI products from idea to <em>live release — usually in days.</em>
                     </motion.h1>
 
-                    <motion.p {...rise(0.24)} className="hero-sub">
+                    {/* The h1 and the paragraph below it are both about shipping
+                        software. This line is what makes the pair make sense: the
+                        creative work is the other half of the job, not a sideline. */}
+                    <motion.p {...rise(0.2)} className="hero-thesis">
+                        I build the tools and I make the creative: AI video, motion graphics built in code, and the
+                        agents that tie them together.
+                    </motion.p>
+
+                    <motion.p {...rise(0.28)} className="hero-sub">
                         I build on the Claude, OpenAI and Gemini APIs with Claude Code as my core workflow — and I care about
                         the parts demos skip: reliability, cost, security, and what happens when the model is wrong.
                     </motion.p>
 
-                    <motion.div {...rise(0.34)} className="hero-proof">
+                    <motion.div {...rise(0.36)} className="hero-proof">
                         <span>
                             <strong>Xamio</strong> launched on Product Hunt
                         </span>
@@ -63,7 +71,7 @@ export function Hero() {
                         </span>
                     </motion.div>
 
-                    <motion.div {...rise(0.44)} className="hero-actions">
+                    <motion.div {...rise(0.46)} className="hero-actions">
                         <a href="#work" className="btn btn-primary" onMouseEnter={playTick} onClick={playClick}>
                             See the work <span aria-hidden>↓</span>
                         </a>
@@ -81,7 +89,7 @@ export function Hero() {
                         </button>
                     </motion.div>
 
-                    <motion.p {...rise(0.54)} className="hero-avail mono-label">
+                    <motion.p {...rise(0.56)} className="hero-avail mono-label">
                         <span className="pulse-dot" /> Open to work · fully remote, hybrid, onsite or relocation
                     </motion.p>
                 </div>

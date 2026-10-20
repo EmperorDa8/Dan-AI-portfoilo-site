@@ -1,10 +1,19 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { DRIVE_FOLDER, MARBLE_WORLDS, STUDIO, type StudioCat, type StudioItem } from '../data/studio';
+import {
+    DRIVE_FOLDER,
+    MARBLE_WORLDS,
+    MOTION_GFX_INTRO,
+    MOTION_GFX_TOOLS,
+    STUDIO,
+    type StudioCat,
+    type StudioItem,
+} from '../data/studio';
 import { playClick, playTick } from '../sound';
 import { getLenis, prefersReducedMotion } from '../lib/scroll';
+import { applyColumnParallax } from '../lib/scrollFx';
 
-const FILTERS: ('All' | StudioCat)[] = ['All', 'Spec ads', 'Cinematic', 'Characters', 'Product', 'Images'];
+const FILTERS: ('All' | StudioCat)[] = ['All', 'Motion GFX', 'Spec ads', 'Cinematic', 'Characters', 'Product', 'Images'];
 
 const poster = (it: StudioItem) => `/studio/${it.id}.webp`;
 const clip = (it: StudioItem) => `/studio/${it.id}.mp4`;
@@ -17,6 +26,7 @@ const clip = (it: StudioItem) => `/studio/${it.id}.mp4`;
 export function Studio() {
     const [filter, setFilter] = useState<(typeof FILTERS)[number]>('All');
     const [open, setOpen] = useState<number | null>(null);
+    const gridRef = useRef<HTMLDivElement>(null);
 
     const items = useMemo(() => (filter === 'All' ? STUDIO : STUDIO.filter(s => s.cat === filter)), [filter]);
     const counts = useMemo(() => {
@@ -25,6 +35,22 @@ export function Studio() {
         return c;
     }, []);
     const videoCount = STUDIO.filter(s => s.kind === 'video').length;
+
+    /* Depth across the masonry columns. Recomputed on resize and whenever the
+       filter re-flows the grid, because which tile lands in which column is
+       only knowable after layout. */
+    useEffect(() => {
+        const grid = gridRef.current;
+        if (!grid) return;
+        const measure = () => applyColumnParallax(grid);
+        const id = requestAnimationFrame(measure);
+        const ro = new ResizeObserver(measure);
+        ro.observe(grid);
+        return () => {
+            cancelAnimationFrame(id);
+            ro.disconnect();
+        };
+    }, [filter]);
 
     return (
         <section className="studio-section" id="studio">
@@ -41,9 +67,11 @@ export function Studio() {
                 </div>
                 <div className="case-meta-block mono-label">
                     <span>Models</span>
-                    <strong>Veo 3 · Kling · Nano Banana</strong>
+                    <strong>Veo 3 · Kling · Seedance 2.5 · Nano Banana</strong>
                     <span>Also</span>
                     <strong>ElevenLabs · Higgsfield · Marble</strong>
+                    <span>Built in code</span>
+                    <strong>Remotion · HyperFrames · ffmpeg</strong>
                 </div>
             </div>
 
@@ -66,7 +94,23 @@ export function Studio() {
                 ))}
             </div>
 
-            <motion.div layout className="studio-grid">
+            <AnimatePresence initial={false}>
+                {filter === 'Motion GFX' && (
+                    <motion.div
+                        className="studio-note"
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                        <h3 className="studio-note-title">Motion graphics, built in code</h3>
+                        <p className="studio-note-body">{MOTION_GFX_INTRO}</p>
+                        <p className="studio-note-tools mono-label">{MOTION_GFX_TOOLS}</p>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            <motion.div layout className="studio-grid" ref={gridRef}>
                 <AnimatePresence mode="popLayout">
                     {items.map((it, i) => (
                         <StudioTile key={it.id} item={it} onOpen={() => setOpen(i)} />
@@ -156,10 +200,11 @@ function StudioTile({ item, onOpen }: { item: StudioItem; onOpen: () => void }) 
             ref={ref}
             type="button"
             className={`studio-tile is-${item.shape}${playing ? ' is-playing' : ''}`}
-            initial={{ opacity: 0, scale: 0.94 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, scale: 0.94, filter: 'blur(14px)' }}
+            whileInView={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+            viewport={{ once: true, margin: '-8%' }}
             exit={{ opacity: 0, scale: 0.94 }}
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
             onMouseEnter={() => {
                 playTick();
                 play();

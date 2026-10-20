@@ -22,6 +22,8 @@ export type Track = {
     /** Seconds, read from the file so the UI never guesses. */
     duration: number;
     note: string;
+    /** Companion video, when one was finished. Lives at /music/<id>.mp4. */
+    video?: { id: string; duration: number; note: string };
     sections: MusicSection[];
 };
 
@@ -30,12 +32,42 @@ export const MUSIC_MODEL = 'Flow';
 
 export const TRACKS: Track[] = [
     {
+        id: "one-more-day",
+        title: "One More Day",
+        genre: "Soul",
+        language: "English",
+        duration: 182,
+        note: "Grief, and the call that never got returned. Kept as the raw take — the unpolished vocal is the point.",
+        video: {
+            id: "one-more-day-video",
+            duration: 48,
+            note: "The song's story told straight: a son counting money at 3am, a mother praying at a candlelit table, the call that never came. Photoreal footage cut with typographic titles.",
+        },
+        sections: [
+            { label: "Intro", direction: "", lines: ["(Lord, hear me now)", "(Give me one more day, yeah)"] },
+            { label: "Verse 1", direction: "", lines: ["Your last text is still on my phone", "\"Ring me, son, when you reach home\"", "I swore I'd pull up by next week", "Now the silence cuts me deep", "I left your voice note on unread", "'Cause I was chasing bags instead", "Now I am standing in the rain", "Drowning in this heavy pain"] },
+            { label: "Pre-Chorus", direction: "", lines: ["I was running round, chasing paper", "Thinking I could see you later", "Forgot the hands that held my frame", "Forgot the voice that prayed my name"] },
+            { label: "Chorus", direction: "", lines: ["If I could turn the clock right back", "Bring my heart back to your track", "I’d sit right down at your Sunday table", "Hold your hands while I am able", "I would love you most of all", "(Give me one more day, give me one more day)"] },
+            { label: "Verse 2", direction: "", lines: ["You gave your last ten pounds to me", "When I had nothing in my jeans", "You stayed up praying through the night", "While I was out, far out of sight", "I said \"I'm good\" and walked away", "Believing in another day", "Now every breath I take feels cheap", "And I can't even get to sleep"] },
+            { label: "Pre-Chorus", direction: "", lines: ["I was running round, chasing paper", "Thinking I could see you later", "Forgot the hands that held my frame", "Forgot the voice that prayed my name"] },
+            { label: "Chorus", direction: "", lines: ["If I could turn the clock right back", "Bring my heart back to your track", "I’d sit right down at your Sunday table", "Hold your hands while I am able", "I would love you most of all", "(Give me one more day, give me one more day)"] },
+            { label: "Bridge", direction: "", lines: ["Now the kitchen table's set for one", "God, look at what I have done", "I scream your name into the room", "Why did you have to leave so soon?", "'Cause love ain't something you put on hold", "Now I am standing in the cold", "My chest is tight, my spirit torn", "I wish I never was even born"] },
+            { label: "Final Chorus", direction: "", lines: ["If I could turn the clock right back", "Bring my heart back to your track", "I’d sit right down at your Sunday table", "Hold your hands while I am able", "I would love you most of all", "(Give me one more day, give me one more day)"] },
+            { label: "Outro", direction: "", lines: ["I am so sorry, Mum", "(Give me one more day)", "Please pick up, it's me again", "(Give me one more day)", "Oh, my heart is breaking down", "(Give me one more day)", "(Give me one more day)"] },
+        ],
+    },
+    {
         id: "go-well",
         title: "Go Well",
         genre: "Afrobeats",
         language: "Nigerian Pidgin",
         duration: 180,
         note: "Sub bass, one dry guitar lick, brass stab — and nothing else until the chorus.",
+        video: {
+            id: "go-well-video",
+            duration: 52,
+            note: "Screenprint panels in red, black and bone — one character carried across the whole cut, in a graphic-novel register rather than anything photoreal.",
+        },
         sections: [
             { label: "Intro", direction: "Sub bass and one dry guitar lick only. Centred, no drums. Brass stab on the last beat.", lines: [] },
             { label: "Verse 1", direction: "", lines: ["No light for my room, candle dey burn,", "Gari and groundnut, na my dinner.", "You hold my hand when I no get nothing,", "I been think say love na the winner."] },
@@ -76,6 +108,11 @@ export const TRACKS: Track[] = [
         language: "Nigerian Pidgin",
         duration: 178,
         note: "Bar chatter and soft guitar under a man who never said hello.",
+        video: {
+            id: "empty-glass-of-maybe-video",
+            duration: 37,
+            note: "Lyric video, 9:16. Built only from the cover art, with no generated footage. Lyric timing is set from the audio waveform.",
+        },
         sections: [
             { label: "Intro", direction: "", lines: ["(bar chatter, glasses, soft guitar)"] },
             { label: "Verse 1", direction: "", lines: ["Friday night, I dey nurse one cold bottle,", "Speaker dey shake, but my mind dey quiet.", "She walk enter, perfume dey lead her,", "Even the DJ forget the next song.", "She sit two seat from me, I count the distance,", "Two seat na two thousand mile.", "I rehearse my line for the bottom of the glass,", "She look my side, I give am half smile."] },
