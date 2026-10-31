@@ -149,7 +149,9 @@ function guard(el: HTMLElement, onSettled: () => void) {
         }
         if (!isOnScreen(el)) return; // still below the fold — leave its animation intact
         onSettled();
-        gsap.set(el, { opacity: 1, y: 0, clearProps: 'transform' });
+        // `filter` as well as transform: the Studio tiles arrive blur-to-sharp,
+        // so clearing opacity alone would rescue them to a blurred state.
+        gsap.set(el, { opacity: 1, y: 0, filter: 'none', clearProps: 'transform,filter' });
         pendingChecks.delete(check);
     };
     pendingChecks.add(check);

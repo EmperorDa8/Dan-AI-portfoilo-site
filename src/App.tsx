@@ -39,6 +39,9 @@ const WHILE_IN_VIEW = [
   '.hey-col-3',
   '.cta-title',
   '.section-title .word',
+  // Switched from `animate` to `whileInView` so tiles resolve as they arrive;
+  // that made 41 tiles — most of the creative evidence — observer-dependent.
+  '.studio-tile',
 ];
 
 function App() {

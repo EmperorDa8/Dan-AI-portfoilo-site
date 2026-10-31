@@ -25,13 +25,16 @@ export type StudioItem = {
     note: string;
     /** Folder under /public holding <id>.mp4 and <id>.webp. Defaults to 'studio'. */
     dir?: 'studio' | 'music';
+    /** Commissioning client. Present only on paid work — the spec footnote
+     *  under the grid explicitly does not apply to these. */
+    client?: string;
 };
 
 /* Shown above the grid when the Motion GFX filter is on — these pieces are
    rendered from code rather than prompted as footage, which is the whole point
    of separating them out. */
 export const MOTION_GFX_INTRO =
-    'I make video two ways. I prompt models for footage, and I build motion graphics in code. This is the second way. Each piece is React or HTML animated frame by frame, rendered with Remotion or HyperFrames, and cut to music I synthesized myself so there is nothing to license.';
+    'I make video two ways. I prompt models for footage, and I build motion graphics in code. This is the second way, and all five were commissioned by Ziafam. Each piece is React or HTML animated frame by frame, rendered with Remotion or HyperFrames, and cut to music I synthesized myself so there is nothing to license.';
 
 export const MOTION_GFX_TOOLS = 'Remotion · HyperFrames · GSAP · Python · ffmpeg';
 
@@ -59,11 +62,11 @@ export const STUDIO: StudioItem[] = [
 
     /* Motion graphics — built in code, not prompted as footage. Durations and
        aspect ratios were read from the source files, not from the brief. */
-    { id: 'mg-personal-best', title: 'Personal Best — Ziafam', cat: 'Motion GFX', model: 'Remotion', kind: 'video', shape: 'tall', note: 'A fitness-record idea for an IT company. Gradient petals bloom into the logo. 32s, cut for 9:16 and 4:5; the petals also loop seamlessly as a website hero.' },
-    { id: 'mg-ctrl-z', title: "Ctrl+Z doesn't work on a data breach", cat: 'Motion GFX', model: 'HyperFrames · GSAP', kind: 'video', shape: 'tall', note: 'CSS 3D keycaps, synthesized sound design and a "Comment SECURE" call to action. Version 3, after research and review.' },
-    { id: 'mg-exploded-laptop', title: 'Exploded laptop', cat: 'Motion GFX', model: 'Remotion', kind: 'video', shape: 'tall', note: "A laptop that pulls apart to show each layer of the company's services." },
-    { id: 'mg-the-office', title: 'The Office', cat: 'Motion GFX', model: 'Code-built', kind: 'video', shape: 'tall', note: 'A small office diorama where tech problems get fixed one by one. The camera pulls back into the "O" of the company name.' },
-    { id: 'mg-ndpc', title: 'My reaction to NDPC fines', cat: 'Motion GFX', model: 'Code-built', kind: 'video', shape: 'tall', note: 'A cartoon boss reacting to real Nigerian Data Protection Act fine figures, in the reaction format that was trending in 2026.' },
+    { id: 'mg-personal-best', title: 'Personal Best — Ziafam', cat: 'Motion GFX', model: 'Remotion', kind: 'video', shape: 'tall', client: 'Ziafam', note: 'A fitness-record idea for an IT company. Gradient petals bloom into the logo. 32s, cut for 9:16 and 4:5; the petals also loop seamlessly as a website hero.' },
+    { id: 'mg-ctrl-z', title: "Ctrl+Z doesn't work on a data breach", cat: 'Motion GFX', model: 'HyperFrames · GSAP', kind: 'video', shape: 'tall', client: 'Ziafam', note: 'CSS 3D keycaps, synthesized sound design and a "Comment SECURE" call to action. Version 3, after research and review.' },
+    { id: 'mg-exploded-laptop', title: 'Exploded laptop', cat: 'Motion GFX', model: 'Remotion', kind: 'video', shape: 'tall', client: 'Ziafam', note: "A laptop that pulls apart to show each layer of the company's services." },
+    { id: 'mg-the-office', title: 'The Office', cat: 'Motion GFX', model: 'Code-built', kind: 'video', shape: 'tall', client: 'Ziafam', note: 'A small office diorama where tech problems get fixed one by one. The camera pulls back into the "O" of the company name.' },
+    { id: 'mg-ndpc', title: 'My reaction to NDPC fines', cat: 'Motion GFX', model: 'Code-built', kind: 'video', shape: 'tall', client: 'Ziafam', note: 'A cartoon boss reacting to real Nigerian Data Protection Act fine figures, in the reaction format that was trending in 2026.' },
 
     /* Puffy — spec work. The site-wide disclaimer under the grid covers the
        brand mark that appears in the ad. */

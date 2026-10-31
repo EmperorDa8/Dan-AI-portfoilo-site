@@ -155,7 +155,8 @@ export function Studio() {
             </div>
 
             <p className="studio-footnote">
-                Brand-style pieces are self-initiated spec work, not commissioned by or affiliated with those brands.{' '}
+                Pieces marked <strong>Client</strong> were commissioned. Brand-style pieces without that mark are
+                self-initiated spec work, not commissioned by or affiliated with those brands.{' '}
                 <a href={DRIVE_FOLDER} target="_blank" rel="noopener noreferrer">
                     Full-resolution originals on Drive ↗
                 </a>
@@ -251,7 +252,9 @@ function StudioTile({ item, onOpen }: { item: StudioItem; onOpen: () => void }) 
             )}
             <span className="studio-cap">
                 <span className="studio-title">{item.title}</span>
-                <span className="studio-cat mono-label">{item.cat}</span>
+                <span className="studio-cat mono-label">
+                    {item.client ? `Client · ${item.client}` : item.cat}
+                </span>
             </span>
         </motion.button>
     );

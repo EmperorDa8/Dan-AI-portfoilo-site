@@ -14,7 +14,7 @@ const EXPERIENCE = [
         period: 'Feb 2026 — Present',
         role: 'Freelance AI Product Engineer',
         org: 'Remote · clients in the UK, US and Nigeria',
-        note: 'Mo2Production e-commerce platform live in under two weeks; Claude-API RAG contract triage with human review; 9-agent trade finance prototype. Documented repos and handover notes on milestone agreements.',
+        note: 'Mo2Production e-commerce platform live in under two weeks; Claude-API RAG contract triage with human review; 9-agent trade finance prototype; a run of commissioned motion graphics for Ziafam. Documented repos and handover notes on milestone agreements.',
     },
     {
         period: 'Launched 2026',
