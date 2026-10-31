@@ -24,7 +24,7 @@ export function HeyBio() {
                     className="hey-col-1"
                 >
                     <p>
-                        <em>Dan Usman</em> — <strong>AI Product Engineer, AI Video &amp; Content Creator and AI Creative</strong>. I ship software and
+                        <em>Dan Usman</em> — <strong>AI Product Engineer, AI Video &amp; Content Creator and AI Creative Specialist</strong>. I ship software and
                         generate the video and imagery around it. Idea → live release, end-to-end ownership, with Claude Code and
                         Cursor as my core development workflow.
                     </p>
