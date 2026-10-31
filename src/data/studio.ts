@@ -3,7 +3,16 @@
    Model labels come from the generator's own export filenames; where the
    export didn't record a model, the tag says so rather than guessing. */
 
-export type StudioCat = 'Spec ads' | 'Motion GFX' | 'Cinematic' | 'Characters' | 'Product' | 'Images';
+import { TRACKS } from './music';
+
+export type StudioCat =
+    | 'Spec ads'
+    | 'Motion GFX'
+    | 'Music video'
+    | 'Cinematic'
+    | 'Characters'
+    | 'Product'
+    | 'Images';
 
 export type StudioItem = {
     id: string;
@@ -14,6 +23,8 @@ export type StudioItem = {
     /** portrait | landscape — drives the masonry span */
     shape: 'tall' | 'wide';
     note: string;
+    /** Folder under /public holding <id>.mp4 and <id>.webp. Defaults to 'studio'. */
+    dir?: 'studio' | 'music';
 };
 
 /* Shown above the grid when the Motion GFX filter is on — these pieces are
@@ -26,7 +37,26 @@ export const MOTION_GFX_TOOLS = 'Remotion · HyperFrames · GSAP · Python · ff
 
 export const DRIVE_FOLDER = 'https://drive.google.com/drive/folders/1O8acef1kl6LuIFuo7I3l3vauvuBl_4Fu';
 
+/* The music videos are derived from the track data rather than restated here.
+   One source of truth: add a video to a track and it appears in the grid too,
+   with the same note, and the files are referenced where they already live
+   instead of being copied into /studio. */
+const MUSIC_VIDEOS: StudioItem[] = TRACKS.filter(t => t.video).map(t => ({
+    id: t.video!.id,
+    title: `${t.title} — ${t.video!.label.toLowerCase()}`,
+    cat: 'Music video',
+    // The generator's tooling was never recorded for these, and the data file
+    // says so rather than guessing; the label is what the piece is.
+    model: t.video!.label,
+    kind: 'video',
+    shape: 'tall',
+    note: t.video!.note,
+    dir: 'music',
+}));
+
 export const STUDIO: StudioItem[] = [
+    ...MUSIC_VIDEOS,
+
     /* Motion graphics — built in code, not prompted as footage. Durations and
        aspect ratios were read from the source files, not from the brief. */
     { id: 'mg-personal-best', title: 'Personal Best — Ziafam', cat: 'Motion GFX', model: 'Remotion', kind: 'video', shape: 'tall', note: 'A fitness-record idea for an IT company. Gradient petals bloom into the logo. 32s, cut for 9:16 and 4:5; the petals also loop seamlessly as a website hero.' },

@@ -13,10 +13,21 @@ import { playClick, playTick } from '../sound';
 import { getLenis, prefersReducedMotion } from '../lib/scroll';
 import { applyColumnParallax } from '../lib/scrollFx';
 
-const FILTERS: ('All' | StudioCat)[] = ['All', 'Motion GFX', 'Spec ads', 'Cinematic', 'Characters', 'Product', 'Images'];
+const FILTERS: ('All' | StudioCat)[] = [
+    'All',
+    'Motion GFX',
+    'Music video',
+    'Spec ads',
+    'Cinematic',
+    'Characters',
+    'Product',
+    'Images',
+];
 
-const poster = (it: StudioItem) => `/studio/${it.id}.webp`;
-const clip = (it: StudioItem) => `/studio/${it.id}.mp4`;
+// Most tiles live in /studio; the music videos are referenced where they
+// already sit beside their tracks rather than being copied in.
+const poster = (it: StudioItem) => `/${it.dir ?? 'studio'}/${it.id}.webp`;
+const clip = (it: StudioItem) => `/${it.dir ?? 'studio'}/${it.id}.mp4`;
 
 /**
  * AI content studio. Tiles show a still until hovered (or scrolled into the

@@ -23,7 +23,7 @@ export type Track = {
     duration: number;
     note: string;
     /** Companion video, when one was finished. Lives at /music/<id>.mp4. */
-    video?: { id: string; duration: number; note: string };
+    video?: { id: string; label: string; duration: number; note: string };
     sections: MusicSection[];
 };
 
@@ -40,6 +40,7 @@ export const TRACKS: Track[] = [
         note: "Grief, and the call that never got returned. Kept as the raw take — the unpolished vocal is the point.",
         video: {
             id: "one-more-day-video",
+            label: "Music video",
             duration: 48,
             note: "The song's story told straight: a son counting money at 3am, a mother praying at a candlelit table, the call that never came. Photoreal footage cut with typographic titles.",
         },
@@ -65,6 +66,7 @@ export const TRACKS: Track[] = [
         note: "Sub bass, one dry guitar lick, brass stab — and nothing else until the chorus.",
         video: {
             id: "go-well-video",
+            label: "Music video",
             duration: 52,
             note: "Screenprint panels in red, black and bone — one character carried across the whole cut, in a graphic-novel register rather than anything photoreal.",
         },
@@ -110,8 +112,9 @@ export const TRACKS: Track[] = [
         note: "Bar chatter and soft guitar under a man who never said hello.",
         video: {
             id: "empty-glass-of-maybe-video",
+            label: "Lyric video",
             duration: 37,
-            note: "Lyric video, 9:16. Built only from the cover art, with no generated footage. Lyric timing is set from the audio waveform.",
+            note: "Built only from the cover art, with no generated footage. Lyric timing is set from the audio waveform.",
         },
         sections: [
             { label: "Intro", direction: "", lines: ["(bar chatter, glasses, soft guitar)"] },

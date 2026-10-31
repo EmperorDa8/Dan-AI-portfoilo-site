@@ -25,18 +25,23 @@ TITLE_OVERRIDES = {"one-more-day": "One More Day"}
 # the page never states a length the file does not have. A slug missing from
 # here, or whose file is absent, simply gets no video — which is what stops a
 # regeneration from silently dropping a video that was added by hand.
+# slug -> (label, note). The label is what the piece IS, and it titles the
+# entry when the Studio grid lists these alongside the rest of the video work.
 VIDEOS = {
     "one-more-day": (
+        "Music video",
         "The song's story told straight: a son counting money at 3am, a mother praying at a "
-        "candlelit table, the call that never came. Photoreal footage cut with typographic titles."
+        "candlelit table, the call that never came. Photoreal footage cut with typographic titles.",
     ),
     "go-well": (
+        "Music video",
         "Screenprint panels in red, black and bone — one character carried across the whole cut, "
-        "in a graphic-novel register rather than anything photoreal."
+        "in a graphic-novel register rather than anything photoreal.",
     ),
     "empty-glass-of-maybe": (
-        "Lyric video, 9:16. Built only from the cover art, with no generated footage. Lyric timing "
-        "is set from the audio waveform."
+        "Lyric video",
+        "Built only from the cover art, with no generated footage. Lyric timing is set from the "
+        "audio waveform.",
     ),
 }
 
@@ -143,10 +148,12 @@ def main():
         if slug in VIDEOS:
             vpath = PUBLIC_MUSIC / f"{slug}-video.mp4"
             if vpath.exists():
+                label, note_ = VIDEOS[slug]
                 video = {
                     "id": f"{slug}-video",
+                    "label": label,
                     "duration": round(float(probe(vpath)["duration"])),
-                    "note": VIDEOS[slug],
+                    "note": note_,
                 }
             else:
                 print(f"  ! {slug}: no video at {vpath.name} — emitting the track without one")
@@ -177,6 +184,7 @@ def main():
         + (
             "        video: {\n"
             f"            id: {ts(r['video']['id'])},\n"
+            f"            label: {ts(r['video']['label'])},\n"
             f"            duration: {r['video']['duration']},\n"
             f"            note: {ts(r['video']['note'])},\n"
             "        },\n"
@@ -221,7 +229,7 @@ def main():
         "    duration: number;\n"
         "    note: string;\n"
         "    /** Companion video, when one was finished. Lives at /music/<id>.mp4. */\n"
-        "    video?: { id: string; duration: number; note: string };\n"
+        "    video?: { id: string; label: string; duration: number; note: string };\n"
         "    sections: MusicSection[];\n"
         "};\n\n"
         "export const ARTIST = 'LastingJuniper';\n"
