@@ -24,8 +24,8 @@ const EXPERIENCE = [
     },
     {
         period: 'Sep 2025 — Jan 2026',
-        role: 'AI Prompt Engineer Intern',
-        org: 'AZER-T — game studio, France · Remote',
+        role: 'AI Prompt Engineer',
+        org: 'AZER-T — game studio, France · Remote contract',
         note: 'Prompt-driven pipelines for game art, marketing assets and 3D models: ~30% lower per-asset outsourcing cost, ~40% faster iteration. ElevenLabs voices for 3 NPCs; 10+ marketing assets on deadline.',
     },
     {

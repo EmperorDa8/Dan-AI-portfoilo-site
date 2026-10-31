@@ -67,21 +67,25 @@ export function HeyBio() {
                 >
                     <div className="hey-num">(AI)</div>
                     <p>
-                        I build on the <strong>Claude, OpenAI and Gemini APIs</strong> — tool calling, multi-agent
-                        orchestration, MCP, RAG, structured JSON outputs with guardrails and human review. A background in{' '}
-                        <strong>IT automation and Linux</strong> means I care about reliability, cost, security and what
-                        happens when the model is wrong.
+                        I'm <strong>self-taught</strong>. I started out writing prompts — an{' '}
+                        <strong>AI Prompt Engineer contract at AZER-T</strong>, a French game studio — and kept going
+                        until I was shipping the whole product, not just the prompt. A computer science degree gave me
+                        the fundamentals. The rest I learned by building.
                     </p>
                     <p>
-                        Currently a <strong>freelance AI Product Engineer</strong> (Feb 2026 – present) for clients in the
-                        UK, US and Nigeria, and founder of <strong>Xamio</strong>, launched on Product Hunt. Before that,{' '}
-                        <strong>AI Prompt Engineer Intern at AZER-T</strong>, a French game studio. Based in{' '}
-                        <strong>Lagos, Nigeria</strong> and open to <strong>fully remote, hybrid, onsite or
-                        relocation</strong>.
+                        I work across the <strong>Claude, OpenAI and Gemini APIs</strong> — tool-calling agents,
+                        retrieval over a client's own documents, and strict JSON at every boundary with a human check
+                        where the model is unsure. A background in <strong>IT automation</strong> is why I care about
+                        reliability, cost and security, and about what happens when the model is wrong.
+                    </p>
+                    <p>
+                        <strong>Freelance AI Product Engineer</strong> since February 2026, for clients in the UK, US
+                        and Nigeria, and founder of <strong>Xamio</strong>, launched on Product Hunt. Based in{' '}
+                        <strong>Lagos, Nigeria</strong>, open to <strong>remote, hybrid, onsite or relocation</strong>.
                     </p>
                     <div className="hey-quote">
-                        "PRD-first specs, CLAUDE.md context files, ruthless scoping — the workflow discipline that makes
-                        AI-assisted development actually ship."
+                        "Write the spec first, give the model the context it needs, and cut scope without mercy — that's
+                        what makes AI-assisted work actually ship."
                     </div>
                 </motion.div>
             </div>
