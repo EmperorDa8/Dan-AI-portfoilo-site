@@ -1,10 +1,13 @@
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense, useEffect, useRef } from 'react';
 import { Navigation } from './components/Navigation';
 import { Hero } from './components/Hero';
+import { Reel } from './components/Reel';
+import { Desk } from './components/Desk';
+import { Ascii } from './components/Ascii';
 import { ProofStrip } from './components/ProofStrip';
 import { TechStack } from './components/TechStack';
 import { Marquee } from './components/Marquee';
-import { MoTwoCase } from './components/MoTwoCase';
+import { VeridicCase } from './components/VeridicCase';
 import { PromptSystemsCase } from './components/PromptSystemsCase';
 import { XamioCase } from './components/XamioCase';
 import { Products } from './components/Products';
@@ -73,6 +76,23 @@ function App() {
     return () => ctx.revert();
   }, []);
 
+  /* The nav sits over whatever is behind it, so it has to know when the dark
+     chapter is under it. Watch only the strip of viewport the nav occupies. */
+  const screeningRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = screeningRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([e]) => document.documentElement.toggleAttribute('data-chapter-dark', e.isIntersecting),
+      { rootMargin: '0px 0px -92% 0px' }
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      document.documentElement.removeAttribute('data-chapter-dark');
+    };
+  }, []);
+
   useEffect(() => {
     installRevealSafetyNet(WHILE_IN_VIEW);
     // Polled only while sound is enabled, not for the life of the page.
@@ -90,30 +110,40 @@ function App() {
 
       {/* Claim → proof → evidence → person → contact */}
       <Hero />
+      <Reel />
       <ProofStrip />
       <Marquee />
+
+      {/* The argument for holding three titles, made once, before the evidence. */}
+      <Desk />
 
       {/* Evidence first: everything here is live, launched or in a public repo. */}
       <Products />
       <XamioCase />
-      <MoTwoCase />
+      <VeridicCase />
       <PromptSystemsCase />
       <SystemsLab />
 
       <section className="band">
+        <Ascii />
         <div className="band-inner">
           <h2 className="band-title">
             Unfamiliar domain on Monday, <em>deployed by Friday.</em>
           </h2>
           <p className="band-note">
-            Trade finance, contract review, e-commerce, exam scheduling, game asset pipelines — the pattern is the
+            Trade finance, contract review, legal fine print, exam scheduling, game asset pipelines — the pattern is the
             same: learn the domain fast enough to make the right architectural calls, then ship.
           </p>
         </div>
       </section>
 
-      <Studio />
-      <Music />
+      {/* Lights down: the creative half is shown on charcoal, where video
+          reads properly. The wrapper only redefines the colour tokens, so the
+          sections inside adapt without knowing they are on dark. */}
+      <div className="screening" ref={screeningRef}>
+        <Studio />
+        <Music />
+      </div>
       <TechStack />
 
       <HeyBio />

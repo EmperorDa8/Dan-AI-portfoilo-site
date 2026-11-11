@@ -14,7 +14,13 @@ const EXPERIENCE = [
         period: 'Feb 2026 — Present',
         role: 'Freelance AI Product Engineer',
         org: 'Remote · clients in the UK, US and Nigeria',
-        note: 'Mo2Production e-commerce platform live in under two weeks; Claude-API RAG contract triage with human review; 9-agent trade finance prototype; a run of commissioned motion graphics for Ziafam. Documented repos and handover notes on milestone agreements.',
+        note: 'Claude-API RAG contract triage with human review; 9-agent trade finance prototype; a run of commissioned motion graphics for Ziafam. Documented repos and handover notes on milestone agreements.',
+    },
+    {
+        period: 'Launched 2026',
+        role: 'Founder · Veridic',
+        org: 'Chrome Web Store · extension-veridic.vercel.app',
+        note: 'Solo-built Chrome extension that restates dense documents in plain English with every point quoted. On-device and server engines, accounts, payments, 16 languages.',
     },
     {
         period: 'Launched 2026',
@@ -104,7 +110,7 @@ export function Credentials() {
 
                 <div className="cred-timeline">
                     {EXPERIENCE.map((item, i) => (
-                        <motion.div {...reveal(0.1 + i * 0.1)} className="tl-entry" key={item.period} onMouseEnter={playTick}>
+                        <motion.div {...reveal(0.1 + i * 0.1)} className="tl-entry" key={item.role} onMouseEnter={playTick}>
                             <div className="tl-period mono-label">{item.period}</div>
                             <div className="tl-role">{item.role}</div>
                             <div className="tl-org">{item.org}</div>

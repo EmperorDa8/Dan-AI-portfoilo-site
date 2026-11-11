@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { playTick } from '../sound';
+import { Win } from './Win';
 
 const reveal = (delay = 0) => ({
     initial: { opacity: 0, y: 30 },
@@ -65,10 +66,12 @@ export function XamioCase() {
                 href="https://xamio.app"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="case-hero"
+                className="case-hero is-win"
                 onMouseEnter={playTick}
             >
-                <img src="/xamio_thumbnail.webp" alt="Xamio landing page: Never miss an exam again" loading="lazy" decoding="async" width={1200} height={750} />
+                <Win title="xamio.app" meta="live">
+                    <img className="win-shot" src="/xamio_thumbnail.webp" alt="Xamio landing page: Never miss an exam again" loading="lazy" decoding="async" width={1200} height={750} />
+                </Win>
             </motion.a>
 
             <div className="case-phase-grid">

@@ -8,8 +8,8 @@ import { playTick } from '../sound';
    prototypes" cell was cut — the grid below evidences that rather than
    asserting it. */
 const PROOF = [
-    { value: '5', label: 'Live products', sub: 'Xamio · Tasker · aitrainingplan · VentureScout · X Bot' },
-    { value: '< 2 wks', label: 'UK e-commerce platform', sub: 'Solo build, live in production' },
+    { value: '6', label: 'Live products', sub: 'Xamio · Veridic · Tasker · aitrainingplan · VentureScout · X Bot' },
+    { value: '16', label: 'Languages in Veridic', sub: 'Live on the Chrome Web Store, v1.0.6' },
     { value: '9', label: 'Agent system designed', sub: 'Schema-validated, human approval gates' },
     { value: '3', label: 'Client countries', sub: 'UK · US · Nigeria' },
 ];

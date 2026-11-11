@@ -67,7 +67,7 @@ export function Hero() {
                         </span>
                         <span className="hero-proof-sep" aria-hidden />
                         <span>
-                            <strong>&lt; 2 wks</strong> UK e-commerce, live
+                            <strong>Veridic</strong> live on the Chrome Web Store
                         </span>
                     </motion.div>
 

@@ -4438,3 +4438,762 @@ img, video {
   }
 
 }
+
+/* ============================================================
+   REEL — the showreel in a window that opens
+
+   `--p` (0 → 1) is published on the section by useSectionProgress.
+   The window is fully open by 70% of the travel; the last 30% holds
+   it full-bleed so the reel can actually be watched.
+   ============================================================ */
+
+:root {
+  --wave-played: rgba(56, 116, 120, 0.95);
+  --wave-rest: rgba(73, 68, 68, 0.26);
+}
+
+.reel {
+  --p: 0;
+  --e: clamp(0, calc(var(--p) / 0.7), 1);
+  --w0: min(1180px, 88vw);
+  position: relative;
+  z-index: 1;
+  height: 230vh;
+  /* Tuck under the hero so the window's top edge is on the first screen. */
+  margin-top: -4vh;
+}
+
+.reel-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  /* Top-aligned, clear of the nav, and closing that gap as it opens. Centred,
+     the window started a full screen below the hero and never showed on the
+     first view. */
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: calc(84px * (1 - var(--e)));
+  overflow: clip;
+}
+
+.reel-window {
+  position: relative;
+  width: calc(var(--w0) + (100vw - var(--w0)) * var(--e));
+  height: calc(66vh + 34vh * var(--e));
+  display: flex;
+  flex-direction: column;
+  background: #141412;
+  border: 1px solid var(--line-strong);
+  border-radius: calc(var(--r-card) * (1 - var(--e)));
+  box-shadow: var(--shadow-lift);
+  overflow: hidden;
+}
+
+.reel-bar {
+  flex: none;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  height: calc(38px * (1 - var(--e)));
+  padding: 0 0.9rem;
+  opacity: calc(1 - var(--e) * 1.6);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: rgba(250, 248, 243, 0.62);
+  border-bottom: 1px solid rgba(250, 248, 243, 0.1);
+  overflow: hidden;
+}
+
+.reel-dots {
+  display: inline-flex;
+  gap: 6px;
+}
+
+.reel-dots i {
+  width: 9px;
+  height: 9px;
+  border-radius: var(--r-pill);
+  background: rgba(250, 248, 243, 0.22);
+}
+
+.reel-len {
+  justify-self: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.reel-video {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  object-fit: cover;
+  display: block;
+  background: #141412;
+}
+
+/* Switched on by [data-late], not scrubbed: the link must not be clickable
+   while it cannot be seen. */
+.reel-end {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  padding: 5rem var(--space-gutter) 2.2rem;
+  background: linear-gradient(180deg, transparent 0%, rgba(20, 20, 18, 0.82) 70%);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(14px);
+  transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out),
+    visibility 0s linear var(--dur-slow);
+}
+
+.reel[data-late] .reel-end {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition-delay: 0s;
+}
+
+.reel-line {
+  max-width: 30ch;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: clamp(1.2rem, 2.4vw, 2rem);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: #f3efe6;
+}
+
+.reel-line em {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  color: #a9d6c9;
+}
+
+.reel-end .btn-primary {
+  background: #f3efe6;
+  border-color: #f3efe6;
+  color: #23231f;
+}
+
+/* Phones and reduced motion: no pin, a plain 16:9 frame, caption beneath. */
+.reel[data-static] {
+  height: auto;
+  margin-top: 0;
+  padding: 0 var(--space-gutter) 3rem;
+}
+
+.reel[data-static] .reel-stage {
+  position: static;
+  height: auto;
+  display: block;
+}
+
+.reel[data-static] .reel-window {
+  width: 100%;
+  height: auto;
+  border-radius: var(--r-card);
+}
+
+.reel[data-static] .reel-bar {
+  height: 38px;
+  opacity: 1;
+}
+
+.reel[data-static] .reel-video {
+  aspect-ratio: 16 / 9;
+}
+
+.reel[data-static] .reel-end {
+  position: static;
+  padding: 1.3rem 1.1rem 1.4rem;
+  background: none;
+}
+
+/* ============================================================
+   DESK — one desk, three jobs
+
+   The grid is the finished state. Each card carries a scatter
+   offset (--sx, --sy, --sr) that is multiplied by how unsorted the
+   desk still is, so at --p: 1 every transform resolves to none.
+   ============================================================ */
+
+.desk {
+  --p: 0;
+  /* 0 while scattered, 1 once filed. Sorting runs from 12% to 62%. */
+  --s: clamp(0, calc((var(--p) - 0.12) / 0.5), 1);
+  --labels: clamp(0, calc((var(--p) - 0.55) * 5), 1);
+  position: relative;
+  z-index: 1;
+  height: 260vh;
+}
+
+.desk-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(1rem, 2.6vh, 2rem);
+  padding: 5.5rem var(--space-gutter) 2rem;
+  max-width: 1560px;
+  margin-inline: auto;
+  overflow: clip;
+}
+
+.desk-title {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: clamp(2.2rem, 5vw, 4.4rem);
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.desk-title em {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  color: var(--accent);
+  /* The second half of the sentence arrives with the sorting. */
+  opacity: calc(0.18 + var(--s) * 0.82);
+}
+
+.desk-sub {
+  margin-top: 0.7rem;
+  max-width: 46ch;
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+.desk-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.8rem, 1.6vw, 1.6rem);
+  min-height: 0;
+}
+
+.desk-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  min-width: 0;
+}
+
+.desk-label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.8rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) calc(var(--labels) * 24%), transparent);
+  opacity: var(--labels);
+}
+
+.desk-label-title {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+}
+
+.desk-label .mono-label {
+  color: var(--muted);
+  font-size: 0.64rem;
+}
+
+.desk-card {
+  position: relative;
+  height: clamp(96px, 15.5vh, 150px);
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  overflow: hidden;
+  box-shadow: 0 calc(18px * (1 - var(--s))) calc(40px * (1 - var(--s))) -22px rgba(43, 43, 41, 0.4);
+  translate: calc(var(--sx) * (1 - var(--s))) calc(var(--sy) * (1 - var(--s)));
+  rotate: calc(var(--sr) * (1 - var(--s)));
+}
+
+.desk-card-body {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.desk-card.is-image .desk-card-body img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.desk-card.is-code .desk-card-body {
+  background: #23231f;
+  padding: 0.7rem 0.85rem;
+}
+
+.desk-card pre {
+  font-family: var(--font-mono);
+  font-size: clamp(0.58rem, 0.78vw, 0.7rem);
+  line-height: 1.55;
+  color: #cfe6dd;
+  white-space: pre;
+}
+
+.desk-card.is-note .desk-card-body {
+  padding: 0.75rem 0.9rem;
+  display: flex;
+  align-items: center;
+}
+
+.desk-card.is-note p {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  width: 100%;
+  font-family: var(--font-serif);
+  font-size: clamp(0.82rem, 1.05vw, 0.98rem);
+  line-height: 1.4;
+}
+
+.desk-card.is-note em {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 0.82em;
+  color: var(--accent);
+}
+
+.desk-bars {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 30px;
+}
+
+.desk-bars i {
+  flex: 1;
+  background: var(--accent);
+  opacity: 0.55;
+  border-radius: var(--r-pill);
+}
+
+.desk-card figcaption {
+  flex: none;
+  padding: 0.38rem 0.7rem;
+  font-size: 0.6rem;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: var(--surface);
+}
+
+/* Phones and reduced motion: the sorted grid, unpinned. */
+.desk[data-static] {
+  height: auto;
+}
+
+.desk[data-static] .desk-stage {
+  position: static;
+  height: auto;
+  padding: var(--space-section) var(--space-gutter);
+  overflow: visible;
+}
+
+.desk[data-static] .desk-card {
+  height: 150px;
+}
+
+@media (max-width: 820px) {
+  .desk-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+/* ============================================================
+   SCREENING — lights down for the creative half
+
+   The wrapper redefines the colour tokens and nothing else, so
+   Studio and Music adapt without being told they are on dark. The
+   ground fades in and out over the first and last 26vh.
+   ============================================================ */
+
+.screening {
+  --bg: #23231f;
+  --bg-deep: #2c2b26;
+  --surface: #2f2e29;
+  --ink: #f3efe6;
+  --ink-soft: #d3ccc0;
+  --muted: #a8a197;
+  --line: rgba(250, 248, 243, 0.14);
+  --line-strong: rgba(250, 248, 243, 0.28);
+  --accent: #7fc4b2;
+  --mint: rgba(127, 196, 178, 0.16);
+  --sage: #5f8a7d;
+  --shadow-soft: 0 24px 60px -28px rgba(0, 0, 0, 0.6);
+  --shadow-lift: 0 36px 80px -30px rgba(0, 0, 0, 0.7);
+  --wave-played: rgba(127, 196, 178, 0.95);
+  --wave-rest: rgba(243, 239, 230, 0.24);
+
+  position: relative;
+  z-index: 1;
+  color: var(--ink);
+  padding-block: 14vh;
+  background: linear-gradient(
+    180deg,
+    #faf8f3 0,
+    #23231f 26vh,
+    #23231f calc(100% - 26vh),
+    #faf8f3 100%
+  );
+}
+
+/* The hairline that separates sections would sit on the gradient. */
+.screening > .studio-section {
+  border-top: 0;
+}
+
+/* Surfaces that were hardcoded as translucent white for the paper ground. */
+.screening .case-badge,
+.screening .sim-chip,
+.screening .studio-worlds {
+  background: rgba(250, 248, 243, 0.06);
+}
+
+/* Light accent on dark: these sat white-on-teal, which no longer has contrast. */
+.screening .mus-play,
+.screening .mus-sheet-play:hover {
+  color: #16201d;
+}
+
+.screening .mus-sheet-play.is-video:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--bg);
+}
+
+.screening .mus-direction {
+  background: rgba(250, 248, 243, 0.05);
+}
+
+/* The nav reads the ground beneath it. Only the two outer groups change —
+   the centre pill keeps its own light glass. */
+/* Dark ground under the nav: the screening chapter, or the reel once it has
+   opened to full screen. */
+:is(html[data-chapter-dark], html:has(.reel[data-late][data-active])) :is(.nav-name, .nav-meta) {
+  --ink: #f3efe6;
+  --ink-soft: #d3ccc0;
+  --line-strong: rgba(250, 248, 243, 0.3);
+  color: var(--ink-soft);
+}
+
+:is(html[data-chapter-dark], html:has(.reel[data-late][data-active])) .nav-name {
+  color: var(--ink);
+}
+
+:is(html[data-chapter-dark], html:has(.reel[data-late][data-active])) :is(.sound-toggle, .nav-meta .kbd-btn) {
+  background: rgba(20, 20, 18, 0.45);
+}
+
+.nav-name,
+.nav-meta,
+.nav-meta a,
+.sound-toggle {
+  transition: color var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out);
+}
+
+/* ============================================================
+   REFERENCE PASS
+
+   Moves the site toward a quieter, more "drawn" interface — ruled
+   cells instead of floating cards, window chrome around anything
+   that runs, a pixel face for numbers and file chrome, character
+   texture, calmer headings — while the palette, the serif italics
+   and the pill controls stay exactly as they were.
+   ============================================================ */
+
+:root {
+  --font-pixel: 'Pixelify Sans', var(--font-mono);
+}
+
+/* ---- Calmer headings ----
+   Medium weight and a size down: confident, not loud. */
+.hero-h1,
+.section-title,
+.desk-title {
+  font-weight: 500;
+}
+
+.section-title {
+  font-size: clamp(2.3rem, 5vw, 4.4rem);
+  line-height: 1.02;
+}
+
+/* ---- Pixel face: numbers and file chrome only ---- */
+.proof-value,
+.case-phase-tag,
+.stack-filter-n,
+.mus-row-n,
+.mus-time,
+.mus-row-dur,
+.reel-file,
+.reel-len,
+.win-title,
+.win-meta,
+.desk-card figcaption {
+  font-family: var(--font-pixel);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.proof-value {
+  font-size: clamp(1.9rem, 2.9vw, 2.8rem);
+  letter-spacing: 0;
+}
+
+.case-phase-tag {
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+}
+
+.stack-filter-n {
+  font-size: 0.82rem;
+  opacity: 0.75;
+}
+
+.mus-row-n,
+.mus-time,
+.mus-row-dur {
+  font-size: 0.86rem;
+}
+
+.desk-card figcaption {
+  font-size: 0.72rem;
+  text-transform: none;
+}
+
+/* ---- Ruled cells instead of floating cards ----
+   The three phases of a case study become one frame divided by hairlines,
+   with a registration mark on two corners. */
+.case-phase-grid {
+  position: relative;
+  gap: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-card);
+  background: var(--surface);
+}
+
+.case-phase {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 2rem 1.9rem 2.2rem;
+}
+
+.case-phase + .case-phase {
+  border-left: 1px solid var(--line);
+}
+
+.case-phase-grid::before,
+.case-phase-grid::after {
+  content: '+';
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  line-height: 1;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.case-phase-grid::before {
+  top: -0.52rem;
+  left: -0.34rem;
+}
+
+.case-phase-grid::after {
+  bottom: -0.5rem;
+  right: -0.34rem;
+}
+
+.case-panel,
+.case-hero {
+  box-shadow: none;
+  border-color: var(--line-strong);
+}
+
+@media (max-width: 900px) {
+  .case-phase + .case-phase {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+}
+
+/* ---- Window chrome ---- */
+.win {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-card);
+  overflow: hidden;
+}
+
+.win-bar {
+  flex: none;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  height: 36px;
+  padding: 0 0.85rem;
+  background: var(--bg-deep);
+  border-bottom: 1px solid var(--line);
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.win-dots {
+  display: inline-flex;
+  gap: 6px;
+}
+
+.win-dots i {
+  width: 9px;
+  height: 9px;
+  border-radius: var(--r-pill);
+  background: var(--line-strong);
+}
+
+.win-meta {
+  justify-self: end;
+}
+
+.win-body {
+  position: relative;
+  min-height: 0;
+}
+
+.win-shot {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* A case hero that holds a window is sized by its content, not a fixed ratio. */
+.case-hero.is-win {
+  aspect-ratio: auto;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  overflow: visible;
+}
+
+.win-tabs {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.win-tab {
+  padding: 0.3rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+
+.win-tab:hover {
+  border-color: var(--line-strong);
+}
+
+.win-tab.is-on {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--bg);
+}
+
+/* ---- Character texture behind the band ---- */
+.band {
+  overflow: hidden;
+}
+
+.band-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.ascii {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  letter-spacing: 0.22em;
+  white-space: pre;
+  color: var(--accent);
+  opacity: 0.2;
+  pointer-events: none;
+  user-select: none;
+  overflow: hidden;
+  /* Texture, not content: it fades out behind the words. */
+  -webkit-mask-image: linear-gradient(100deg, transparent 0%, transparent 34%, #000 78%);
+  mask-image: linear-gradient(100deg, transparent 0%, transparent 34%, #000 78%);
+}
+
+/* ---- Dot grid on the two staged sections and the dark chapter ---- */
+.desk::before,
+.screening::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(color-mix(in srgb, var(--ink) 16%, transparent) 1px, transparent 1.4px);
+  background-size: 22px 22px;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 18%, #000 82%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0, #000 18%, #000 82%, transparent 100%);
+}
+
+.desk-stage,
+.screening > * {
+  position: relative;
+}
+
+/* ---- Desk: cards file one after another ----
+   Each card gets its own slice of the scroll, so the nine paths do not all
+   cross the middle of the stage at the same moment. */
+.desk {
+  --labels: clamp(0, calc((var(--p) - 0.62) * 6), 1);
+}
+
+.desk-card {
+  --own: clamp(0, calc((var(--p) - 0.08 - var(--i, 0) * 0.036) / 0.34), 1);
+  box-shadow: 0 calc(18px * (1 - var(--own))) calc(40px * (1 - var(--own))) -22px rgba(43, 43, 41, 0.4);
+  translate: calc(var(--sx) * (1 - var(--own))) calc(var(--sy) * (1 - var(--own)));
+  rotate: calc(var(--sr) * (1 - var(--own)));
+}
+
+.desk-title em {
+  opacity: calc(0.18 + var(--labels) * 0.82);
+}

@@ -216,6 +216,11 @@ function Waveform({
         const BARS = 72;
         const idle = Array.from({ length: BARS }, (_, i) => 0.18 + Math.abs(Math.sin(i * 0.38)) * 0.26);
         let data: Uint8Array | null = null;
+        // Read once per effect: the deck sits inside the dark chapter, where
+        // the light-ground greys would vanish.
+        const cs = getComputedStyle(canvas);
+        const colPlayed = cs.getPropertyValue('--wave-played').trim() || 'rgba(56, 116, 120, 0.95)';
+        const colRest = cs.getPropertyValue('--wave-rest').trim() || 'rgba(73, 68, 68, 0.26)';
 
         const resize = () => {
             const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -269,7 +274,7 @@ function Waveform({
                 const x = i * (bw + gap);
                 const isPlayed = x + bw <= played;
 
-                ctx.fillStyle = isPlayed ? 'rgba(56, 116, 120, 0.95)' : 'rgba(73, 68, 68, 0.26)';
+                ctx.fillStyle = isPlayed ? colPlayed : colRest;
                 ctx.beginPath();
                 const rad = Math.min(bw / 2, 2);
                 ctx.roundRect(x, mid - bh / 2, bw, bh, rad);
