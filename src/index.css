@@ -5197,3 +5197,88 @@ img, video {
 .desk-title em {
   opacity: calc(0.18 + var(--labels) * 0.82);
 }
+
+/* ============================================================
+   DENSITY PASS
+
+   Section rhythm was 7rem above and below everything, so two
+   neighbouring sections sat 224px apart and the page ran to 29
+   screens. The rhythm is now set once, here: 4.5rem for a section,
+   and the staged sequences hold the screen for less scroll.
+   ============================================================ */
+
+:root {
+  --space-section: 4.5rem;
+  --space-section-lg: 5.5rem;
+}
+
+.section-head {
+  margin-bottom: 2.2rem;
+}
+
+.case-hero {
+  margin-bottom: 1.6rem;
+}
+
+.proof-strip {
+  padding-bottom: 3rem;
+}
+
+.band {
+  margin: 1.5rem 0;
+}
+
+/* The chapter's own padding stacked on the first and last section's. The
+   colour fade is shortened to match, so content still starts on full dark. */
+.screening {
+  padding-block: 3vh;
+  background: linear-gradient(180deg, #faf8f3 0, #23231f 11vh, #23231f calc(100% - 11vh), #faf8f3 100%);
+}
+
+/* Less scroll spent holding each staged section. */
+.reel {
+  height: 185vh;
+}
+
+.desk {
+  height: 200vh;
+}
+
+.desk-stage {
+  padding-top: 4.6rem;
+  padding-bottom: 1.2rem;
+}
+
+.cta-section {
+  margin-top: 1.5rem;
+}
+
+/* The contact block carried its own literal spacing rather than the tokens. */
+.cta-section {
+  padding: var(--space-section) 4vw 3rem;
+}
+
+.cta-head {
+  margin-bottom: 2.2rem;
+}
+
+.cta-socials {
+  margin-bottom: 2.6rem;
+}
+
+/* The proof strip now follows the full-screen reel, with nothing above it. */
+.proof-strip {
+  padding-top: 2.5rem;
+}
+
+/* Phones: the same rhythm, one step smaller. */
+@media (max-width: 820px) {
+  :root {
+    --space-section: 3rem;
+    --space-section-lg: 3.5rem;
+  }
+
+  .section-head {
+    margin-bottom: 1.6rem;
+  }
+}
