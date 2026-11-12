@@ -1,10 +1,13 @@
 import { useMemo, useRef, useState } from 'react';
+import { FigureSlot } from './FigureSlot';
 import { AnimatePresence, motion } from 'framer-motion';
 import { PRODUCTS, type Product } from '../data/profile';
 import { prefersReducedMotion } from '../lib/scroll';
 import { playClick, playTick } from '../sound';
 
-const FILTERS = ['All', 'AI', 'Agents', 'Full-stack', 'Extension', 'Client'] as const;
+// 'Client' was dropped with the last client-tagged product: an empty filter
+// reads as a broken one.
+const FILTERS = ['All', 'AI', 'Agents', 'Full-stack', 'Extension'] as const;
 type Filter = (typeof FILTERS)[number];
 
 const GH_PATH =
@@ -34,6 +37,7 @@ export function Products() {
                         prototypes have been retired.
                     </p>
                 </div>
+                <FigureSlot kind="ship" />
                 <span className="mono-label">/ {PRODUCTS.length} products · all verifiable</span>
             </div>
 

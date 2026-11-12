@@ -5282,3 +5282,67 @@ img, video {
     margin-bottom: 1.6rem;
   }
 }
+
+/* ============================================================
+   3D FIGURES
+
+   Each figure fills space that was already empty at desktop width —
+   beside a case study's lead paragraph, in the gap of the products
+   header, under the first bio column. FigureSlot renders nothing on
+   small screens, so none of these rules need a mobile counterpart.
+   ============================================================ */
+
+.fig {
+  position: relative;
+  min-width: 0;
+  pointer-events: none;
+}
+
+.fig canvas {
+  display: block;
+}
+
+/* Lead paragraph on the left, its figure in the dead space to the right. */
+.case-lead-row {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.5rem, 3vw, 3.5rem);
+  margin-top: 1rem;
+}
+
+.case-lead-row .case-lead {
+  margin-top: 0;
+  flex: none;
+}
+
+.case-lead-row .fig {
+  flex: 1 1 0;
+  max-width: 440px;
+  height: 190px;
+}
+
+/* Products header: centred in the gap between the title and the count. */
+.section-head > .fig {
+  flex: 0 1 380px;
+  height: 180px;
+  align-self: center;
+}
+
+.hey-col-1 .fig {
+  height: 250px;
+  margin-top: 1.6rem;
+}
+
+/* Veridic's card art is wider than the frame and carries its headline on the
+   left; centred cropping cut the first word off. */
+.product-media img[src*='veridic'] {
+  object-position: left center;
+}
+
+/* The lead product card is taller than its screenshot, so `cover` crops the
+   sides. Anchor left so the headline keeps its first word. */
+@media (min-width: 1100px) {
+  .product-card.is-lead .product-media img {
+    object-position: left top;
+  }
+}

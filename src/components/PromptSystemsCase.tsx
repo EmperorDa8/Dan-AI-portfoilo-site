@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { FigureSlot } from './FigureSlot';
 import { playTick } from '../sound';
 
 const reveal = (delay = 0) => ({
@@ -39,10 +40,13 @@ export function PromptSystemsCase() {
                     <h2 className="section-title">
                         Prompts as <em>production systems</em>
                     </h2>
-                    <p className="case-lead">
+                    <div className="case-lead-row">
+                        <p className="case-lead">
                         Two agent specs I wrote so AI video and motion graphics hold up across many shots, instead of
                         looking different every time.
                     </p>
+                        <FigureSlot kind="film" />
+                    </div>
                 </div>
                 <div className="case-meta-block mono-label" onMouseEnter={playTick}>
                     <span>Artefact</span>

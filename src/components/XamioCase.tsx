@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { FigureSlot } from './FigureSlot';
 import { playTick } from '../sound';
 import { Win } from './Win';
 
@@ -40,10 +41,13 @@ export function XamioCase() {
                     <h2 className="section-title">
                         Xamio — <em>never miss an exam.</em>
                     </h2>
-                    <p className="case-lead">
+                    <div className="case-lead-row">
+                        <p className="case-lead">
                         Upload any exam timetable; AI finds your exams and puts them in your calendar. My own product, from
                         idea to a public Product Hunt launch.
                     </p>
+                        <FigureSlot kind="calendar" />
+                    </div>
                 </div>
                 <div className="case-links">
                     <a href="https://xamio.app" target="_blank" rel="noopener noreferrer" className="sim-chip" onMouseEnter={playTick}>

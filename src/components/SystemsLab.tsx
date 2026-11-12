@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { FigureSlot } from './FigureSlot';
 import { AnimatePresence, motion } from 'framer-motion';
 import { playClick, playTick } from '../sound';
 
@@ -21,10 +22,13 @@ export function SystemsLab() {
                     <h2 className="section-title">
                         AI that knows <em>when it's unsure.</em>
                     </h2>
-                    <p className="case-lead">
+                    <div className="case-lead-row">
+                        <p className="case-lead">
                         RAG and multi-agent systems built for clients, with strict JSON at every boundary and a human in the
                         loop where the model's confidence drops. Try the walkthroughs.
                     </p>
+                        <FigureSlot kind="graph" />
+                    </div>
                 </div>
                 <div className="systems-tabs" role="tablist">
                     <button

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { FigureSlot } from './FigureSlot';
 import { AmbientVideo } from './AmbientVideo';
 
 export function HeyBio() {
@@ -32,6 +33,7 @@ export function HeyBio() {
                         I scope ruthlessly to what's good enough now versus what must be robust on day one, and validate, test,
                         and correct AI output until the software runs in production.
                     </p>
+                    <FigureSlot kind="rings" />
                 </motion.div>
 
                 <motion.div

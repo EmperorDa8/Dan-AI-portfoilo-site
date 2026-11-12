@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { FigureSlot } from './FigureSlot';
 import { motion } from 'framer-motion';
 import { playClick, playTick } from '../sound';
 import { Win } from './Win';
@@ -56,10 +57,13 @@ export function VeridicCase() {
                     <h2 className="section-title">
                         Veridic — <em>dense documents, in plain words.</em>
                     </h2>
-                    <p className="case-lead">
+                    <div className="case-lead-row">
+                        <p className="case-lead">
                         A Chrome extension that restates contracts, policies and forms in plain English and quotes the
                         exact wording, so every point can be checked against the source. My own product, live.
                     </p>
+                        <FigureSlot kind="document" />
+                    </div>
                 </div>
                 <div className="case-links">
                     <a href={STORE} target="_blank" rel="noopener noreferrer" className="sim-chip" onMouseEnter={playTick}>
