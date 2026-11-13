@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { BioPortrait } from './BioPortrait';
 import { FigureSlot } from './FigureSlot';
 import { AmbientVideo } from './AmbientVideo';
 
@@ -43,15 +44,7 @@ export function HeyBio() {
                     viewport={{ once: true }}
                     className="hey-col-2"
                 >
-                    <img
-                        src="/hero_portrait_color.webp" loading="lazy" decoding="async" width={800} height={1000}
-                        alt="Dan Usman"
-                        onError={e => {
-                            // Hide, never substitute: the old fallback loaded a stock
-                            // photo of someone else under alt="Dan Usman".
-                            (e.currentTarget as HTMLImageElement).style.display = 'none';
-                        }}
-                    />
+                    <BioPortrait />
                     <svg className="overlay-icon" viewBox="0 0 100 100" fill="none" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M50 10 L90 30 L90 70 L50 90 L10 70 L10 30 Z" />
                         <line x1="50" y1="50" x2="50" y2="90" />
