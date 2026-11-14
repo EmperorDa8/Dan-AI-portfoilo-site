@@ -68,6 +68,17 @@ export const STUDIO: StudioItem[] = [
     { id: 'mg-the-office', title: 'The Office', cat: 'Motion GFX', model: 'Code-built', kind: 'video', shape: 'tall', client: 'Ziafam', note: 'A small office diorama where tech problems get fixed one by one. The camera pulls back into the "O" of the company name.' },
     { id: 'mg-ndpc', title: 'My reaction to NDPC fines', cat: 'Motion GFX', model: 'Code-built', kind: 'video', shape: 'tall', client: 'Ziafam', note: 'A cartoon boss reacting to real Nigerian Data Protection Act fine figures, in the reaction format that was trending in 2026.' },
 
+    /* Ashion Martin Boot — a self-initiated campaign: one 15s ad and five
+       stills, made on my own to show a full product launch end to end. Not
+       commissioned; covered by the spec footnote under the grid. Tooling was
+       not recorded, so the badges say so rather than guessing. */
+    { id: 'ashion-ad', title: 'Ashion Martin Boot — 15s ad', cat: 'Spec ads', model: 'AI video', kind: 'video', shape: 'tall', note: 'Self-initiated launch ad: a typed hook, street footwork, size and grip claims, a hand-to-lens transition and a "comment your pick" colourway close.' },
+    { id: 'ashion-orange', title: 'Ashion — FW26 key visual', cat: 'Images', model: 'Image gen', kind: 'image', shape: 'tall', note: 'Campaign key visual: olive boot, tan lug sole, EU 39–48.' },
+    { id: 'ashion-triptych', title: 'Ashion — all black triptych', cat: 'Images', model: 'Image gen', kind: 'image', shape: 'tall', note: 'Look, detail and full-length in one frame, on a single red set.' },
+    { id: 'ashion-street', title: 'Ashion — "Finally fits."', cat: 'Images', model: 'Image gen', kind: 'image', shape: 'tall', note: 'Street frame selling the size range: sizes up to EU 48.' },
+    { id: 'ashion-launch', title: 'Ashion — new drop', cat: 'Images', model: 'Image gen', kind: 'image', shape: 'tall', note: 'Launch frame with the size range wrapped around the model in type.' },
+    { id: 'ashion-detail', title: 'Ashion — "Grip that holds."', cat: 'Images', model: 'Image gen', kind: 'image', shape: 'tall', note: 'Product detail: the lug sole and white-stitched welt.' },
+
     /* Puffy — spec work. The site-wide disclaimer under the grid covers the
        brand mark that appears in the ad. */
     { id: 'puffy-demo', title: 'Puffy mattress — product demo', cat: 'Product', model: 'Flow · Frames to Video', kind: 'video', shape: 'tall', note: 'A hand pressing into the mattress so the foam compresses and recovers. I built a hand-free reference frame first so the mattress matched the source photos.' },

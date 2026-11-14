@@ -5358,3 +5358,20 @@ img, video {
   object-position: 50% 46%;
   filter: saturate(0.88) contrast(1.04);
 }
+
+/* Tile text sits on top of the media, not on the page, so it must not
+   follow the page tokens. Inside the dark chapter those tokens flip, which
+   left the model badge cream-on-cream and the titles charcoal over the
+   image's dark gradient — on every Studio tile. */
+.studio-tile .studio-badge {
+  background: rgba(250, 248, 243, 0.92);
+  color: #23231f;
+}
+
+.studio-tile .studio-title {
+  color: #faf8f3;
+}
+
+.studio-tile .studio-cat {
+  color: rgba(250, 248, 243, 0.75);
+}
