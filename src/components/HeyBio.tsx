@@ -45,12 +45,6 @@ export function HeyBio() {
                     className="hey-col-2"
                 >
                     <BioPortrait />
-                    <svg className="overlay-icon" viewBox="0 0 100 100" fill="none" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M50 10 L90 30 L90 70 L50 90 L10 70 L10 30 Z" />
-                        <line x1="50" y1="50" x2="50" y2="90" />
-                        <line x1="50" y1="50" x2="10" y2="30" />
-                        <line x1="50" y1="50" x2="90" y2="30" />
-                    </svg>
                 </motion.div>
 
                 <motion.div

@@ -1049,16 +1049,6 @@
   filter: saturate(0.8) contrast(1.05);
 }
 
-.overlay-icon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 40%;
-  pointer-events: none;
-  opacity: 0.85;
-  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.4));
-}
 
 .hey-col-3 {
   display: flex;
