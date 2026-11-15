@@ -68,6 +68,18 @@ export const STUDIO: StudioItem[] = [
     { id: 'mg-the-office', title: 'The Office', cat: 'Motion GFX', model: 'Code-built', kind: 'video', shape: 'tall', client: 'Ziafam', note: 'A small office diorama where tech problems get fixed one by one. The camera pulls back into the "O" of the company name.' },
     { id: 'mg-ndpc', title: 'My reaction to NDPC fines', cat: 'Motion GFX', model: 'Code-built', kind: 'video', shape: 'tall', client: 'Ziafam', note: 'A cartoon boss reacting to real Nigerian Data Protection Act fine figures, in the reaction format that was trending in 2026.' },
 
+    /* Golden Morn — a self-initiated campaign for Nestlé's maize-and-soya
+       cereal: one 15s film and six stills. Not commissioned by or affiliated
+       with Nestlé; covered by the spec footnote under the grid. Tooling was
+       not recorded, so the badges say so rather than guessing. */
+    { id: 'goldenmorn-ad', title: 'Golden Morn — "Field in a bowl" 15s', cat: 'Spec ads', model: 'AI video', kind: 'video', shape: 'tall', note: 'Self-initiated film: a field of grain grows inside the bowl, the cereal pours, water goes in, fruit crowns the splash, and it ends on a family breakfast and the pack.' },
+    { id: 'goldenmorn-fields', title: 'Golden Morn — golden fields', cat: 'Images', model: 'Image gen', kind: 'image', shape: 'tall', note: 'Key visual: the pack standing in a field of cereal, inside the bowl.' },
+    { id: 'goldenmorn-water', title: 'Golden Morn — "Just add water."', cat: 'Images', model: 'Image gen', kind: 'image', shape: 'tall', note: 'High-speed pour: cereal and water meeting mid-air over the bowl.' },
+    { id: 'goldenmorn-yours', title: 'Golden Morn — "Make it yours."', cat: 'Images', model: 'Image gen', kind: 'image', shape: 'tall', note: 'Crown splash with strawberry, banana and blueberry toppings.' },
+    { id: 'goldenmorn-rise', title: 'Golden Morn — "Rise & shine."', cat: 'Images', model: 'Image gen', kind: 'image', shape: 'tall', note: 'Flat lay: a sun drawn in dry cereal above the finished bowl.' },
+    { id: 'goldenmorn-sunshine', title: 'Golden Morn — "Good morning, sunshine."', cat: 'Images', model: 'Image gen', kind: 'image', shape: 'tall', note: 'Smiling sun in cereal, with a cob of maize and a spoon.' },
+    { id: 'goldenmorn-maize', title: 'Golden Morn — "From maize & soya."', cat: 'Images', model: 'Image gen', kind: 'image', shape: 'tall', note: 'Window-light still life: maize, soya beans and the cooked bowl.' },
+
     /* Ashion Martin Boot — a self-initiated campaign: one 15s ad and five
        stills, made on my own to show a full product launch end to end. Not
        commissioned; covered by the spec footnote under the grid. Tooling was
