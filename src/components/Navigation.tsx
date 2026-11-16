@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { isSoundEnabled, playClick, playTick, setSoundEnabled } from '../sound';
-import { CV_URL } from '../data/profile';
 import { openPalette } from '../lib/palette';
 
 function useClock() {
@@ -156,9 +155,6 @@ export function Navigation() {
                 <button type="button" className="sound-toggle" onClick={openPalette} onMouseEnter={playTick} aria-label="Open command menu">
                     ⌘K
                 </button>
-                <a href={CV_URL} download onMouseEnter={playTick} onClick={playClick}>
-                    ↓ Resume
-                </a>
                 <button
                     type="button"
                     className="sound-toggle"
