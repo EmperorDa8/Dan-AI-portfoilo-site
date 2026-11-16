@@ -9,11 +9,11 @@ const Figure3D = lazy(() => import('./Figure3D'));
  * a visitor who will never see the figure:
  *
  * - On small screens, low-power devices or under reduced motion it renders
- *   nothing at all, so the layout simply closes up. (Same gate as Scene3D.)
+ *   nothing at all, so the layout simply closes up.
  * - The WebGL canvas is mounted only while the slot is near the viewport and
  *   unmounted once it is well past, so of the six figures on the page no more
  *   than two ever hold a GL context at once.
- * - three.js itself is in a lazy chunk shared with the hero scene.
+ * - three.js itself is in a lazy chunk, fetched only when a figure is near.
  */
 export function FigureSlot({ kind, className = '' }: { kind: FigureKind; className?: string }) {
     const ref = useRef<HTMLDivElement>(null);

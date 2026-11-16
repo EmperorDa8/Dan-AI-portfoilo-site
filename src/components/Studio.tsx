@@ -26,6 +26,24 @@ const FILTERS: ('All' | StudioCat)[] = [
 
 // Most tiles live in /studio; the music videos are referenced where they
 // already sit beside their tracks rather than being copied in.
+/* The curated default view, in order. Ziafam is a paying client, so its work
+   leads; then the two full campaigns, the music videos and the best single
+   pieces. */
+const FEATURED = [
+    'mg-ctrl-z',
+    'goldenmorn-ad',
+    'mg-personal-best',
+    'ashion-ad',
+    'one-more-day-video',
+    'mg-exploded-laptop',
+    'go-well-video',
+    'goldenmorn-yours',
+    'puffy-ad',
+    'ashion-orange',
+    'king',
+    'mg-ndpc',
+];
+
 const poster = (it: StudioItem) => `/${it.dir ?? 'studio'}/${it.id}.webp`;
 const clip = (it: StudioItem) => `/${it.dir ?? 'studio'}/${it.id}.mp4`;
 
@@ -39,7 +57,17 @@ export function Studio() {
     const [open, setOpen] = useState<number | null>(null);
     const gridRef = useRef<HTMLDivElement>(null);
 
-    const items = useMemo(() => (filter === 'All' ? STUDIO : STUDIO.filter(s => s.cat === filter)), [filter]);
+    const [showAll, setShowAll] = useState(false);
+
+    /* The default view is curated. Fifty-odd tiles meant the best work competed
+       with the average work and nobody reached either; a reviewer gets about a
+       minute. Paid work leads, then the strongest of the rest. Every piece is
+       still one click away. */
+    const items = useMemo(() => {
+        if (filter !== 'All') return STUDIO.filter(s => s.cat === filter);
+        if (showAll) return STUDIO;
+        return FEATURED.map(id => STUDIO.find(s => s.id === id)).filter((s): s is StudioItem => !!s);
+    }, [filter, showAll]);
     const counts = useMemo(() => {
         const c: Record<string, number> = { All: STUDIO.length };
         STUDIO.forEach(s => (c[s.cat] = (c[s.cat] ?? 0) + 1));
@@ -61,7 +89,7 @@ export function Studio() {
             cancelAnimationFrame(id);
             ro.disconnect();
         };
-    }, [filter]);
+    }, [filter, showAll]);
 
     return (
         <section className="studio-section" id="studio">
@@ -128,6 +156,22 @@ export function Studio() {
                     ))}
                 </AnimatePresence>
             </motion.div>
+
+            {filter === 'All' && !showAll && (
+                <div className="studio-more">
+                    <button
+                        type="button"
+                        className="btn btn-ghost"
+                        onClick={() => {
+                            setShowAll(true);
+                            playClick();
+                        }}
+                        onMouseEnter={playTick}
+                    >
+                        Show all {STUDIO.length} pieces <span aria-hidden>↓</span>
+                    </button>
+                </div>
+            )}
 
             <BeforeAfter />
 

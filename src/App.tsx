@@ -1,12 +1,12 @@
-import { lazy, Suspense, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Navigation } from './components/Navigation';
 import { Hero } from './components/Hero';
 import { Reel } from './components/Reel';
 import { Desk } from './components/Desk';
+import { Dock } from './components/Dock';
 import { Ascii } from './components/Ascii';
 import { ProofStrip } from './components/ProofStrip';
 import { TechStack } from './components/TechStack';
-import { Marquee } from './components/Marquee';
 import { VeridicCase } from './components/VeridicCase';
 import { PromptSystemsCase } from './components/PromptSystemsCase';
 import { XamioCase } from './components/XamioCase';
@@ -24,8 +24,6 @@ import { getLenis, gsap, installRevealSafetyNet, prefersReducedMotion, useSmooth
 import { splitWords } from './lib/scrollFx';
 import { registerVelocitySource } from './sound';
 
-/* Three.js is heavy — keep it out of the initial bundle. */
-const Scene3D = lazy(() => import('./components/Scene3D').then(m => ({ default: m.Scene3D })));
 
 /* framer-motion's whileInView ships no fallback of its own; without this the
    case studies and credentials render blank if its observer never delivers. */
@@ -101,9 +99,6 @@ function App() {
 
   return (
     <>
-      <Suspense fallback={null}>
-        <Scene3D />
-      </Suspense>
       <div className="grain-overlay" aria-hidden />
       <ScrollProgress />
       <Navigation />
@@ -111,8 +106,19 @@ function App() {
       {/* Claim → proof → evidence → person → contact */}
       <Hero />
       <Reel />
+
+      {/* A single sentence on its own, between the reel and the numbers: the
+          argument for the whole page. */}
+      <section className="statement" aria-label="Positioning">
+        <p className="statement-line">
+          Most people build the product <em>or</em> make the ad.
+        </p>
+        <p className="statement-line is-answer">
+          I do both, and <em>ship them together.</em>
+        </p>
+      </section>
+
       <ProofStrip />
-      <Marquee />
 
       {/* The argument for holding three titles, made once, before the evidence. */}
       <Desk />
@@ -152,6 +158,7 @@ function App() {
       <FooterCTA />
       <Footer />
       <CommandPalette />
+      <Dock />
     </>
   );
 }

@@ -3,7 +3,6 @@ import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'fram
 import { playClick, playTick } from '../sound';
 import { prefersReducedMotion } from '../lib/scroll';
 import { CV_URL } from '../data/profile';
-import { openPalette } from '../lib/palette';
 
 const rise = (delay: number) => ({
     initial: { opacity: 0, y: 28 },
@@ -39,36 +38,46 @@ export function Hero() {
                         <span className="hero-id-text">
                             <span className="hero-id-name">Dan Usman</span>
                             <span className="hero-id-role mono-label">
-                                AI Product Engineer · AI Video &amp; Content Creator · AI Creative Specialist · Lagos (UTC+1) · Remote worldwide
+                                AI Product Engineer &amp; AI Creative Specialist
                             </span>
                         </span>
                     </motion.div>
 
-                    <motion.h1 {...rise(0.14)} className="hero-h1">
-                        I take AI products from idea to <em>live release — usually in days.</em>
+                    {/* One claim, three lines, big. The engineer half and the
+                        creative half in a single sentence, so the three titles
+                        read as one person rather than three portfolios. */}
+                    <motion.h1 {...rise(0.14)} className="hero-h1 hero-claim">
+                        <span className="hero-claim-line">I build it,</span>
+                        <span className="hero-claim-line is-indent">then I make</span>
+                        <span className="hero-claim-line">
+                            it <em>move.</em>
+                        </span>
                     </motion.h1>
 
-                    {/* The h1 and the paragraph below it are both about shipping
-                        software. This line is what makes the pair make sense: the
-                        creative work is the other half of the job, not a sideline. */}
-                    <motion.p {...rise(0.2)} className="hero-thesis">
-                        I build the tools and I make the creative: AI video, motion graphics built in code, and the
-                        agents that tie them together.
+                    <motion.p {...rise(0.24)} className="hero-sub">
+                        AI products shipped end to end, and the video, motion and music that sell them. Self-taught, based
+                        in Lagos, working remote worldwide.
                     </motion.p>
 
-                    <motion.p {...rise(0.28)} className="hero-sub">
-                        I build on the Claude, OpenAI and Gemini APIs with Claude Code as my core workflow — and I care about
-                        the parts demos skip: reliability, cost, security, and what happens when the model is wrong.
-                    </motion.p>
-
-                    <motion.div {...rise(0.36)} className="hero-proof">
-                        <span>
-                            <strong>Xamio</strong> launched on Product Hunt
-                        </span>
-                        <span className="hero-proof-sep" aria-hidden />
-                        <span>
-                            <strong>Veridic</strong> live on the Chrome Web Store
-                        </span>
+                    <motion.div {...rise(0.34)} className="hero-recog" aria-label="Shipped and trusted">
+                        <span className="hero-recog-label">Shipped &amp; trusted</span>
+                        <ul>
+                            <li>
+                                <b>Product Hunt</b> Xamio
+                            </li>
+                            <li>
+                                <b>Chrome Web Store</b> Veridic · Tasker
+                            </li>
+                            <li>
+                                <b>Client</b> Ziafam
+                            </li>
+                            <li>
+                                <b>Contract</b> AZER-T, France
+                            </li>
+                            <li>
+                                <b>Certified</b> Google · CodePath × Anthropic
+                            </li>
+                        </ul>
                     </motion.div>
 
                     <motion.div {...rise(0.46)} className="hero-actions">
@@ -84,9 +93,6 @@ export function Hero() {
                         >
                             Download CV
                         </a>
-                        <button type="button" className="btn btn-ghost kbd-btn" onClick={openPalette} onMouseEnter={playTick}>
-                            <kbd>⌘K</kbd> Quick jump
-                        </button>
                     </motion.div>
 
                     <motion.p {...rise(0.56)} className="hero-avail mono-label">

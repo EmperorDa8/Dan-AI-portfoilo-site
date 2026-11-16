@@ -5365,3 +5365,246 @@ img, video {
 .studio-tile .studio-cat {
   color: rgba(250, 248, 243, 0.75);
 }
+
+/* ============================================================
+   REBUILD PASS — narrative and editing
+
+   One large claim, a quiet recognition row, the painting loop in a
+   cut-corner frame, a statement band, a floating split dock, and a
+   curated Studio. Palette, serif italics and pill controls unchanged.
+   ============================================================ */
+
+/* ---- Hero: one claim, big ---- */
+.hero-claim {
+  display: flex;
+  flex-direction: column;
+  max-width: none;
+  font-size: clamp(3rem, 7.6vw, 7rem);
+  font-weight: 500;
+  line-height: 0.94;
+  letter-spacing: -0.055em;
+  margin-bottom: 1.6rem;
+}
+
+.hero-claim-line.is-indent {
+  padding-left: 0.9em;
+}
+
+.hero-claim em {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+}
+
+.hero-sub {
+  max-width: 44ch;
+  font-size: 1.08rem;
+  margin-bottom: 1.6rem;
+}
+
+/* Recognition row: quiet, like a line of award marks. */
+.hero-recog {
+  margin-bottom: 1.8rem;
+}
+
+.hero-recog-label {
+  display: block;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.86rem;
+  margin-bottom: 0.6rem;
+}
+
+.hero-recog ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.hero-recog li {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  padding: 0.38rem 0.75rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-pill);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
+.hero-recog li b {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* ---- Hero media: the painting loop in a cut-corner frame ----
+   A shape people remember, instead of a feathered backdrop. */
+.hero-backdrop {
+  inset: 7.5rem 4vw 3rem auto;
+  width: min(40%, 560px);
+  border-radius: 0;
+  -webkit-mask-image: none;
+  mask-image: none;
+  clip-path: polygon(16% 0, 84% 0, 100% 14%, 100% 86%, 84% 100%, 16% 100%, 0 86%, 0 14%);
+  background: var(--bg-deep);
+}
+
+.hero-backdrop-scrim {
+  display: none;
+}
+
+.hero-backdrop-media {
+  filter: none;
+}
+
+.hero-copy {
+  max-width: 58%;
+}
+
+@media (max-width: 1100px) {
+  .hero-copy {
+    max-width: none;
+  }
+
+  .hero-backdrop {
+    display: none;
+  }
+}
+
+/* ---- Statement band ---- */
+.statement {
+  position: relative;
+  z-index: 1;
+  max-width: 1560px;
+  margin-inline: auto;
+  padding: clamp(3.5rem, 9vh, 6rem) var(--space-gutter);
+  text-align: center;
+}
+
+.statement-line {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: clamp(1.7rem, 3.6vw, 3.2rem);
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  color: var(--muted);
+}
+
+.statement-line.is-answer {
+  color: var(--ink);
+}
+
+.statement-line em {
+  font-family: var(--font-serif);
+  font-weight: 400;
+}
+
+.statement-line.is-answer em {
+  color: var(--accent);
+}
+
+/* ---- Floating dock ---- */
+.dock {
+  position: fixed;
+  left: 50%;
+  bottom: 1.2rem;
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.38rem 0.38rem 0.38rem 1.1rem;
+  background: #23231f;
+  border: 1px solid rgba(250, 248, 243, 0.16);
+  border-radius: var(--r-pill);
+  box-shadow: 0 18px 40px -18px rgba(0, 0, 0, 0.55);
+  color: #f3efe6;
+  transform: translate(-50%, 140%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform var(--dur-slow) var(--ease-out), opacity var(--dur-base) var(--ease-out);
+}
+
+.dock.is-shown {
+  transform: translate(-50%, 0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.dock-label {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.88rem;
+  white-space: nowrap;
+}
+
+.dock-split {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  background: rgba(250, 248, 243, 0.08);
+  border-radius: var(--r-pill);
+}
+
+.dock-split a {
+  padding: 0.42rem 0.85rem;
+  border-radius: var(--r-pill);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #d3ccc0;
+  text-decoration: none;
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.dock-split a:hover {
+  background: rgba(250, 248, 243, 0.14);
+  color: #f3efe6;
+}
+
+.dock-go {
+  display: grid;
+  place-items: center;
+  width: 2.3rem;
+  height: 2.3rem;
+  border-radius: var(--r-pill);
+  background: #7fc4b2;
+  color: #16201d;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.dock-go:hover {
+  transform: translateX(2px);
+}
+
+@media (max-width: 520px) {
+  .dock-label {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dock {
+    transition: opacity var(--dur-fast) linear;
+  }
+}
+
+/* ---- Studio: curated default, everything one click away ---- */
+.studio-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.6rem;
+}
+
+/* The copy column was a grid track, which capped the claim's width and broke
+   it onto four lines. One column; the copy takes the left share and the
+   framed loop sits in the space it leaves. */
+.hero-grid {
+  grid-template-columns: 1fr;
+}
